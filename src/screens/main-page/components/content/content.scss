@@ -1,0 +1,40 @@
+.content {
+	background: #191a1d;
+	height: 1000px;
+	border-radius: 7px;
+
+	&__background {
+		border-radius: 7px;
+		width: 100%;
+		height: 200px;
+		background: url(./img/bg.jpg);
+		background-size: cover;
+		background-repeat: no-repeat;
+		background-position: center;
+	}
+	&__main-info {
+		position: relative;
+		top: -50px;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+	&__avatar {
+		width: 150px;
+		height: 150px;
+		background: url(./img/avatar.png);
+		background-size: cover;
+		background-repeat: no-repeat;
+		background-position: center;
+	}
+	&__name {
+		font-size: 20px;
+		line-height: 26px;
+	}
+	&__followers {
+		font-size: 14px;
+		line-height: 18px;
+		color: #ffffff;
+		opacity: 0.6;
+	}
+}

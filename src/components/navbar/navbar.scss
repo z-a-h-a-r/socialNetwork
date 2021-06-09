@@ -1,0 +1,33 @@
+.n-navbar {
+	padding: 0;
+	margin: 0;
+	&__inner {
+		width: 200px;
+		background: #191a1d;
+
+		border-radius: 7px;
+		height: 600px;
+		padding: 20px 15px 20px 15px;
+	}
+	&__title {
+		font-size: 20px;
+	}
+	&__ul {
+		margin-top: 30px;
+		padding: 0;
+	}
+	&__li {
+		margin-bottom: 15px;
+	}
+	&__link {
+		color: rgb(102, 102, 102);
+		font-size: 15px;
+		cursor: pointer;
+		letter-spacing: 1px;
+
+		&:hover {
+			color: #fff;
+			letter-spacing: 0;
+		}
+	}
+}

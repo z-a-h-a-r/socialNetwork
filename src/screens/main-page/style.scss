@@ -1,0 +1,11 @@
+.main-page {
+	color: #fff;
+	&__inner {
+		margin-top: 20px;
+		display: grid !important;
+		grid-template: 1fr / 1fr minmax(auto, 10fr) !important;
+		gap: 20px;
+	}
+	min-height: 100vh;
+	background: #44444e;
+}
