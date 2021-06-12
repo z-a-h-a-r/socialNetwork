@@ -1,0 +1,27 @@
+.createPost {
+	// ======================================================
+
+	.title {
+		font-size: 30px;
+	}
+}
+
+// ======================================================
+
+.textAreaWrapper {
+	margin-top: 30px;
+
+	.textArea {
+		border-radius: 5px;
+		width: 350px;
+		min-height: 40px;
+		background: #191a1d;
+		text-align: start;
+		vertical-align: bottom !important;
+		color: #fff;
+		padding: 5px;
+	}
+
+	.textAreaDecoration {
+	}
+}

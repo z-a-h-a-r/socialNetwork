@@ -1,16 +1,16 @@
-import './header.scss'
+import st from './header.module.scss'
 
 // ====================================================
 
 const Header = () => {
 	return (
-		<header className="header">
+		<header className={st.header}>
 			<div className="container">
-				<div className="header__inner">
-					<div className="header__logo">online</div>
-					<div className="header__name">
+				<div className={st.inner}>
+					<div className={st.logo}>online</div>
+					<div className={st.name}>
 						<p>Tyler</p>
-						<div className="img"></div>
+						<div className={st.img}></div>
 					</div>
 				</div>
 			</div>

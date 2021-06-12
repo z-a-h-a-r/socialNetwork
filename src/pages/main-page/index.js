@@ -1,3 +1,5 @@
+import st from './style.module.scss'
+
 // ====================================================
 // Global components
 import Header from '../../components/header/header'
@@ -12,10 +14,10 @@ import Content from './components/content/content'
 
 const Main_page = () => {
 	return (
-		<div className="main-page">
+		<div className={st.mainPage}>
 			<Header />
 
-			<div className="container main-page__inner">
+			<div className={`${st.inner} container`}>
 				<Navbar />
 				<Content />
 			</div>
@@ -27,6 +29,5 @@ const Main_page = () => {
 
 // ====================================================
 // export
-import './style.scss'
 
 export default Main_page

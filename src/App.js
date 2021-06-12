@@ -5,7 +5,7 @@ import './#other/common-styles.scss'
 
 // ====================================================
 
-import MainPage from './screens/main-page/index'
+import MainPage from './pages/main-page/index'
 
 const App = () => {
 	return (
