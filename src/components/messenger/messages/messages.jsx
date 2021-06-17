@@ -3,12 +3,28 @@ import st from './messages.module.scss'
 // ===================================================
 
 import Message from './message/message'
+import React from 'react'
+import { logDOM } from '@testing-library/react'
 
 // ===================================================
 
 const Messages = props => {
+	let refInput = React.createRef()
+
+	function onButtonClick() {
+		props.stateSendMessage()
+	}
+	function onEnterClick(e) {
+		if (e.keyCode === 13) {
+			props.stateSendMessage()
+		}
+	}
+	function onInputChange() {
+		let inputValue = refInput.current.value
+		props.updateNewMessageContent(inputValue)
+	}
+
 	// ===================================================
-	// edited data
 
 	let editedMessages = props.messages.map(d => (
 		<Message content={d.content} id={d.id} time={d.time} />
@@ -16,7 +32,6 @@ const Messages = props => {
 
 	// ===================================================
 	// html
-
 	return (
 		<div className={st.messagesWrap}>
 			<div className={st.info}>
@@ -30,8 +45,18 @@ const Messages = props => {
 			</div>
 			<div className={st.messages}>{editedMessages}</div>
 			<div className={st.inputWrap}>
-				<input type="text" className={st.input} />
-				<button className={st.button}>sent</button>
+				<input
+					type="text"
+					ref={refInput}
+					onChange={onInputChange}
+					value={props.newMessageContent}
+					className={st.input}
+					onKeyDown={onEnterClick}
+					placeholder="type message..."
+				/>
+				<button className={st.button} onClick={onButtonClick}>
+					send
+				</button>
 			</div>
 		</div>
 	)

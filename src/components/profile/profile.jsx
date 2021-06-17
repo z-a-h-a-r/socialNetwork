@@ -11,7 +11,7 @@ const Profile = props => {
 	// ====================================================
 	// edited data
 
-	let editedPostsData = props.postsData.map(p => (
+	let editedPostsData = props.state.postsData.map(p => (
 		<Post
 			content={p.content}
 			sharedCount={p.sharedCount}
@@ -30,7 +30,7 @@ const Profile = props => {
 			</div>
 
 			<div className={st.posts}>
-				<CreatePost />
+				<CreatePost stateCreatePost={props.stateCreatePost} />
 
 				<h1 className={st.title}>Posts</h1>
 				<div className={st.list}>{editedPostsData}</div>

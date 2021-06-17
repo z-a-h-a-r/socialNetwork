@@ -11,8 +11,13 @@ import Messages from './messages/messages'
 const Messenger = props => {
 	return (
 		<div className={st.messenger}>
-			<Dialogs dialogsLinksData={props.dialogsLinksData} />
-			<Messages messages={props.messages} />
+			<Dialogs dialogsLinksData={props.state.dialogsLinksData} />
+			<Messages
+				stateSendMessage={props.stateSendMessage}
+				messages={props.state.messages}
+				newMessageContent={props.state.newMessageContent}
+				updateNewMessageContent={props.updateNewMessageContent}
+			/>
 		</div>
 	)
 }

@@ -4,24 +4,29 @@
 	.title {
 		font-size: 30px;
 	}
+	.create {
+		margin-top: 30px;
+		display: flex;
+
+		.textArea {
+			flex-grow: 1;
+			border-radius: 5px;
+			min-height: 40px;
+			background: #191a1d;
+			color: #fff;
+			padding: 5px;
+		}
+
+		.button {
+			margin-left: 100px;
+			border-radius: 5px;
+			width: 100px;
+			min-height: 40px;
+			background: #191a1d;
+			color: #fff;
+			padding: 5px;
+		}
+	}
 }
 
 // ======================================================
-
-.textAreaWrapper {
-	margin-top: 30px;
-
-	.textArea {
-		border-radius: 5px;
-		width: 350px;
-		min-height: 40px;
-		background: #191a1d;
-		text-align: start;
-		vertical-align: bottom !important;
-		color: #fff;
-		padding: 5px;
-	}
-
-	.textAreaDecoration {
-	}
-}

@@ -31,14 +31,20 @@ const App = props => {
 
 					<Route
 						path="/profile"
-						render={() => <Profile postsData={props.postsData} />}
+						render={() => (
+							<Profile
+								state={props.state.profilePage}
+								stateCreatePost={props.stateCreatePost}
+							/>
+						)}
 					/>
 					<Route
 						path="/messenger"
 						render={() => (
 							<Messenger
-								dialogsLinksData={props.dialogsLinksData}
-								messages={props.messages}
+								state={props.state.messangerPage}
+								stateSendMessage={props.stateSendMessage}
+								updateNewMessageContent={props.updateNewMessageContent}
 							/>
 						)}
 					/>
