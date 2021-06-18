@@ -8,14 +8,16 @@ const CreatePost = props => {
 	function onButtonClick() {
 		let textAreaValue = refTextArea.current.value
 		props.stateCreatePost(textAreaValue)
-		refTextArea.current.value = ''
 	}
 	function onEnterClick(e) {
 		if (e.keyCode === 13) {
 			let textAreaValue = refTextArea.current.value
 			props.stateCreatePost(textAreaValue)
-			refTextArea.current.value = ''
 		}
+	}
+	function onTnputChange() {
+		let textAreaValue = refTextArea.current.value
+		props.updateNewPostContent(textAreaValue)
 	}
 
 	// ===================================================
@@ -24,13 +26,15 @@ const CreatePost = props => {
 		<div className={st.createPost}>
 			<div className={st.title}>Create new post</div>
 			<div className={st.create}>
-				<textarea
+				<input
 					ref={refTextArea}
 					className={st.textArea}
+					onChange={onTnputChange}
 					name=""
 					placeholder="What is up?"
 					onKeyDown={onEnterClick}
-				></textarea>
+					value={props.newPostContent}
+				/>
 				<button className={st.button} onClick={onButtonClick}>
 					Add post
 				</button>

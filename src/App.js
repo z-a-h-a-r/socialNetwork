@@ -35,6 +35,7 @@ const App = props => {
 							<Profile
 								state={props.state.profilePage}
 								stateCreatePost={props.stateCreatePost}
+								updateNewPostContent={props.updateNewPostContent}
 							/>
 						)}
 					/>

@@ -2,23 +2,26 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 
 import App from './App'
-
-import state, {
-	stateCreatePost,
-	stateSendMessage,
-	updateNewMessageContent,
-} from './redux/state'
+import store from './redux/state'
 
 // ====================================================
 
-ReactDOM.render(
-	<React.StrictMode>
-		<App
-			state={state}
-			stateCreatePost={stateCreatePost}
-			stateSendMessage={stateSendMessage}
-			updateNewMessageContent={updateNewMessageContent}
-		/>
-	</React.StrictMode>,
-	document.getElementById('root')
-)
+store.subscribe(rerender)
+
+// ====================================================
+
+function rerender() {
+	ReactDOM.render(
+		<React.StrictMode>
+			<App
+				state={store.getState()}
+				stateCreatePost={store.stateCreatePost.bind(store)}
+				stateSendMessage={store.stateSendMessage.bind(store)}
+				updateNewMessageContent={store.updateNewMessageContent.bind(store)}
+				updateNewPostContent={store.updateNewPostContent.bind(store)}
+			/>
+		</React.StrictMode>,
+		document.getElementById('root')
+	)
+}
+rerender()

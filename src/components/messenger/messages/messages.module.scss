@@ -4,7 +4,6 @@
 	border-radius: 0 7px 7px 0;
 	display: flex;
 	flex-direction: column;
-	justify-content: space-between;
 
 	// ====================================================
 
@@ -59,12 +58,16 @@
 	// ====================================================
 
 	.messages {
-		flex-grow: 1;
 		display: flex;
 		flex-direction: column;
-		justify-content: flex-end;
 		align-items: flex-end;
 		padding: 30px;
+		height: 100%;
+		overflow-y: scroll;
+
+		&::-webkit-scrollbar {
+			width: 0;
+		}
 	}
 
 	// ====================================================

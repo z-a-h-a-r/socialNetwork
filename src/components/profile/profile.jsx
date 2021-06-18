@@ -30,7 +30,11 @@ const Profile = props => {
 			</div>
 
 			<div className={st.posts}>
-				<CreatePost stateCreatePost={props.stateCreatePost} />
+				<CreatePost
+					stateCreatePost={props.stateCreatePost}
+					updateNewPostContent={props.updateNewPostContent}
+					newPostContent={props.state.newPostContent}
+				/>
 
 				<h1 className={st.title}>Posts</h1>
 				<div className={st.list}>{editedPostsData}</div>

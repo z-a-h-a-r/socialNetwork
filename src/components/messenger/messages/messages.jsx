@@ -12,10 +12,12 @@ const Messages = props => {
 	let refInput = React.createRef()
 
 	function onButtonClick() {
-		props.stateSendMessage()
+		if (refInput.current.value !== '') {
+			props.stateSendMessage()
+		}
 	}
 	function onEnterClick(e) {
-		if (e.keyCode === 13) {
+		if ((e.keyCode === 13) & (refInput.current.value !== '')) {
 			props.stateSendMessage()
 		}
 	}
