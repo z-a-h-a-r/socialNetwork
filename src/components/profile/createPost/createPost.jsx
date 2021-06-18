@@ -1,24 +1,26 @@
 import st from './createPost.module.scss'
 import React from 'react'
+
+import {
+	createPostActionCreator,
+	updatePostContentActionCreator,
+} from './../../../redux/state'
 // ====================================================
 
 const CreatePost = props => {
 	let refTextArea = React.createRef()
 
 	function onButtonClick() {
-		props.dispatch({ type: 'STATE-CREATE-POST' })
+		props.dispatch(createPostActionCreator())
 	}
 	function onEnterClick(e) {
 		if (e.keyCode === 13) {
-			props.dispatch({ type: 'STATE-CREATE-POST' })
+			props.dispatch(createPostActionCreator())
 		}
 	}
 	function onTnputChange() {
 		let textAreaValue = refTextArea.current.value
-		props.dispatch({
-			type: 'UPDATE-NEW-POST-CONTENT',
-			postContent: textAreaValue,
-		})
+		props.dispatch(updatePostContentActionCreator(textAreaValue))
 	}
 
 	// ===================================================

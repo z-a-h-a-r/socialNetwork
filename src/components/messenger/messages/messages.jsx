@@ -6,6 +6,11 @@ import Message from './message/message'
 import React from 'react'
 import { logDOM } from '@testing-library/react'
 
+import {
+	sendMessageActionCreator,
+	updateMessageContentActionCreator,
+} from './../../../redux/state'
+
 // ===================================================
 
 const Messages = props => {
@@ -13,24 +18,17 @@ const Messages = props => {
 
 	function onButtonClick() {
 		if (refInput.current.value !== '') {
-			props.dispatch({
-				type: 'STATE-SEND-MESSAGE',
-			})
+			props.dispatch(sendMessageActionCreator())
 		}
 	}
 	function onEnterClick(e) {
 		if ((e.keyCode === 13) & (refInput.current.value !== '')) {
-			props.dispatch({
-				type: 'STATE-SEND-MESSAGE',
-			})
+			props.dispatch(sendMessageActionCreator())
 		}
 	}
 	function onInputChange() {
 		let inputValue = refInput.current.value
-		props.dispatch({
-			type: 'UPDATE-NEW-MESSAGE-CONTENT',
-			messageContent: inputValue,
-		})
+		props.dispatch(updateMessageContentActionCreator(inputValue))
 	}
 
 	// ===================================================
