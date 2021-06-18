@@ -13,13 +13,7 @@ store.subscribe(rerender)
 function rerender() {
 	ReactDOM.render(
 		<React.StrictMode>
-			<App
-				state={store.getState()}
-				stateCreatePost={store.stateCreatePost.bind(store)}
-				stateSendMessage={store.stateSendMessage.bind(store)}
-				updateNewMessageContent={store.updateNewMessageContent.bind(store)}
-				updateNewPostContent={store.updateNewPostContent.bind(store)}
-			/>
+			<App state={store.getState()} dispatch={store.dispatch.bind(store)} />
 		</React.StrictMode>,
 		document.getElementById('root')
 	)

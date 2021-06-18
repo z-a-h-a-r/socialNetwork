@@ -13,10 +13,9 @@ const Messenger = props => {
 		<div className={st.messenger}>
 			<Dialogs dialogsLinksData={props.state.dialogsLinksData} />
 			<Messages
-				stateSendMessage={props.stateSendMessage}
 				messages={props.state.messages}
 				newMessageContent={props.state.newMessageContent}
-				updateNewMessageContent={props.updateNewMessageContent}
+				dispatch={props.dispatch}
 			/>
 		</div>
 	)

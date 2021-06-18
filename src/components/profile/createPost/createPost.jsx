@@ -6,18 +6,19 @@ const CreatePost = props => {
 	let refTextArea = React.createRef()
 
 	function onButtonClick() {
-		let textAreaValue = refTextArea.current.value
-		props.stateCreatePost(textAreaValue)
+		props.dispatch({ type: 'STATE-CREATE-POST' })
 	}
 	function onEnterClick(e) {
 		if (e.keyCode === 13) {
-			let textAreaValue = refTextArea.current.value
-			props.stateCreatePost(textAreaValue)
+			props.dispatch({ type: 'STATE-CREATE-POST' })
 		}
 	}
 	function onTnputChange() {
 		let textAreaValue = refTextArea.current.value
-		props.updateNewPostContent(textAreaValue)
+		props.dispatch({
+			type: 'UPDATE-NEW-POST-CONTENT',
+			postContent: textAreaValue,
+		})
 	}
 
 	// ===================================================
@@ -30,9 +31,8 @@ const CreatePost = props => {
 					ref={refTextArea}
 					className={st.textArea}
 					onChange={onTnputChange}
-					name=""
-					placeholder="What is up?"
 					onKeyDown={onEnterClick}
+					placeholder="What is up?"
 					value={props.newPostContent}
 				/>
 				<button className={st.button} onClick={onButtonClick}>

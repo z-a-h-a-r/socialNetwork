@@ -23,36 +23,32 @@ import Messenger from './components/messenger/messenger'
 const App = props => {
 	return (
 		<BrowserRouter>
-			<>
-				<Header />
+			<Header />
 
-				<div className="container flex">
-					<Navbar />
+			<div className="container flex">
+				<Navbar />
 
-					<Route
-						path="/profile"
-						render={() => (
-							<Profile
-								state={props.state.profilePage}
-								stateCreatePost={props.stateCreatePost}
-								updateNewPostContent={props.updateNewPostContent}
-							/>
-						)}
-					/>
-					<Route
-						path="/messenger"
-						render={() => (
-							<Messenger
-								state={props.state.messangerPage}
-								stateSendMessage={props.stateSendMessage}
-								updateNewMessageContent={props.updateNewMessageContent}
-							/>
-						)}
-					/>
-				</div>
+				<Route
+					path="/profile"
+					render={() => (
+						<Profile
+							state={props.state.profilePage}
+							dispatch={props.dispatch}
+						/>
+					)}
+				/>
+				<Route
+					path="/messenger"
+					render={() => (
+						<Messenger
+							state={props.state.messangerPage}
+							dispatch={props.dispatch}
+						/>
+					)}
+				/>
+			</div>
 
-				<Footer />
-			</>
+			<Footer />
 		</BrowserRouter>
 	)
 }

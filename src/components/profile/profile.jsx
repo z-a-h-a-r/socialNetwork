@@ -32,7 +32,7 @@ const Profile = props => {
 			<div className={st.posts}>
 				<CreatePost
 					stateCreatePost={props.stateCreatePost}
-					updateNewPostContent={props.updateNewPostContent}
+					dispatch={props.dispatch}
 					newPostContent={props.state.newPostContent}
 				/>
 

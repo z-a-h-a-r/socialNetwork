@@ -13,17 +13,24 @@ const Messages = props => {
 
 	function onButtonClick() {
 		if (refInput.current.value !== '') {
-			props.stateSendMessage()
+			props.dispatch({
+				type: 'STATE-SEND-MESSAGE',
+			})
 		}
 	}
 	function onEnterClick(e) {
 		if ((e.keyCode === 13) & (refInput.current.value !== '')) {
-			props.stateSendMessage()
+			props.dispatch({
+				type: 'STATE-SEND-MESSAGE',
+			})
 		}
 	}
 	function onInputChange() {
 		let inputValue = refInput.current.value
-		props.updateNewMessageContent(inputValue)
+		props.dispatch({
+			type: 'UPDATE-NEW-MESSAGE-CONTENT',
+			messageContent: inputValue,
+		})
 	}
 
 	// ===================================================
