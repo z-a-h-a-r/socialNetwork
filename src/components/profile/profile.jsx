@@ -3,7 +3,7 @@ import st from './profile.module.scss'
 // ====================================================
 
 import Post from './post/post'
-import CreatePost from './createPost/createPost'
+import CreatePostContainer from './createPost/CreatePostContainer'
 
 // ====================================================
 
@@ -11,13 +11,15 @@ const Profile = props => {
 	// ====================================================
 	// edited data
 
-	let editedPostsData = props.state.postsData.map(p => (
-		<Post
-			content={p.content}
-			sharedCount={p.sharedCount}
-			commentsCount={p.commentsCount}
-		/>
-	))
+	let editedPostsData = props.store
+		.getState()
+		.profilePage.postsData.map(p => (
+			<Post
+				content={p.content}
+				sharedCount={p.sharedCount}
+				commentsCount={p.commentsCount}
+			/>
+		))
 
 	return (
 		<div className={st.profile}>
@@ -30,11 +32,7 @@ const Profile = props => {
 			</div>
 
 			<div className={st.posts}>
-				<CreatePost
-					stateCreatePost={props.stateCreatePost}
-					dispatch={props.dispatch}
-					newPostContent={props.state.newPostContent}
-				/>
+				<CreatePostContainer store={props.store} />
 
 				<h1 className={st.title}>Posts</h1>
 				<div className={st.list}>{editedPostsData}</div>

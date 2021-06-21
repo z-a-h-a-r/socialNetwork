@@ -28,23 +28,10 @@ const App = props => {
 			<div className="container flex">
 				<Navbar />
 
-				<Route
-					path="/profile"
-					render={() => (
-						<Profile
-							state={props.state.profilePage}
-							dispatch={props.dispatch}
-						/>
-					)}
-				/>
+				<Route path="/profile" render={() => <Profile store={props.store} />} />
 				<Route
 					path="/messenger"
-					render={() => (
-						<Messenger
-							state={props.state.messangerPage}
-							dispatch={props.dispatch}
-						/>
-					)}
+					render={() => <Messenger store={props.store} />}
 				/>
 			</div>
 

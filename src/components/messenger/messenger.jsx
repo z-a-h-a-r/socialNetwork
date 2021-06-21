@@ -3,20 +3,16 @@ import st from './messenger.module.scss'
 
 // ===================================================
 
-import Dialogs from './dialogs/dialogs'
-import Messages from './messages/messages'
+import MessagesContainer from './messages/MessagesContainer'
+import DialogsContainer from './dialogs/dialogsContainer'
 
 // ===================================================
 
 const Messenger = props => {
 	return (
 		<div className={st.messenger}>
-			<Dialogs dialogsLinksData={props.state.dialogsLinksData} />
-			<Messages
-				messages={props.state.messages}
-				newMessageContent={props.state.newMessageContent}
-				dispatch={props.dispatch}
-			/>
+			<DialogsContainer store={props.store} />
+			<MessagesContainer store={props.store} />
 		</div>
 	)
 }

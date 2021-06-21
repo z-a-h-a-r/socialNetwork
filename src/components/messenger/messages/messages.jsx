@@ -4,38 +4,28 @@ import st from './messages.module.scss'
 
 import Message from './message/message'
 import React from 'react'
-import { logDOM } from '@testing-library/react'
-
-import {
-	sendMessageActionCreator,
-	updateMessageContentActionCreator,
-} from './../../../redux/state'
 
 // ===================================================
 
 const Messages = props => {
 	let refInput = React.createRef()
 
-	function onButtonClick() {
+	const onButtonClick = () => {
 		if (refInput.current.value !== '') {
-			props.dispatch(sendMessageActionCreator())
+			props.sendMessage()
 		}
 	}
-	function onEnterClick(e) {
+	const onEnterClick = e => {
 		if ((e.keyCode === 13) & (refInput.current.value !== '')) {
-			props.dispatch(sendMessageActionCreator())
+			props.sendMessage()
 		}
 	}
-	function onInputChange() {
+	const onInputChange = () => {
 		let inputValue = refInput.current.value
-		props.dispatch(updateMessageContentActionCreator(inputValue))
+		props.inputChange(inputValue)
 	}
 
 	// ===================================================
-
-	let editedMessages = props.messages.map(d => (
-		<Message content={d.content} id={d.id} time={d.time} />
-	))
 
 	// ===================================================
 	// html
@@ -50,7 +40,7 @@ const Messages = props => {
 					<div className={st.about}>about</div>
 				</div>
 			</div>
-			<div className={st.messages}>{editedMessages}</div>
+			<div className={st.messages}>{props.editedMessages}</div>
 			<div className={st.inputWrap}>
 				<input
 					type="text"
