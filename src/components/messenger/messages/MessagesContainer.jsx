@@ -5,36 +5,28 @@ import {
 	sendMessageActionCreator,
 	updateMessageContentActionCreator,
 } from '../../../redux/messangerReducer'
+import { connect } from 'react-redux'
 
 // ===================================================
 
-const MessagesContainer = props => {
-	const store = props.store
-	const state = props.store.getState()
-
-	function sendMessage() {
-		store.dispatch(sendMessageActionCreator())
+let mapStateToProps = state => {
+	return {
+		messages: state.messangerPage.messages,
+		newMessageContent: state.messangerPage.newMessageContent,
+		toEdit: state.messangerPage.messages,
 	}
-
-	function inputChange(inputValue) {
-		store.dispatch(updateMessageContentActionCreator(inputValue))
-	}
-
-	let editedMessages = state.messangerPage.messages.map(d => (
-		<Message content={d.content} id={d.id} time={d.time} />
-	))
-	// ===================================================
-	// html
-	return (
-		<Messages
-			messages={state.messangerPage.messages}
-			newMessageContent={state.messangerPage.newMessageContent}
-			sendMessage={sendMessage}
-			inputChange={inputChange}
-			editedMessages={editedMessages}
-		/>
-	)
 }
+let mapDispatchToProps = dispatch => {
+	return {
+		sendMessage: () => {
+			dispatch(sendMessageActionCreator())
+		},
+		inputChange: inputValue => {
+			dispatch(updateMessageContentActionCreator(inputValue))
+		},
+	}
+}
+const MessagesContainer = connect(mapStateToProps, mapDispatchToProps)(Messages)
 
 // ===================================================
 

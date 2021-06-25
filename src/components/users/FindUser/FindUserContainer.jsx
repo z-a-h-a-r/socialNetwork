@@ -1,18 +1,19 @@
-import Dialogs from './dialogs'
 import { connect } from 'react-redux'
+import FindUser from './FindUser'
 
 // ===================================================
 
 let mapStateToProps = state => {
-	return {
-		toEdit: state.messangerPage.dialogsLinksData,
-	}
+	return {}
 }
 let mapDispatchToProps = dispatch => {
 	return {}
 }
-const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs)
+const FindUsersContainer = connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(FindUser)
 
 // ===================================================
 
-export default DialogsContainer
+export default FindUsersContainer

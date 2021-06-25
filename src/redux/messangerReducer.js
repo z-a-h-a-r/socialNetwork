@@ -22,19 +22,24 @@ let initialState = {
 const messangerReducer = (state = initialState, action) => {
 	switch (action.type) {
 		case typeSendMessage:
-			let newMessage = {
-				content: state.newMessageContent,
-				id: 7,
-				time: '0:58',
+			return {
+				...state,
+				messages: [
+					...state.messages,
+					{
+						content: state.newMessageContent,
+						id: 7,
+						time: '0:58',
+					},
+				],
+				newMessageContent: '',
 			}
-			console.log(state.newMessageContent)
-			state.messages.push(newMessage)
-			state.newMessageContent = ''
-			return state
 
 		case typeUpdateMessageContent:
-			state.newMessageContent = action.messageContent
-			return state
+			return {
+				...state,
+				newMessageContent: action.messageContent,
+			}
 
 		default:
 			return state

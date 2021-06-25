@@ -28,6 +28,16 @@ const Navbar = () => {
 							Messenger
 						</NavLink>
 					</li>
+					<li className={st.li}>
+						<NavLink
+							exact
+							to="/users"
+							className={st.link}
+							activeClassName={st.active}
+						>
+							Users
+						</NavLink>
+					</li>
 
 					{/* <li className={st.li}>
 						<a href="" className={st.link}>

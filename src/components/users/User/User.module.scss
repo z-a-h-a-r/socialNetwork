@@ -1,0 +1,52 @@
+.user {
+	display: flex;
+	padding: 10px 20px;
+	border-bottom: 1px rgb(107, 107, 107) solid;
+
+	.avatarWrapper {
+		width: 80px;
+		height: 80px;
+		position: relative;
+		.avatar {
+			border-radius: 50%;
+			height: 100%;
+			width: 100%;
+			position: absolute;
+			top: 0;
+			left: 0;
+			object-fit: cover;
+		}
+	}
+	.information {
+		flex-grow: 1;
+		padding: 0px 0px 0px 30px;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		.name {
+			font-size: 15px;
+			font-weight: 600;
+			margin: 0;
+		}
+		.status {
+			color: rgb(184, 184, 184);
+		}
+		.link {
+			color: rgb(255, 255, 255);
+			&:hover {
+				color: rgb(192, 192, 192);
+			}
+		}
+	}
+	.location {
+		& p {
+			margin: 0;
+			&:first-child {
+				margin: 0px 0px 5px 0px;
+			}
+		}
+	}
+	&:first-child {
+		border-top: 1px rgb(107, 107, 107) solid;
+	}
+}

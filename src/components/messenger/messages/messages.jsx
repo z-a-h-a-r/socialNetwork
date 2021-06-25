@@ -24,6 +24,9 @@ const Messages = props => {
 		let inputValue = refInput.current.value
 		props.inputChange(inputValue)
 	}
+	let editedMessages = props.toEdit.map(d => (
+		<Message content={d.content} id={d.id} time={d.time} />
+	))
 
 	// ===================================================
 
@@ -40,7 +43,7 @@ const Messages = props => {
 					<div className={st.about}>about</div>
 				</div>
 			</div>
-			<div className={st.messages}>{props.editedMessages}</div>
+			<div className={st.messages}>{editedMessages}</div>
 			<div className={st.inputWrap}>
 				<input
 					type="text"

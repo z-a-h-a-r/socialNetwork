@@ -1,18 +1,18 @@
-import Dialogs from './dialogs'
 import { connect } from 'react-redux'
+import Profile from './profile'
 
 // ===================================================
 
 let mapStateToProps = state => {
 	return {
-		toEdit: state.messangerPage.dialogsLinksData,
+		toEdit: state.profilePage.postsData,
 	}
 }
 let mapDispatchToProps = dispatch => {
 	return {}
 }
-const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs)
+const ProfileContainer = connect(mapStateToProps, mapDispatchToProps)(Profile)
 
 // ===================================================
 
-export default DialogsContainer
+export default ProfileContainer

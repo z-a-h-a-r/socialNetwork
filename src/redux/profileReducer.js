@@ -15,20 +15,26 @@ let initialState = {
 
 const profileReducer = (state = initialState, action) => {
 	switch (action.type) {
-		case typeCreatePost:
-			let newPost = {
-				content: state.newPostContent,
-				sharedCount: 0,
-				commentsCount: 0,
+		case typeCreatePost: {
+			return {
+				...state,
+				postsData: [
+					...state.postsData,
+					{
+						content: state.newPostContent,
+						sharedCount: 0,
+						commentsCount: 0,
+					},
+				],
+				newPostContent: '',
 			}
-			state.postsData.push(newPost)
-			state.newPostContent = ''
-			return state
-
-		case typeUpdatePostContent:
-			state.newPostContent = action.postContent
-			return state
-
+		}
+		case typeUpdatePostContent: {
+			return {
+				...state,
+				newPostContent: action.postContent,
+			}
+		}
 		default:
 			return state
 	}

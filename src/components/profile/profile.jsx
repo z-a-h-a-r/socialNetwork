@@ -11,15 +11,13 @@ const Profile = props => {
 	// ====================================================
 	// edited data
 
-	let editedPostsData = props.store
-		.getState()
-		.profilePage.postsData.map(p => (
-			<Post
-				content={p.content}
-				sharedCount={p.sharedCount}
-				commentsCount={p.commentsCount}
-			/>
-		))
+	let editedPostsData = props.toEdit.map(p => (
+		<Post
+			content={p.content}
+			sharedCount={p.sharedCount}
+			commentsCount={p.commentsCount}
+		/>
+	))
 
 	return (
 		<div className={st.profile}>
@@ -32,7 +30,7 @@ const Profile = props => {
 			</div>
 
 			<div className={st.posts}>
-				<CreatePostContainer store={props.store} />
+				<CreatePostContainer />
 
 				<h1 className={st.title}>Posts</h1>
 				<div className={st.list}>{editedPostsData}</div>
