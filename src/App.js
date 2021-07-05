@@ -12,12 +12,12 @@ import './#other/common-styles.scss'
 // ====================================================
 // Components
 
-import Header from './components/header/header'
-import Navbar from './components/navbar/navbar'
-import Footer from './components/footer/footer'
-import Messenger from './components/messenger/messenger'
-import ProfileContainer from './components/profile/profileContainer'
-import UsersContainer from './components/users/UsersContainer'
+import Header from './components/Header/Header'
+import Navbar from './components/Navbar/Navbar'
+import Footer from './components/Footer/Footer'
+import Messenger from './components/Messenger/messenger'
+import ProfileContainer from './components/Profile/profileContainer'
+import UsersContainer from './components/Users/usersContainer'
 
 // ====================================================
 

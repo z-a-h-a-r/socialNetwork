@@ -1,4 +1,4 @@
-import st from './message.module.scss'
+import st from './Message.module.scss'
 
 // ===================================================
 

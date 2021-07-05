@@ -1,4 +1,4 @@
-import st from './navbar.module.scss'
+import st from './Navbar.module.scss'
 import { NavLink } from 'react-router-dom'
 // ====================================================
 

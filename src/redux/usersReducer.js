@@ -1,5 +1,7 @@
 const follow = 'FOLLOW'
 const unFollow = 'UNFOLLOW'
+const setUser = 'SET_USER'
+const setIsFetching = 'SET_IS_FETCHING'
 
 // ====================================================
 
@@ -8,31 +10,13 @@ let initialState = {
 		{
 			userId: 1,
 			name: 'Name - 1',
-			avatarUrl:
-				'https://images.unsplash.com/photo-1529068755536-a5ade0dcb4e8?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=801&q=80',
-			location: { city: 'Moskow', country: 'Russia' },
-			status: 'Do it',
-			followed: false,
-		},
-		{
-			userId: 2,
-			name: 'Name - 2',
-			avatarUrl:
-				'https://images.unsplash.com/photo-1529068755536-a5ade0dcb4e8?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=801&q=80',
-			location: { city: 'Moskow', country: 'Russia' },
-			status: 'Do it',
-			followed: false,
-		},
-		{
-			userId: 3,
-			name: 'Name - 3',
-			avatarUrl:
-				'https://images.unsplash.com/photo-1529068755536-a5ade0dcb4e8?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=801&q=80',
+			photos: { small: null },
 			location: { city: 'Moskow', country: 'Russia' },
 			status: 'Do it',
 			followed: false,
 		},
 	],
+	isFetchingData: false,
 }
 
 // ====================================================
@@ -63,6 +47,18 @@ const usersReducer = (state = initialState, action) => {
 				}),
 			}
 
+		case setUser:
+			return {
+				...state,
+				users: [...state.users, ...action.users],
+			}
+
+		case setIsFetching:
+			return {
+				...state,
+				isFetchingData: action.boolean,
+			}
+
 		default:
 			return state
 	}
@@ -70,8 +66,10 @@ const usersReducer = (state = initialState, action) => {
 
 // ====================================================
 
-export const followAC = () => ({ type: follow, userId: 1 })
-export const unFollowAC = () => ({ type: unFollow, userId: 2 })
+export const followAC = userId => ({ type: follow, userId })
+export const unFollowAC = userId => ({ type: unFollow, userId })
+export const setUsersAC = users => ({ type: setUser, users })
+export const setIsFetchingAC = boolean => ({ type: setIsFetching, boolean })
 
 // ====================================================
 

@@ -1,9 +1,9 @@
-import st from './profile.module.scss'
+import st from './Profile.module.scss'
 
 // ====================================================
 
-import Post from './post/post'
-import CreatePostContainer from './createPost/CreatePostContainer'
+import Post from './Post/Post'
+import CreatePostContainer from './CreatePost/createPostContainer'
 
 // ====================================================
 

@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom'
-import st from './dialogLink.module.scss'
+import st from './DialogLink.module.scss'
 
 // ===================================================
 

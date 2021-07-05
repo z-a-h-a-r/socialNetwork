@@ -1,5 +1,5 @@
-import st from './dialogs.module.scss'
-import DialogLink from './dialogLink/dialogLink'
+import st from './Dialogs.module.scss'
+import DialogLink from './DialogLink/DialogLink'
 // ===================================================
 
 const Dialogs = props => {

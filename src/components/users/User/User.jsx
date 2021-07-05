@@ -4,6 +4,13 @@ import st from './User.module.scss'
 // ====================================================
 
 const User = props => {
+	const onButtonClick = () => {
+		if (props.followed === false) {
+			props.follow()
+		} else {
+			props.unFollow()
+		}
+	}
 	return (
 		<div className={st.user}>
 			<div className={st.avatarWrapper}>
@@ -24,8 +31,13 @@ const User = props => {
 			</div>
 
 			<div className={st.location}>
-				<p>{props.city}</p>
-				<p>{props.country}</p>
+				<div>
+					<p>{props.city}</p>
+					<p>{props.country}</p>
+				</div>
+				<button onClick={onButtonClick}>
+					{props.followed === false ? 'follow' : 'unfollow'}
+				</button>
 			</div>
 		</div>
 	)

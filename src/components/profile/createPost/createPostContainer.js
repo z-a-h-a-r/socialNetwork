@@ -1,4 +1,4 @@
-import CreatePost from './createPost'
+import CreatePost from './CreatePost'
 import {
 	createPostActionCreator,
 	updatePostContentActionCreator,

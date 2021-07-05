@@ -1,5 +1,5 @@
-import Message from './message/message'
-import Messages from './messages'
+import Message from './Message/Message'
+import Messages from './Messages'
 
 import {
 	sendMessageActionCreator,

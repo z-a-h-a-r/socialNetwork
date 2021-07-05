@@ -1,4 +1,4 @@
-import st from './footer.module.scss'
+import st from './Footer.module.scss'
 
 // ====================================================
 

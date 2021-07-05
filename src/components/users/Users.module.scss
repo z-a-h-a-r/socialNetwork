@@ -1,10 +1,29 @@
 .users {
 	background: #27282c;
-	padding: 0 0 150px 0;
+	padding: 0 0 50px 0;
 	flex-grow: 1;
 	border-radius: 7px;
 
 	.usersList {
 		margin: 40px 0px 0px 0px;
+	}
+	.buttonWrapper {
+		margin: 40px 0px 0px 0px;
+		display: flex;
+		justify-content: center;
+
+		.button {
+			padding: 0px 20px;
+			background: rgba(192, 192, 192, 0.9);
+			color: rgb(61, 61, 61);
+			height: 30px;
+			border-radius: 4px;
+			&:hover {
+				background: rgba(121, 120, 120, 0.9);
+			}
+		}
+	}
+	.c {
+		font-size: 100px;
 	}
 }

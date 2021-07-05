@@ -1,4 +1,4 @@
-import st from './createPost.module.scss'
+import st from './CreatePost.module.scss'
 import React from 'react'
 
 // ====================================================

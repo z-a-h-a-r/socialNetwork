@@ -1,4 +1,4 @@
-import st from './post.module.scss'
+import st from './Post.module.scss'
 
 // ====================================================
 

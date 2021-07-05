@@ -1,8 +1,8 @@
-import st from './messages.module.scss'
+import st from './Messages.module.scss'
 
 // ===================================================
 
-import Message from './message/message'
+import Message from './Message/Message'
 import React from 'react'
 
 // ===================================================
