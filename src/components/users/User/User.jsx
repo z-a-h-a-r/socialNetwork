@@ -1,7 +1,13 @@
+// ====================================================
+// IMPORTS
+// Main
 import { NavLink } from 'react-router-dom'
+// Styles
 import st from './User.module.scss'
+// Components
 
 // ====================================================
+// Component
 
 const User = props => {
 	const onButtonClick = () => {
@@ -44,6 +50,6 @@ const User = props => {
 }
 
 // ====================================================
-// export
+// Exports
 
 export default User

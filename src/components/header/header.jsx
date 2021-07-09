@@ -1,8 +1,13 @@
-import st from './Header.module.scss'
+// ====================================================
+// IMPORTS
+// Main
 import { NavLink } from 'react-router-dom'
 import { useState } from 'react'
+// Styles
+import st from './Header.module.scss'
 
 // ====================================================
+// Component
 
 const Header = props => {
 	useState(() => {
@@ -21,5 +26,8 @@ const Header = props => {
 		</header>
 	)
 }
+
+// ====================================================
+// Exports
 
 export default Header

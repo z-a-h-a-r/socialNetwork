@@ -1,10 +1,16 @@
+// ====================================================
+// IMPORTS
+// Main
 import { connect } from 'react-redux'
-import Profile from './Profile'
-import { setProfile } from './../../redux/profileReducer'
-import axios from 'axios'
 import { withRouter } from 'react-router-dom'
+import axios from 'axios'
+// Components
+import Profile from './Profile'
+// Reducers
+import { setProfile } from './../../redux/profileReducer'
 
-// ===================================================
+// ====================================================
+// MSTP & MDTP
 
 let mapStateToProps = state => ({
 	toEdit: state.profilePage.postsData,
@@ -26,7 +32,8 @@ let mapDispatchToProps = dispatch => ({
 	},
 })
 
-// ===================================================
+// ====================================================
+// Connect & withRouter
 
 const WithRouterProfileContainer = withRouter(Profile)
 const ProfileContainer = connect(
@@ -34,6 +41,7 @@ const ProfileContainer = connect(
 	mapDispatchToProps
 )(WithRouterProfileContainer)
 
-// ===================================================
+// ====================================================
+// Exports
 
 export default ProfileContainer

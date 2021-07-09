@@ -1,6 +1,10 @@
+// ====================================================
+// Types
+
 const typeSetAuthUserData = 'SET-AUTH-USER-DATA'
 
 // ====================================================
+// Initial state
 
 let initialState = {
 	id: null,
@@ -10,6 +14,7 @@ let initialState = {
 }
 
 // ====================================================
+// Reducer
 
 const authReducer = (state = initialState, action) => {
 	switch (action.type) {
@@ -26,6 +31,7 @@ const authReducer = (state = initialState, action) => {
 }
 
 // ====================================================
+// Action creators
 
 export const setAuthUserData = (id, email, login) => ({
 	type: typeSetAuthUserData,
@@ -33,5 +39,6 @@ export const setAuthUserData = (id, email, login) => ({
 })
 
 // ====================================================
+// Exports
 
 export default authReducer

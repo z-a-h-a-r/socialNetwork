@@ -1,16 +1,20 @@
+// ====================================================
+// IMPORTS
+// Main
+import React, { useState } from 'react'
+import { NavLink } from 'react-router-dom'
+// Styles
 import st from './Users.module.scss'
+// Components
+import User from './User/User'
+import FindUsersContainer from './FindUser/findUserContainer'
+import Loading from '../common/Loading/Loading'
 
 // ====================================================
-
-import FindUsersContainer from './FindUser/findUserContainer'
-import User from './User/User'
-import React, { useState } from 'react'
-import Loading from '../common/Loading/Loading'
-import { NavLink } from 'react-router-dom'
+// Component
 
 let i = 1
 
-// ====================================================
 const Users = props => {
 	function onBtnClk() {
 		i = i + 1
@@ -56,6 +60,6 @@ const Users = props => {
 }
 
 // ====================================================
-// export
+// Exports
 
 export default Users

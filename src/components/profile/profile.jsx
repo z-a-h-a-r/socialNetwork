@@ -1,17 +1,17 @@
-import st from './Profile.module.scss'
-
 // ====================================================
-
+// IMPORTS
+// Main
+import { useState } from 'react'
+// Styles
+import st from './Profile.module.scss'
+// Components
 import Post from './Post/Post'
 import CreatePostContainer from './CreatePost/createPostContainer'
-import { useState } from 'react'
 
 // ====================================================
+// Component
 
 const Profile = props => {
-	// ====================================================
-	// edited data
-
 	let editedPostsData = props.toEdit.map(p => (
 		<Post
 			content={p.content}
@@ -59,6 +59,6 @@ const Profile = props => {
 }
 
 // ====================================================
-// export
+// Exports
 
 export default Profile

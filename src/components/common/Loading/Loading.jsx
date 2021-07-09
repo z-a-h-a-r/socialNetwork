@@ -1,8 +1,12 @@
+// ====================================================
+// IMPORTS
+// Styles
+
 import st from './Loading.module.scss'
 
 // ====================================================
+// Component
 
-// ====================================================
 function Loading(props) {
 	return (
 		<div className={st.preloader}>
@@ -12,6 +16,6 @@ function Loading(props) {
 }
 
 // ====================================================
-// export
+// Exports
 
 export default Loading

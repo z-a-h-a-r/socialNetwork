@@ -1,6 +1,12 @@
+// ====================================================
+// IMPORTS
+// Main
+// Styles
 import st from './Post.module.scss'
+// Components
 
 // ====================================================
+// Component
 
 const Post = props => {
 	return (
@@ -21,6 +27,6 @@ const Post = props => {
 }
 
 // ====================================================
-// export
+// Exports
 
 export default Post

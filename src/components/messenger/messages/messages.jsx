@@ -1,11 +1,14 @@
-import st from './Messages.module.scss'
-
-// ===================================================
-
-import Message from './Message/Message'
+// ====================================================
+// IMPORTS
+// Main
 import React from 'react'
+// Styles
+import st from './Messages.module.scss'
+// Components
+import Message from './Message/Message'
 
-// ===================================================
+// ====================================================
+// Component
 
 const Messages = props => {
 	let refInput = React.createRef()
@@ -62,6 +65,7 @@ const Messages = props => {
 	)
 }
 
-// ===================================================
+// ====================================================
+// Exports
 
 export default Messages

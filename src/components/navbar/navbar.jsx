@@ -1,6 +1,13 @@
-import st from './Navbar.module.scss'
-import { NavLink } from 'react-router-dom'
 // ====================================================
+// IMPORTS
+// Main
+import { NavLink } from 'react-router-dom'
+// Styles
+import st from './Navbar.module.scss'
+// Components
+
+// ====================================================
+// Component
 
 const Navbar = () => {
 	return (
@@ -69,5 +76,8 @@ const Navbar = () => {
 		</nav>
 	)
 }
+
+// ====================================================
+// Exports
 
 export default Navbar

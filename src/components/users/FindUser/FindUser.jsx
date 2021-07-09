@@ -1,7 +1,13 @@
+// ====================================================
+// IMPORTS
+// Main
 import React from 'react'
+// Styles
 import st from './FindUser.module.scss'
+// Components
 
 // ====================================================
+// Component
 
 const FindUsers = props => {
 	let refInput = React.createRef()
@@ -40,6 +46,6 @@ const FindUsers = props => {
 }
 
 // ====================================================
-// export
+// Exports
 
 export default FindUsers

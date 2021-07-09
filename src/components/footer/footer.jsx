@@ -1,6 +1,11 @@
+// ====================================================
+// IMPORTS
+// Styles
+
 import st from './Footer.module.scss'
 
 // ====================================================
+// Component
 
 const Footer = () => {
 	return (
@@ -11,5 +16,8 @@ const Footer = () => {
 		</footer>
 	)
 }
+
+// ====================================================
+// Exports
 
 export default Footer

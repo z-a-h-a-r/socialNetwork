@@ -1,7 +1,13 @@
-import st from './CreatePost.module.scss'
+// ====================================================
+// IMPORTS
+// Main
 import React from 'react'
+// Styles
+import st from './CreatePost.module.scss'
+// Components
 
 // ====================================================
+// Component
 
 const CreatePost = props => {
 	let refTextArea = React.createRef()
@@ -42,9 +48,6 @@ const CreatePost = props => {
 }
 
 // ====================================================
-// export
+// Exports
 
 export default CreatePost
-
-// ====================================================
-// scripts

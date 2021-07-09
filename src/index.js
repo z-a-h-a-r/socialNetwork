@@ -1,14 +1,15 @@
+// ====================================================
+// IMPORTS
+// Main
 import React from 'react'
 import ReactDOM from 'react-dom'
-
-import App from './App'
 import store from './redux/reduxStore'
 import { Provider } from 'react-redux'
-// ====================================================
+// Components
+import App from './App'
 
-// store.subscribe(rerender)
-
 // ====================================================
+// Component
 
 function rerender() {
 	ReactDOM.render(

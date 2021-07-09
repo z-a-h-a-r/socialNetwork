@@ -1,8 +1,12 @@
+// ====================================================
+// Types
+
 const typeCreatePost = 'CREATE-POST'
 const typeUpdatePostContent = 'UPDATE-POST-CONTENT'
 const typeSetProfile = 'SET-PROFILE'
 
 // ====================================================
+// Initial state
 
 let initialState = {
 	profile: {
@@ -17,6 +21,7 @@ let initialState = {
 }
 
 // ====================================================
+// Reducer
 
 const profileReducer = (state = initialState, action) => {
 	switch (action.type) {
@@ -53,6 +58,7 @@ const profileReducer = (state = initialState, action) => {
 }
 
 // ====================================================
+// Action creators
 
 export const createPost = () => ({ type: typeCreatePost })
 export const updatePostContent = textAreaValue => ({
@@ -65,5 +71,6 @@ export const setProfile = profile => ({
 })
 
 // ====================================================
+// Exports
 
 export default profileReducer

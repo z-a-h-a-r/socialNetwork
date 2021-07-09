@@ -1,7 +1,13 @@
+// ====================================================
+// IMPORTS
+// Main
 import { NavLink } from 'react-router-dom'
+// Styles
 import st from './DialogLink.module.scss'
+// Components
 
-// ===================================================
+// ====================================================
+// Component
 
 const DialogLink = props => {
 	return (
@@ -13,6 +19,7 @@ const DialogLink = props => {
 	)
 }
 
-// ===================================================
+// ====================================================
+// Exports
 
 export default DialogLink

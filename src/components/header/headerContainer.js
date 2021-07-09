@@ -1,9 +1,15 @@
-import Header from './Header'
-import { setAuthUserData } from '../../redux/authReducer'
+// ====================================================
+// IMPORTS
+// Main
 import { connect } from 'react-redux'
 import axios from 'axios'
+// Components
+import Header from './Header'
+// Reducers
+import { setAuthUserData } from '../../redux/authReducer'
 
-// ===================================================
+// ====================================================
+// MSTP & MDTP
 
 let mapStateToProps = state => ({
 	isAuth: state.auth.isAuth,
@@ -25,8 +31,12 @@ let mapDispatchToProps = dispatch => ({
 	},
 })
 
+// ====================================================
+// Connect & withRouter
+
 const HeaderContainer = connect(mapStateToProps, mapDispatchToProps)(Header)
 
-// ===================================================
+// ====================================================
+// Exports
 
 export default HeaderContainer

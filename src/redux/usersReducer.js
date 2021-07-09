@@ -1,9 +1,13 @@
+// ====================================================
+// Types
+
 const typeFollow = 'FOLLOW'
 const typeUnFollow = 'UNFOLLOW'
 const typeSetUser = 'SET_USER'
 const typeSetIsFetching = 'SET_IS_FETCHING'
 
 // ====================================================
+// Initial state
 
 let initialState = {
 	users: [
@@ -20,6 +24,7 @@ let initialState = {
 }
 
 // ====================================================
+// Reducer
 
 const usersReducer = (state = initialState, action) => {
 	switch (action.type) {
@@ -65,6 +70,7 @@ const usersReducer = (state = initialState, action) => {
 }
 
 // ====================================================
+// Action creators
 
 export const follow = userId => ({ type: typeFollow, userId })
 export const unFollow = userId => ({ type: typeUnFollow, userId })
@@ -72,5 +78,6 @@ export const setUsers = users => ({ type: typeSetUser, users })
 export const setIsFetching = boolean => ({ type: typeSetIsFetching, boolean })
 
 // ====================================================
+// Exports
 
 export default usersReducer

@@ -1,7 +1,11 @@
+// ====================================================
+// Types
+
 const typeSendMessage = 'SEND-MESSAGE'
 const typeUpdateMessageContent = 'UPDATE-MESSAGE-CONTENT'
 
 // ====================================================
+// Initial state
 
 let initialState = {
 	dialogsLinksData: [
@@ -18,6 +22,7 @@ let initialState = {
 }
 
 // ====================================================
+// Reducer
 
 const messangerReducer = (state = initialState, action) => {
 	switch (action.type) {
@@ -47,6 +52,7 @@ const messangerReducer = (state = initialState, action) => {
 }
 
 // ====================================================
+// Action creators
 
 export const sendMessage = () => ({ type: typeSendMessage })
 export const updateMessageContent = inputValue => ({
@@ -55,5 +61,6 @@ export const updateMessageContent = inputValue => ({
 })
 
 // ====================================================
+// Exports
 
 export default messangerReducer
