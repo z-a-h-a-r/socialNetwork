@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { setIsFetchingAC, setUsersAC } from '../../redux/usersReducer'
+import { setIsFetching, setUsers } from '../../redux/usersReducer'
 import Users from './Users'
 import * as axios from 'axios'
 
@@ -11,18 +11,18 @@ let mapStateToProps = state => {
 		isFetchingData: state.userPage.isFetchingData,
 	}
 }
-let mapDispatchToProps = (dispatch, state) => {
+let mapDispatchToProps = dispatch => {
 	return {
 		setUsers: users => {
-			dispatch(setUsersAC(users))
+			dispatch(setUsers(users))
 		},
 		getUsers: (i, boolean) => {
-			dispatch(setIsFetchingAC(boolean))
+			dispatch(setIsFetching(boolean))
 			axios
 				.get(`https://social-network.samuraijs.com/api/1.0/users?page=${i}`)
 				.then(response => {
-					dispatch(setIsFetchingAC(false))
-					dispatch(setUsersAC(response.data.items))
+					dispatch(setIsFetching(false))
+					dispatch(setUsers(response.data.items))
 				})
 		},
 	}

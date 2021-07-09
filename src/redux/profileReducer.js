@@ -1,10 +1,15 @@
 const typeCreatePost = 'CREATE-POST'
 const typeUpdatePostContent = 'UPDATE-POST-CONTENT'
+const typeSetProfile = 'SET-PROFILE'
 
 // ====================================================
 
 let initialState = {
+	profile: {
+		photos: {},
+	},
 	postsData: [
+		{ content: 'postsData', sharedCount: 0, commentsCount: 0 },
 		{ content: 'postsData', sharedCount: 0, commentsCount: 0 },
 		{ content: 'postsData', sharedCount: 0, commentsCount: 0 },
 	],
@@ -35,6 +40,13 @@ const profileReducer = (state = initialState, action) => {
 				newPostContent: action.postContent,
 			}
 		}
+		case typeSetProfile: {
+			return {
+				...state,
+				...state.profile,
+				profile: action.profile,
+			}
+		}
 		default:
 			return state
 	}
@@ -42,10 +54,14 @@ const profileReducer = (state = initialState, action) => {
 
 // ====================================================
 
-export const createPostActionCreator = () => ({ type: typeCreatePost })
-export const updatePostContentActionCreator = textAreaValue => ({
+export const createPost = () => ({ type: typeCreatePost })
+export const updatePostContent = textAreaValue => ({
 	type: typeUpdatePostContent,
 	postContent: textAreaValue,
+})
+export const setProfile = profile => ({
+	type: typeSetProfile,
+	profile,
 })
 
 // ====================================================

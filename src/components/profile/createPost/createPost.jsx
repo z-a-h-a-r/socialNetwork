@@ -16,7 +16,7 @@ const CreatePost = props => {
 	}
 	function onTnputChange() {
 		let textAreaValue = refTextArea.current.value
-		props.inputChange(textAreaValue)
+		props.updatePostContent(textAreaValue)
 	}
 
 	// ===================================================

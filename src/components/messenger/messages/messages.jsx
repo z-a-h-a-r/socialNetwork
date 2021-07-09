@@ -22,7 +22,7 @@ const Messages = props => {
 	}
 	const onInputChange = () => {
 		let inputValue = refInput.current.value
-		props.inputChange(inputValue)
+		props.updateMessageContent(inputValue)
 	}
 	let editedMessages = props.toEdit.map(d => (
 		<Message content={d.content} id={d.id} time={d.time} />

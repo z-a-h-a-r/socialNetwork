@@ -48,8 +48,8 @@ const messangerReducer = (state = initialState, action) => {
 
 // ====================================================
 
-export const sendMessageActionCreator = () => ({ type: typeSendMessage })
-export const updateMessageContentActionCreator = inputValue => ({
+export const sendMessage = () => ({ type: typeSendMessage })
+export const updateMessageContent = inputValue => ({
 	type: typeUpdateMessageContent,
 	messageContent: inputValue,
 })

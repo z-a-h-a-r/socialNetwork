@@ -1,9 +1,8 @@
-import Message from './Message/Message'
 import Messages from './Messages'
 
 import {
-	sendMessageActionCreator,
-	updateMessageContentActionCreator,
+	sendMessage,
+	updateMessageContent,
 } from '../../../redux/messangerReducer'
 import { connect } from 'react-redux'
 
@@ -16,17 +15,11 @@ let mapStateToProps = state => {
 		toEdit: state.messangerPage.messages,
 	}
 }
-let mapDispatchToProps = dispatch => {
-	return {
-		sendMessage: () => {
-			dispatch(sendMessageActionCreator())
-		},
-		inputChange: inputValue => {
-			dispatch(updateMessageContentActionCreator(inputValue))
-		},
-	}
-}
-const MessagesContainer = connect(mapStateToProps, mapDispatchToProps)(Messages)
+
+const MessagesContainer = connect(mapStateToProps, {
+	sendMessage,
+	updateMessageContent,
+})(Messages)
 
 // ===================================================
 

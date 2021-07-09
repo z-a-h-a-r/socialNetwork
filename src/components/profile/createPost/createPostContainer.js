@@ -1,8 +1,5 @@
 import CreatePost from './CreatePost'
-import {
-	createPostActionCreator,
-	updatePostContentActionCreator,
-} from '../../../redux/profileReducer'
+import { createPost, updatePostContent } from '../../../redux/profileReducer'
 import { connect } from 'react-redux'
 // ===================================================
 
@@ -11,20 +8,11 @@ let mapStateToProps = state => {
 		newPostContent: state.profilePage.newPostContent,
 	}
 }
-let mapDispatchToProps = dispatch => {
-	return {
-		createPost: () => {
-			dispatch(createPostActionCreator())
-		},
-		inputChange: textAreaValue => {
-			dispatch(updatePostContentActionCreator(textAreaValue))
-		},
-	}
-}
-const CreatePostContainer = connect(
-	mapStateToProps,
-	mapDispatchToProps
-)(CreatePost)
+
+const CreatePostContainer = connect(mapStateToProps, {
+	createPost,
+	updatePostContent,
+})(CreatePost)
 
 // ===================================================
 

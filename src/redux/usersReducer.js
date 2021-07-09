@@ -1,7 +1,7 @@
-const follow = 'FOLLOW'
-const unFollow = 'UNFOLLOW'
-const setUser = 'SET_USER'
-const setIsFetching = 'SET_IS_FETCHING'
+const typeFollow = 'FOLLOW'
+const typeUnFollow = 'UNFOLLOW'
+const typeSetUser = 'SET_USER'
+const typeSetIsFetching = 'SET_IS_FETCHING'
 
 // ====================================================
 
@@ -23,7 +23,7 @@ let initialState = {
 
 const usersReducer = (state = initialState, action) => {
 	switch (action.type) {
-		case follow:
+		case typeFollow:
 			return {
 				...state,
 				users: state.users.map(user => {
@@ -35,7 +35,7 @@ const usersReducer = (state = initialState, action) => {
 				}),
 			}
 
-		case unFollow:
+		case typeUnFollow:
 			return {
 				...state,
 				users: state.users.map(user => {
@@ -47,13 +47,13 @@ const usersReducer = (state = initialState, action) => {
 				}),
 			}
 
-		case setUser:
+		case typeSetUser:
 			return {
 				...state,
 				users: [...state.users, ...action.users],
 			}
 
-		case setIsFetching:
+		case typeSetIsFetching:
 			return {
 				...state,
 				isFetchingData: action.boolean,
@@ -66,10 +66,10 @@ const usersReducer = (state = initialState, action) => {
 
 // ====================================================
 
-export const followAC = userId => ({ type: follow, userId })
-export const unFollowAC = userId => ({ type: unFollow, userId })
-export const setUsersAC = users => ({ type: setUser, users })
-export const setIsFetchingAC = boolean => ({ type: setIsFetching, boolean })
+export const follow = userId => ({ type: typeFollow, userId })
+export const unFollow = userId => ({ type: typeUnFollow, userId })
+export const setUsers = users => ({ type: typeSetUser, users })
+export const setIsFetching = boolean => ({ type: typeSetIsFetching, boolean })
 
 // ====================================================
 
