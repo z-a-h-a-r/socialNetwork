@@ -6,9 +6,9 @@ import { NavLink } from 'react-router-dom'
 // Styles
 import st from './Users.module.scss'
 // Components
-import User from './User/User'
 import FindUsersContainer from './FindUser/findUserContainer'
 import Loading from '../common/Loading/Loading'
+import UserContainer from './User/userContainer'
 
 // ====================================================
 // Component
@@ -28,22 +28,20 @@ const Users = props => {
 			<FindUsersContainer />
 			<div className={st.usersList}>
 				{props.users.map(user => (
-					<NavLink to={`/profile/${user.id}`}>
-						<User
-							name={user.name}
-							key={user.userId}
-							userId={user.userId}
-							city={'user.location.city'}
-							country={'user.location.country'}
-							status={user.status != null ? user.status : 'status not found'}
-							avatarUrl={
-								user.photos.small != null
-									? user.photos.small
-									: 'https://images.unsplash.com/photo-1529068755536-a5ade0dcb4e8?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=801&q=80'
-							}
-							followed={user.followed}
-						/>
-					</NavLink>
+					<UserContainer
+						name={user.name}
+						key={user.id}
+						id={user.id}
+						city={'user.location.city'}
+						country={'user.location.country'}
+						status={user.status != null ? user.status : 'status not found'}
+						avatarUrl={
+							user.photos.small != null
+								? user.photos.small
+								: 'https://images.unsplash.com/photo-1529068755536-a5ade0dcb4e8?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=801&q=80'
+						}
+						followed={user.followed}
+					/>
 				))}
 			</div>
 			<div className={st.buttonWrapper}>

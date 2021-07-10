@@ -22,7 +22,9 @@ let mapDispatchToProps = dispatch => ({
 	getUsers: (i, boolean) => {
 		dispatch(setIsFetching(boolean))
 		axios
-			.get(`https://social-network.samuraijs.com/api/1.0/users?page=${i}`)
+			.get(`https://social-network.samuraijs.com/api/1.0/users?page=${i}`, {
+				withCredentials: true,
+			})
 			.then(response => {
 				dispatch(setIsFetching(false))
 				dispatch(setUsers(response.data.items))
