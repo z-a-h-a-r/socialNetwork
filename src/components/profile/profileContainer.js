@@ -3,11 +3,11 @@
 // Main
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
-import axios from 'axios'
 // Components
 import Profile from './Profile'
 // Reducers
 import { setProfile } from './../../redux/profileReducer'
+import { getProfileDataAPI } from '../../api/api'
 
 // ====================================================
 // MSTP & MDTP
@@ -24,11 +24,9 @@ let mapDispatchToProps = dispatch => ({
 		dispatch(setProfile(users))
 	},
 	getInf: userId => {
-		axios
-			.get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`)
-			.then(response => {
-				dispatch(setProfile(response.data))
-			})
+		getProfileDataAPI(userId).then(data => {
+			dispatch(setProfile(data))
+		})
 	},
 })
 

@@ -3,15 +3,17 @@
 
 const typeFollow = 'FOLLOW'
 const typeUnFollow = 'UNFOLLOW'
-const typeSetUsers = 'SET_USERS'
-const typeSetIsFetching = 'SET_IS_FETCHING'
+const typeSetUsers = 'SET-USERS'
+const typeSetUsersIsFetching = 'SET-USERS-IS-FETCHING'
+const typeSetFollowingIsFetching = 'SET-FOLLOWING-IS-FETCHING'
 
 // ====================================================
 // Initial state
 
 let initialState = {
 	users: [],
-	isFetchingData: false,
+	usersIsFetching: false,
+	followingIsFetching: [],
 }
 
 // ====================================================
@@ -49,10 +51,18 @@ const usersReducer = (state = initialState, action) => {
 				users: [...state.users, ...action.users],
 			}
 
-		case typeSetIsFetching:
+		case typeSetUsersIsFetching:
 			return {
 				...state,
 				isFetchingData: action.boolean,
+			}
+
+		case typeSetFollowingIsFetching:
+			return {
+				...state,
+				typeSetFollowingIsFetching: action.followingIsFetching
+					? [...state.followingIsFetching, action.id]
+					: state.followingIsFetching.filter(id => id != action.id),
 			}
 
 		default:
@@ -66,7 +76,15 @@ const usersReducer = (state = initialState, action) => {
 export const follow = id => ({ type: typeFollow, id })
 export const unFollow = id => ({ type: typeUnFollow, id })
 export const setUsers = users => ({ type: typeSetUsers, users })
-export const setIsFetching = boolean => ({ type: typeSetIsFetching, boolean })
+export const setUsersIsFetching = boolean => ({
+	type: typeSetUsersIsFetching,
+	boolean,
+})
+export const setFollowingIsFetching = (boolean, id) => ({
+	type: typeSetFollowingIsFetching,
+	boolean,
+	id,
+})
 
 // ====================================================
 // Exports

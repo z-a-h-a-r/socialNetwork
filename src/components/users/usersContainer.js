@@ -1,12 +1,13 @@
 // ====================================================
 // IMPORTS
 // Main
-import * as axios from 'axios'
 import { connect } from 'react-redux'
 // Components
 import Users from './Users'
 // Reducers
-import { setIsFetching, setUsers } from '../../redux/usersReducer'
+import { setUsersIsFetching, setUsers } from '../../redux/usersReducer'
+// DAL
+import { getUsersAPI } from '../../api/api'
 
 // ====================================================
 // MSTP & MDTP
@@ -19,16 +20,12 @@ let mapDispatchToProps = dispatch => ({
 	setUsers: users => {
 		dispatch(setUsers(users))
 	},
-	getUsers: (i, boolean) => {
-		dispatch(setIsFetching(boolean))
-		axios
-			.get(`https://social-network.samuraijs.com/api/1.0/users?page=${i}`, {
-				withCredentials: true,
-			})
-			.then(response => {
-				dispatch(setIsFetching(false))
-				dispatch(setUsers(response.data.items))
-			})
+	getUsers: i => {
+		dispatch(setUsersIsFetching(true))
+		getUsersAPI(i).then(data => {
+			dispatch(setUsersIsFetching(false))
+			dispatch(setUsers(data.items))
+		})
 	},
 })
 

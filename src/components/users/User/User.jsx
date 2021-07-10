@@ -1,10 +1,11 @@
 // ====================================================
 // IMPORTS
 // Main
-import axios from 'axios'
 import { NavLink } from 'react-router-dom'
 // Styles
 import st from './User.module.scss'
+// DAL
+import { followAPI, unfollowAPI } from '../../../api/api'
 // Components
 
 // ====================================================
@@ -41,48 +42,30 @@ const User = props => {
 				</div>
 				{props.followed ? (
 					<button
+						disabled={props.followingIsFetching.some(id => id === props.id)}
 						onClick={() => {
-							axios
-								.delete(
-									`https://social-network.samuraijs.com/api/1.0/follow/${props.id}`,
-									{
-										withCredentials: true,
-										headers: {
-											'API-KEY': '71572937-80ec-4dde-adb1-d4b106a7cc21',
-										},
-									}
-								)
-								.then(response => {
-									if (response.data.resultCode === 0) {
-										props.unFollow(props.id)
-									}
-								})
+							props.setFollowingIsFetching(true, props.id)
+							unfollowAPI(props.id).then(data => {
+								if (data.resultCode === 0) {
+									props.unFollow(props.id)
+								}
+								props.setFollowingIsFetching(false, props.id)
+							})
 						}}
 					>
 						unfollow
 					</button>
 				) : (
 					<button
+						disabled={props.followingIsFetching.some(id => id === props.id)}
 						onClick={() => {
-							axios
-								.post(
-									`https://social-network.samuraijs.com/api/1.0/follow/${props.id}`,
-									{},
-									{
-										withCredentials: true,
-										headers: {
-											'API-KEY': '71572937-80ec-4dde-adb1-d4b106a7cc21',
-										},
-									}
-								)
-
-								.then(response => {
-									console.log('from axios')
-									console.log(response)
-									// if (response.resultCode === 0) {
+							props.setFollowingIsFetching(true, props.id)
+							followAPI(props.id).then(data => {
+								if (data.resultCode === 0) {
 									props.follow(props.id)
-									// }
-								})
+								}
+								props.setFollowingIsFetching(false, props.id)
+							})
 						}}
 					>
 						follow

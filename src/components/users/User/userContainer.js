@@ -5,19 +5,28 @@ import { connect } from 'react-redux'
 // Components
 import User from './User'
 // Reducers
-import { follow, unFollow } from '../../../redux/usersReducer'
+import {
+	follow,
+	unFollow,
+	setFollowingIsFetching,
+} from '../../../redux/usersReducer'
 
 // ====================================================
 // MSTP & MDTP
 
 let mapStateToProps = state => ({
 	users: state.userPage.users,
+	followingIsFetching: state.userPage.followingIsFetching,
 })
 
 // ====================================================
 // Connect & withRouter
 
-const UserContainer = connect(mapStateToProps, { follow, unFollow })(User)
+const UserContainer = connect(mapStateToProps, {
+	follow,
+	unFollow,
+	setFollowingIsFetching,
+})(User)
 
 // ====================================================
 // Exports

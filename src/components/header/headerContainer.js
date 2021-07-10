@@ -2,11 +2,12 @@
 // IMPORTS
 // Main
 import { connect } from 'react-redux'
-import axios from 'axios'
 // Components
 import Header from './Header'
 // Reducers
 import { setAuthUserData } from '../../redux/authReducer'
+// DAL
+import { tryLoginAPI } from '../../api/api'
 
 // ====================================================
 // MSTP & MDTP
@@ -17,17 +18,12 @@ let mapStateToProps = state => ({
 })
 let mapDispatchToProps = dispatch => ({
 	tryLogin: () => {
-		axios
-			.get(`https://social-network.samuraijs.com/api/1.0/auth/me`, {
-				withCredentials: true,
-			})
-			.then(response => {
-				console.log(response)
-				if (response.data.resultCode === 0) {
-					let { id, email, login } = response.data.data
-					dispatch(setAuthUserData(id, email, login))
-				}
-			})
+		tryLoginAPI().then(data => {
+			if (data.resultCode === 0) {
+				let { id, email, login } = data.data
+				dispatch(setAuthUserData(id, email, login))
+			}
+		})
 	},
 })
 

@@ -18,10 +18,10 @@ let i = 1
 const Users = props => {
 	function onBtnClk() {
 		i = i + 1
-		props.getUsers(i, true)
+		props.getUsers(i)
 	}
 	useState(() => {
-		props.getUsers(1, true)
+		props.getUsers(1)
 	})
 	return (
 		<div className={st.users}>
