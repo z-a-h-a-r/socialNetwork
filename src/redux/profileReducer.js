@@ -1,6 +1,8 @@
 // ====================================================
 // Types
 
+import { getProfileDataAPI } from '../api/api'
+
 const typeCreatePost = 'CREATE-POST'
 const typeUpdatePostContent = 'UPDATE-POST-CONTENT'
 const typeSetProfile = 'SET-PROFILE'
@@ -69,6 +71,12 @@ export const setProfile = profile => ({
 	type: typeSetProfile,
 	profile,
 })
+
+export const getInf = userId => dispatch => {
+	getProfileDataAPI(userId).then(data => {
+		dispatch(setProfile(data))
+	})
+}
 
 // ====================================================
 // Exports

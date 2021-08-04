@@ -5,11 +5,7 @@ import { connect } from 'react-redux'
 // Components
 import User from './User'
 // Reducers
-import {
-	follow,
-	unFollow,
-	setFollowingIsFetching,
-} from '../../../redux/usersReducer'
+import { follow, unFollow } from '../../../redux/usersReducer'
 
 // ====================================================
 // MSTP & MDTP
@@ -25,7 +21,6 @@ let mapStateToProps = state => ({
 const UserContainer = connect(mapStateToProps, {
 	follow,
 	unFollow,
-	setFollowingIsFetching,
 })(User)
 
 // ====================================================

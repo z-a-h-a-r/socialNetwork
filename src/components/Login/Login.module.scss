@@ -1,0 +1,37 @@
+.login {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	width: 100%;
+
+	.form {
+		width: 100%;
+		display: flex;
+		align-items: center;
+		flex-direction: column;
+		& input {
+			width: 300px;
+			background: rgb(240, 240, 240);
+			color: rgb(61, 61, 61);
+			padding: 0px 0px 0px 8px;
+			height: 30px;
+			border-radius: 4px;
+			margin: 0px 0px 10px 0px;
+		}
+		& button {
+			padding: 0px 20px;
+			background: rgb(158, 158, 158);
+			color: rgb(61, 61, 61);
+			height: 30px;
+			width: 300px;
+			border-radius: 4px;
+			&:hover {
+				background: rgb(112, 112, 112);
+			}
+		}
+	}
+	& h2 {
+		font-size: 25px;
+	}
+}

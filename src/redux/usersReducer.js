@@ -1,4 +1,9 @@
 // ====================================================
+// IMPORTS
+// Main
+import { getUsersAPI, unfollowAPI } from '../api/api'
+
+// ====================================================
 // Types
 
 const typeFollow = 'FOLLOW'
@@ -73,8 +78,8 @@ const usersReducer = (state = initialState, action) => {
 // ====================================================
 // Action creators
 
-export const follow = id => ({ type: typeFollow, id })
-export const unFollow = id => ({ type: typeUnFollow, id })
+export const followSuccess = id => ({ type: typeFollow, id })
+export const unFollowSuccess = id => ({ type: typeUnFollow, id })
 export const setUsers = users => ({ type: typeSetUsers, users })
 export const setUsersIsFetching = boolean => ({
 	type: typeSetUsersIsFetching,
@@ -85,7 +90,27 @@ export const setFollowingIsFetching = (boolean, id) => ({
 	boolean,
 	id,
 })
-
+export const getUsers = i => dispatch => {
+	dispatch(setUsersIsFetching(true))
+	getUsersAPI(i).then(data => {
+		dispatch(setUsersIsFetching(false))
+		dispatch(setUsers(data.items))
+	})
+}
+export const unFollow = userId => dispatch => {
+	dispatch(setFollowingIsFetching(true, userId))
+	unfollowAPI(userId).then(data => {
+		dispatch(unFollowSuccess(userId))
+		dispatch(setFollowingIsFetching(false, userId))
+	})
+}
+export const follow = userId => dispatch => {
+	dispatch(setFollowingIsFetching(true, userId))
+	unfollowAPI(userId).then(data => {
+		dispatch(followSuccess(userId))
+		dispatch(setFollowingIsFetching(false, userId))
+	})
+}
 // ====================================================
 // Exports
 

@@ -2,7 +2,7 @@
 // IMPORTS
 // Main
 import { NavLink } from 'react-router-dom'
-import { useState } from 'react'
+import { useEffect } from 'react'
 // Styles
 import st from './Header.module.scss'
 
@@ -10,9 +10,9 @@ import st from './Header.module.scss'
 // Component
 
 const Header = props => {
-	useState(() => {
+	useEffect(() => {
 		props.tryLogin()
-	})
+	}, [])
 	return (
 		<header className={st.header}>
 			<div className="container">

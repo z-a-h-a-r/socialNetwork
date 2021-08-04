@@ -2,12 +2,12 @@
 // IMPORTS
 // Main
 import { connect } from 'react-redux'
+import { withRedirect } from '../../hoc/withRedirect'
+import { compose } from 'redux'
 // Components
 import Users from './Users'
 // Reducers
-import { setUsersIsFetching, setUsers } from '../../redux/usersReducer'
-// DAL
-import { getUsersAPI } from '../../api/api'
+import { getUsers } from '../../redux/usersReducer'
 
 // ====================================================
 // MSTP & MDTP
@@ -16,25 +16,11 @@ let mapStateToProps = state => ({
 	users: state.userPage.users,
 	isFetchingData: state.userPage.isFetchingData,
 })
-let mapDispatchToProps = dispatch => ({
-	setUsers: users => {
-		dispatch(setUsers(users))
-	},
-	getUsers: i => {
-		dispatch(setUsersIsFetching(true))
-		getUsersAPI(i).then(data => {
-			dispatch(setUsersIsFetching(false))
-			dispatch(setUsers(data.items))
-		})
-	},
-})
 
 // ====================================================
-// Connect & withRouter
+// Compose
 
-const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(Users)
-
-// ====================================================
-// Exports
-
-export default UsersContainer
+export default compose(
+	withRedirect,
+	connect(mapStateToProps, { getUsers })
+)(Users)

@@ -1,8 +1,7 @@
 // ====================================================
 // IMPORTS
 // Main
-import React, { useState } from 'react'
-import { NavLink } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
 // Styles
 import st from './Users.module.scss'
 // Components
@@ -20,9 +19,10 @@ const Users = props => {
 		i = i + 1
 		props.getUsers(i)
 	}
-	useState(() => {
+	useEffect(() => {
 		props.getUsers(1)
-	})
+	}, [])
+
 	return (
 		<div className={st.users}>
 			<FindUsersContainer />

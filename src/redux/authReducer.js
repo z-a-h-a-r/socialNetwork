@@ -1,6 +1,8 @@
 // ====================================================
 // Types
 
+import { tryLoginAPI } from '../api/api'
+
 const typeSetAuthUserData = 'SET-AUTH-USER-DATA'
 
 // ====================================================
@@ -37,7 +39,14 @@ export const setAuthUserData = (id, email, login) => ({
 	type: typeSetAuthUserData,
 	data: { id, email, login },
 })
-
+export const tryLogin = () => dispatch => {
+	tryLoginAPI().then(data => {
+		if (data.resultCode === 0) {
+			let { id, email, login } = data.data
+			dispatch(setAuthUserData(id, email, login))
+		}
+	})
+}
 // ====================================================
 // Exports
 

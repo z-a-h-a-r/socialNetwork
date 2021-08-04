@@ -1,7 +1,7 @@
 // ====================================================
 // IMPORTS
 // Main
-import { useState } from 'react'
+import { useEffect } from 'react'
 // Styles
 import st from './Profile.module.scss'
 // Components
@@ -19,13 +19,12 @@ const Profile = props => {
 			commentsCount={p.commentsCount}
 		/>
 	))
-	useState(() => {
+	useEffect(() => {
 		if (!props.match.params.userId) {
 			props.match.params.userId = 2
 		}
 		props.getInf(props.match.params.userId)
-	})
-
+	}, [])
 	return (
 		<div className={st.profile}>
 			<div className={st.background}></div>

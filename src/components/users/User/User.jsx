@@ -4,8 +4,6 @@
 import { NavLink } from 'react-router-dom'
 // Styles
 import st from './User.module.scss'
-// DAL
-import { followAPI, unfollowAPI } from '../../../api/api'
 // Components
 
 // ====================================================
@@ -44,13 +42,7 @@ const User = props => {
 					<button
 						disabled={props.followingIsFetching.some(id => id === props.id)}
 						onClick={() => {
-							props.setFollowingIsFetching(true, props.id)
-							unfollowAPI(props.id).then(data => {
-								if (data.resultCode === 0) {
-									props.unFollow(props.id)
-								}
-								props.setFollowingIsFetching(false, props.id)
-							})
+							props.unFollow(props.id)
 						}}
 					>
 						unfollow
@@ -59,13 +51,7 @@ const User = props => {
 					<button
 						disabled={props.followingIsFetching.some(id => id === props.id)}
 						onClick={() => {
-							props.setFollowingIsFetching(true, props.id)
-							followAPI(props.id).then(data => {
-								if (data.resultCode === 0) {
-									props.follow(props.id)
-								}
-								props.setFollowingIsFetching(false, props.id)
-							})
+							props.follow(props.id)
 						}}
 					>
 						follow
