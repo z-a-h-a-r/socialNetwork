@@ -2,6 +2,7 @@
 // IMPORTS
 // Main
 import { useEffect } from 'react'
+import { useState } from 'react'
 // Styles
 import st from './Profile.module.scss'
 // Components
@@ -12,19 +13,38 @@ import CreatePostContainer from './CreatePost/createPostContainer'
 // Component
 
 const Profile = props => {
-	let editedPostsData = props.toEdit.map(p => (
-		<Post
-			content={p.content}
-			sharedCount={p.sharedCount}
-			commentsCount={p.commentsCount}
-		/>
-	))
+	// ====================================================
+	// Local state
+	let [editMode, setEditMode] = useState(false)
+	let [inputValue, setInputValue] = useState('')
+
+	// ====================================================
+	// Hooks
 	useEffect(() => {
 		if (!props.match.params.userId) {
-			props.match.params.userId = 2
+			props.getInf(props.userId)
+		} else {
+			props.getInf(props.match.params.userId)
 		}
-		props.getInf(props.match.params.userId)
+
+		// ====================================================
+
+		props.getStatus(props.userId)
 	}, [])
+
+	// ====================================================
+	// Functions
+
+	function onInputBlur() {
+		props.updateStatus(inputValue, props.userId)
+		setEditMode((editMode = false))
+	}
+	function onInputChange(e) {
+		setInputValue(e.currentTarget.value)
+	}
+
+	// ====================================================
+	// JSX
 	return (
 		<div className={st.profile}>
 			<div className={st.background}></div>
@@ -41,9 +61,28 @@ const Profile = props => {
 				<p className={st.name}>
 					{props.fullName != null ? props.fullName : 'Name not found'}
 				</p>
-				<p className={st.followers}>
-					{props.aboutMe != null ? props.aboutMe : 'Status not found'}
-				</p>
+				<div className={st.status}>
+					{!editMode && (
+						<p
+							className={st.status__text}
+							onDoubleClick={() => {
+								setEditMode((editMode = true))
+								setInputValue((inputValue = props.aboutMe))
+							}}
+						>
+							{props.aboutMe || 'status not found'}
+						</p>
+					)}
+					{editMode && (
+						<input
+							type="text"
+							placeholder="type new status..."
+							value={inputValue}
+							onChange={onInputChange}
+							onBlur={onInputBlur}
+						/>
+					)}
+				</div>
 				<div className={st.otherInfo}></div>
 			</div>
 
@@ -51,7 +90,16 @@ const Profile = props => {
 				<CreatePostContainer />
 
 				<h1 className={st.title}>Posts</h1>
-				<div className={st.list}>{editedPostsData}</div>
+				<div className={st.list}>
+					{props.toEdit.map(p => (
+						<Post
+							content={p.content}
+							sharedCount={p.sharedCount}
+							commentsCount={p.commentsCount}
+							key={Date.now}
+						/>
+					))}
+				</div>
 			</div>
 		</div>
 	)

@@ -29,14 +29,7 @@ const messangerReducer = (state = initialState, action) => {
 		case typeSendMessage:
 			return {
 				...state,
-				messages: [
-					...state.messages,
-					{
-						content: state.newMessageContent,
-						id: 7,
-						time: '0:58',
-					},
-				],
+				messages: [...state.messages],
 				newMessageContent: '',
 			}
 

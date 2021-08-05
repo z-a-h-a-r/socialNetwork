@@ -8,7 +8,7 @@ import { compose } from 'redux'
 // Components
 import Profile from './Profile'
 // Reducers
-import { setProfile, getInf } from './../../redux/profileReducer'
+import { getStatus, getInf, updateStatus } from './../../redux/profileReducer'
 
 // ====================================================
 // MSTP & MDTP
@@ -18,6 +18,7 @@ let mapStateToProps = state => ({
 	aboutMe: state.profilePage.profile.aboutMe,
 	fullName: state.profilePage.profile.fullName,
 	largePhoto: state.profilePage.profile.photos.large,
+	userId: state.auth.id,
 })
 
 // ====================================================
@@ -26,5 +27,5 @@ let mapStateToProps = state => ({
 export default compose(
 	withRedirect,
 	withRouter,
-	connect(mapStateToProps, { getInf })
+	connect(mapStateToProps, { getInf, getStatus, updateStatus })
 )(Profile)

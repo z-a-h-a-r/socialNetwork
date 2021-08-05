@@ -32,3 +32,11 @@ export const unfollowAPI = id => {
 export const followAPI = id => {
 	return instance.post(`follow/${id}`).then(response => response.data)
 }
+export const getStatusAPI = id => {
+	return instance.get(`profile/status/${id}`).then(response => response.data)
+}
+export const updateStatusAPI = status => {
+	return instance
+		.put(`profile/status`, { status })
+		.then(response => response.data)
+}

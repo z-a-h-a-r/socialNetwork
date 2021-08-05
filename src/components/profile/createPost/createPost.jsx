@@ -12,11 +12,13 @@ import st from './CreatePost.module.scss'
 const CreatePost = props => {
 	let refTextArea = React.createRef()
 
-	function onButtonClick() {
-		props.createPost()
+	function onButtonClick(e) {
+		if (refTextArea.current.value !== '') {
+			props.createPost()
+		}
 	}
 	function onEnterClick(e) {
-		if (e.keyCode === 13) {
+		if ((e.keyCode === 13) & (refTextArea.current.value !== '')) {
 			props.createPost()
 		}
 	}
