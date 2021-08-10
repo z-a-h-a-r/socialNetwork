@@ -3,7 +3,7 @@
 // Main
 import React from 'react'
 // Styles
-import st from './FindUser.module.scss'
+import st from './findUser.module.scss'
 // Components
 
 // ====================================================

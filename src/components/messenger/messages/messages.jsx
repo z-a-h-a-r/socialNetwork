@@ -3,10 +3,10 @@
 // Main
 import React from 'react'
 // Styles
-import st from './Messages.module.scss'
+import st from './messages.module.scss'
 // Components
-import Message from './Message/Message'
-import MessagesForm from './MessagesForm/MessagesForm'
+import Message from './message/message'
+import MessagesForm from './messagesForm/messagesForm'
 
 // ====================================================
 // Component

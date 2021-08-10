@@ -2,7 +2,7 @@
 // IMPORTS
 // Styles
 
-import st from './Footer.module.scss'
+import st from './footer.module.scss'
 
 // ====================================================
 // Component

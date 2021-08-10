@@ -4,9 +4,9 @@
 import { connect } from 'react-redux'
 import { compose } from 'redux'
 // Components
-import Login from './Login'
+import Login from './login'
 // Reducers
-import { login } from './../../redux/authReducer'
+import { login } from '../../redux/authReducer'
 
 // ====================================================
 // MSTP & MDTP

@@ -3,7 +3,7 @@
 // Main
 import { Field, reduxForm } from 'redux-form'
 // Styles
-import st from './MessagesForm.module.scss'
+import st from './messagesForm.module.scss'
 // Components
 
 // ====================================================

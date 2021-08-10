@@ -3,7 +3,7 @@
 // Main
 import { NavLink } from 'react-router-dom'
 // Styles
-import st from './User.module.scss'
+import st from './user.module.scss'
 // Components
 
 // ====================================================

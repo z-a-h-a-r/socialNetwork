@@ -3,9 +3,9 @@
 // Main
 import { Field, reduxForm } from 'redux-form'
 // Styles
-import st from './LoginForm.module.scss'
+import st from './loginForm.module.scss'
 // Components
-import { Element } from './../../common/FormsControls/FormsControls'
+import { Element } from '../../common/FormsControls/FormsControls'
 const Input = Element('input')
 // ====================================================
 // Component

@@ -3,7 +3,7 @@
 // Main
 import { connect } from 'react-redux'
 // Components
-import Dialogs from './Dialogs'
+import Dialogs from './dialogs'
 // Reducers
 
 // ====================================================

@@ -2,9 +2,9 @@
 // IMPORTS
 // Main
 // Styles
-import st from './Dialogs.module.scss'
+import st from './dialogs.module.scss'
 // Components
-import DialogLink from './DialogLink/DialogLink'
+import DialogLink from './dialogLink/dialogLink'
 
 // ====================================================
 // Component

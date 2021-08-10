@@ -3,7 +3,7 @@
 // Main
 import { connect } from 'react-redux'
 // Components
-import Header from './Header'
+import Header from './header'
 // Reducers
 import { logout } from '../../redux/authReducer'
 

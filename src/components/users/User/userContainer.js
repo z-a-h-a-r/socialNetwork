@@ -3,7 +3,7 @@
 // Main
 import { connect } from 'react-redux'
 // Components
-import User from './User'
+import User from './user'
 // Reducers
 import { follow, unFollow } from '../../../redux/usersReducer'
 

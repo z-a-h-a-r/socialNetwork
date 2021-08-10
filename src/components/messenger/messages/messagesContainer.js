@@ -3,7 +3,7 @@
 // Main
 import { connect } from 'react-redux'
 // Components
-import Messages from './Messages'
+import Messages from './messages'
 // Reducers
 import { sendMessage } from '../../../redux/messangerReducer'
 

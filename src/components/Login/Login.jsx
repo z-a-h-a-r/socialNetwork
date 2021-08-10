@@ -3,9 +3,9 @@
 // Main
 // Styles
 import { Redirect } from 'react-router-dom'
-import st from './Login.module.scss'
+import st from './login.module.scss'
 // Components
-import LoginForm from './LoginForm/LoginForm'
+import LoginForm from './loginForm/loginForm'
 
 // ====================================================
 // Component

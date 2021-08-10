@@ -4,10 +4,10 @@
 import { useEffect } from 'react'
 import { useState } from 'react'
 // Styles
-import st from './Profile.module.scss'
+import st from './profile.module.scss'
 // Components
-import Post from './Post/Post'
-import CreatePostForm from './CreatePost/CreatePostForm'
+import Post from './post/post'
+import CreatePostForm from './createPost/createPost'
 
 // ====================================================
 // Component

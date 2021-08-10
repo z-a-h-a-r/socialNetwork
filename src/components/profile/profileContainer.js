@@ -6,7 +6,7 @@ import { withRouter } from 'react-router-dom'
 import { withRedirect } from '../../hoc/withRedirect'
 import { compose } from 'redux'
 // Components
-import Profile from './Profile'
+import Profile from './profile'
 // Reducers
 import {
 	getStatus,

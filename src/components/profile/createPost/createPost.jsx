@@ -2,52 +2,37 @@
 // IMPORTS
 // Main
 import React from 'react'
+import { Field, reduxForm } from 'redux-form'
+import { maxLength, required } from '../../../formsValidators/formsValidators'
 // Styles
-import st from './CreatePost.module.scss'
+import st from './createPost.module.scss'
 // Components
+import { Element } from '../../common/FormsControls/FormsControls'
 
+const maxLength1 = maxLength(1)
+const Textarea = Element('input')
 // ====================================================
 // Component
 
-const CreatePost = props => {
-	let refTextArea = React.createRef()
-
-	function onButtonClick(e) {
-		if (refTextArea.current.value !== '') {
-			props.createPost()
-		}
-	}
-	function onEnterClick(e) {
-		if ((e.keyCode === 13) & (refTextArea.current.value !== '')) {
-			props.createPost()
-		}
-	}
-	function onTnputChange() {
-		let textAreaValue = refTextArea.current.value
-		props.updatePostContent(textAreaValue)
-	}
-
-	// ===================================================
-
+const CreatePostWithoutRedux = props => {
 	return (
-		<div className={st.createPost}>
-			<div className={st.title}>Create new post</div>
-			<div className={st.create}>
-				<input
-					ref={refTextArea}
-					className={st.textArea}
-					onChange={onTnputChange}
-					onKeyDown={onEnterClick}
-					placeholder="What is up?"
-					value={props.newPostContent}
-				/>
-				<button className={st.button} onClick={onButtonClick}>
-					Add post
-				</button>
-			</div>
-		</div>
+		<form className={st.form} onSubmit={props.handleSubmit}>
+			<Field
+				placeholder="What is up?"
+				name={'content'}
+				component={Textarea}
+				className={st.input}
+				validate={(required, maxLength1)}
+			/>
+
+			<button className={st.button}>Add post</button>
+		</form>
 	)
 }
+
+const CreatePost = reduxForm({
+	form: 'createPost',
+})(CreatePostWithoutRedux)
 
 // ====================================================
 // Exports

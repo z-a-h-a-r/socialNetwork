@@ -10,13 +10,13 @@ import './scss/#zeroing.scss'
 import './scss/style.scss'
 import './scss/common-styles.scss'
 // Components
-import Navbar from './components/Navbar/Navbar'
-import Footer from './components/Footer/Footer'
-import MessengerContainer from './components/Messenger/messengerContainer'
-import ProfileContainer from './components/Profile/profileContainer'
-import UsersContainer from './components/Users/usersContainer'
-import HeaderContainer from './components/Header/headerContainer'
-import LoginContainer from './components/Login/loginContainer'
+import Navbar from './components/navbar/navbar'
+import Footer from './components/footer/footer'
+import MessengerContainer from './components/messenger/messengerContainer'
+import ProfileContainer from './components/profile/profileContainer'
+import UsersContainer from './components/users/usersContainer'
+import HeaderContainer from './components/header/headerContainer'
+import LoginContainer from './components/login/loginContainer'
 
 // ====================================================
 // Component

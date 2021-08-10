@@ -2,7 +2,7 @@
 // IMPORTS
 // Main
 // Styles
-import st from './Message.module.scss'
+import st from './message.module.scss'
 // Components
 
 // ====================================================

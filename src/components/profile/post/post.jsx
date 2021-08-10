@@ -2,7 +2,7 @@
 // IMPORTS
 // Main
 // Styles
-import st from './Post.module.scss'
+import st from './post.module.scss'
 // Components
 
 // ====================================================

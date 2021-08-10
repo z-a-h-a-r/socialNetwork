@@ -3,11 +3,11 @@
 // Main
 import React, { useEffect, useState } from 'react'
 // Styles
-import st from './Users.module.scss'
+import st from './users.module.scss'
 // Components
-import UsersForm from './UsersForm/UsersForm'
+import UsersForm from './usersForm/usersForm'
 import Loading from '../common/Loading/Loading'
-import UserContainer from './User/userContainer'
+import UserContainer from './user/userContainer'
 
 // ====================================================
 // Component

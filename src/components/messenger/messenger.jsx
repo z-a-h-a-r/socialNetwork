@@ -2,10 +2,10 @@
 // IMPORTS
 // Main
 // Styles
-import st from './Messenger.module.scss'
+import st from './messenger.module.scss'
 // Components
-import MessagesContainer from './Messages/messagesContainer'
-import DialogsContainer from './Dialogs/dialogsContainer'
+import MessagesContainer from './messages/messagesContainer'
+import DialogsContainer from './dialogs/dialogsContainer'
 
 // ====================================================
 // Component

@@ -3,7 +3,7 @@
 // Main
 import { connect } from 'react-redux'
 // Components
-import CreatePost from './CreatePost'
+import CreatePost from './createPost'
 // Reducers
 import { createPost, updatePostContent } from '../../../redux/profileReducer'
 

@@ -3,7 +3,7 @@
 // Main
 import { NavLink } from 'react-router-dom'
 // Styles
-import st from './DialogLink.module.scss'
+import st from './dialogLink.module.scss'
 // Components
 
 // ====================================================

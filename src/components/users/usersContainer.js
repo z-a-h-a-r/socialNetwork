@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import { withRedirect } from '../../hoc/withRedirect'
 import { compose } from 'redux'
 // Components
-import Users from './Users'
+import Users from './users'
 // Reducers
 import { getUsers } from '../../redux/usersReducer'
 

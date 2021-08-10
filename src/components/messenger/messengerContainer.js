@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 import { compose } from 'redux'
 import { withRedirect } from '../../hoc/withRedirect'
 // Components
-import Messenger from './Messenger'
+import Messenger from './messenger'
 // Reducers
 
 // ====================================================
