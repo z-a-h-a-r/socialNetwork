@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react'
 // Styles
 import st from './Users.module.scss'
 // Components
-import FindUsersContainer from './FindUser/findUserContainer'
+import UsersForm from './UsersForm/UsersForm'
 import Loading from '../common/Loading/Loading'
 import UserContainer from './User/userContainer'
 
@@ -22,10 +22,12 @@ const Users = props => {
 	useEffect(() => {
 		props.getUsers(1)
 	}, [])
-
+	const onSubmit = formData => {
+		console.log(formData)
+	}
 	return (
 		<div className={st.users}>
-			<FindUsersContainer />
+			<UsersForm onSubmit={onSubmit} />
 			<div className={st.usersList}>
 				{props.users.map(user => (
 					<UserContainer
@@ -35,11 +37,7 @@ const Users = props => {
 						city={'user.location.city'}
 						country={'user.location.country'}
 						status={user.status != null ? user.status : 'status not found'}
-						avatarUrl={
-							user.photos.small != null
-								? user.photos.small
-								: 'https://images.unsplash.com/photo-1529068755536-a5ade0dcb4e8?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=801&q=80'
-						}
+						avatarUrl={user.photos.small}
 						followed={user.followed}
 					/>
 				))}

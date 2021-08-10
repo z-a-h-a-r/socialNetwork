@@ -4,7 +4,6 @@
 import { getProfileDataAPI, getStatusAPI, updateStatusAPI } from '../api/api'
 
 const typeCreatePost = 'CREATE-POST'
-const typeUpdatePostContent = 'UPDATE-POST-CONTENT'
 const typeSetProfile = 'SET-PROFILE'
 const typeSetStatus = 'SET-STATUS'
 
@@ -21,7 +20,6 @@ let initialState = {
 		{ content: 'postsData', sharedCount: 0, commentsCount: 0 },
 		{ content: 'postsData', sharedCount: 0, commentsCount: 0 },
 	],
-	newPostContent: '',
 }
 
 // ====================================================
@@ -35,7 +33,7 @@ const profileReducer = (state = initialState, action) => {
 				postsData: [
 					...state.postsData,
 					{
-						content: state.newPostContent,
+						...action.content,
 						sharedCount: 0,
 						commentsCount: 0,
 					},
@@ -43,12 +41,7 @@ const profileReducer = (state = initialState, action) => {
 				newPostContent: '',
 			}
 		}
-		case typeUpdatePostContent: {
-			return {
-				...state,
-				newPostContent: action.postContent,
-			}
-		}
+
 		case typeSetProfile: {
 			return {
 				...state,
@@ -74,11 +67,8 @@ const profileReducer = (state = initialState, action) => {
 // ====================================================
 // Action creators
 
-export const createPost = () => ({ type: typeCreatePost })
-export const updatePostContent = textAreaValue => ({
-	type: typeUpdatePostContent,
-	postContent: textAreaValue,
-})
+export const createPost = content => ({ type: typeCreatePost, content })
+
 export const setProfile = profile => ({
 	type: typeSetProfile,
 	profile,
@@ -98,10 +88,10 @@ export const getStatus = userId => dispatch => {
 		dispatch(setStatus(data))
 	})
 }
-export const updateStatus = (status, userId) => dispatch => {
+export const updateStatus = status => dispatch => {
 	updateStatusAPI(status).then(data => {
 		if (data.resultCode == 0) {
-			dispatch(getStatus(userId))
+			dispatch(setStatus(status))
 		} else {
 			console.error(data)
 		}

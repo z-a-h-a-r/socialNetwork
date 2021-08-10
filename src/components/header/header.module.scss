@@ -12,36 +12,23 @@ body._lock {
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
-	}
 
-	// ==========================================
+		.logo {
+			display: flex;
+			align-items: center;
 
-	.logo {
-		display: flex;
-		align-items: center;
-
-		height: 100%;
-		font-size: 16px;
-		font-weight: 600;
-		letter-spacing: 2px;
-	}
-
-	// ==========================================
-
-	.name {
-		display: flex;
-		align-items: center;
-
-		& p {
-			margin: 0 15px 0 0;
+			height: 100%;
+			font-size: 16px;
+			font-weight: 600;
+			letter-spacing: 2px;
 		}
-		.img {
-			width: 30px;
-			height: 30px;
-			background-image: url(./../../img/avatar.png);
-			background-size: cover;
-			background-position: center;
-			background-repeat: no-repeat;
+		.auth {
+			& button {
+				background: none;
+				&:hover {
+					color: rgb(163, 163, 163);
+				}
+			}
 		}
 	}
 }

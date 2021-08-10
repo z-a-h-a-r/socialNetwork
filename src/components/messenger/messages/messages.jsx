@@ -6,31 +6,15 @@ import React from 'react'
 import st from './Messages.module.scss'
 // Components
 import Message from './Message/Message'
+import MessagesForm from './MessagesForm/MessagesForm'
 
 // ====================================================
 // Component
 
 const Messages = props => {
-	let refInput = React.createRef()
-
-	const onButtonClick = () => {
-		if (refInput.current.value !== '') {
-			props.sendMessage()
-		}
+	const onSubmit = formData => {
+		props.sendMessage(formData)
 	}
-	const onEnterClick = e => {
-		if ((e.keyCode === 13) & (refInput.current.value !== '')) {
-			props.sendMessage()
-		}
-	}
-	const onInputChange = () => {
-		let inputValue = refInput.current.value
-		props.updateMessageContent(inputValue)
-	}
-	let editedMessages = props.toEdit.map(d => (
-		<Message content={d.content} id={d.id} time={d.time} />
-	))
-
 	// ===================================================
 	// html
 	return (
@@ -44,21 +28,17 @@ const Messages = props => {
 					<div className={st.about}>about</div>
 				</div>
 			</div>
-			<div className={st.messages}>{editedMessages}</div>
-			<div className={st.inputWrap}>
-				<input
-					type="text"
-					ref={refInput}
-					onChange={onInputChange}
-					value={props.newMessageContent}
-					className={st.input}
-					onKeyDown={onEnterClick}
-					placeholder="type message..."
-				/>
-				<button className={st.button} onClick={onButtonClick}>
-					send
-				</button>
+			<div className={st.messages}>
+				{props.messages.map(message => (
+					<Message
+						content={message.content}
+						id={message.id}
+						time={message.time}
+						key={Date.now}
+					/>
+				))}
 			</div>
+			<MessagesForm onSubmit={onSubmit} />
 		</div>
 	)
 }

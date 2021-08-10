@@ -1,0 +1,23 @@
+.form {
+	display: flex;
+	margin: 20px 20px 0px 20px;
+	.input {
+		flex-grow: 1;
+		background: rgba(219, 219, 219, 0.8);
+		color: rgb(61, 61, 61);
+		padding: 0px 0px 0px 8px;
+		height: 30px;
+		border-radius: 4px;
+	}
+	.button {
+		margin: 0px 0px 0px 30px;
+		padding: 0px 20px;
+		background: rgba(192, 192, 192, 0.9);
+		color: rgb(61, 61, 61);
+		height: 30px;
+		border-radius: 4px;
+		&:hover {
+			background: rgba(158, 158, 158, 0.9);
+		}
+	}
+}

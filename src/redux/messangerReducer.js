@@ -1,8 +1,10 @@
 // ====================================================
+// IMPORTS
+// Main
+// ====================================================
 // Types
 
 const typeSendMessage = 'SEND-MESSAGE'
-const typeUpdateMessageContent = 'UPDATE-MESSAGE-CONTENT'
 
 // ====================================================
 // Initial state
@@ -18,7 +20,6 @@ let initialState = {
 		{ content: 'messages', id: 1, time: '0:36' },
 		{ content: 'messages', id: 1, time: '0:08' },
 	],
-	newMessageContent: '',
 }
 
 // ====================================================
@@ -29,14 +30,10 @@ const messangerReducer = (state = initialState, action) => {
 		case typeSendMessage:
 			return {
 				...state,
-				messages: [...state.messages],
-				newMessageContent: '',
-			}
-
-		case typeUpdateMessageContent:
-			return {
-				...state,
-				newMessageContent: action.messageContent,
+				messages: [
+					...state.messages,
+					{ ...action.message, id: 2, time: '0:82' },
+				],
 			}
 
 		default:
@@ -47,11 +44,7 @@ const messangerReducer = (state = initialState, action) => {
 // ====================================================
 // Action creators
 
-export const sendMessage = () => ({ type: typeSendMessage })
-export const updateMessageContent = inputValue => ({
-	type: typeUpdateMessageContent,
-	messageContent: inputValue,
-})
+export const sendMessage = message => ({ type: typeSendMessage, message })
 
 // ====================================================
 // Exports

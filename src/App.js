@@ -2,11 +2,13 @@
 // IMPORTS
 // Main
 import 'bootstrap/dist/css/bootstrap.min.css'
-import { BrowserRouter, Route } from 'react-router-dom'
+import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import { tryLogin } from './redux/authReducer'
+import { useEffect } from 'react'
 // Styles
-import './#other/#zeroing.scss'
-import './#other/style.scss'
-import './#other/common-styles.scss'
+import './scss/#zeroing.scss'
+import './scss/style.scss'
+import './scss/common-styles.scss'
 // Components
 import Navbar from './components/Navbar/Navbar'
 import Footer from './components/Footer/Footer'
@@ -14,27 +16,38 @@ import MessengerContainer from './components/Messenger/messengerContainer'
 import ProfileContainer from './components/Profile/profileContainer'
 import UsersContainer from './components/Users/usersContainer'
 import HeaderContainer from './components/Header/headerContainer'
-import Login from './components/Login/Login'
+import LoginContainer from './components/Login/loginContainer'
 
 // ====================================================
 // Component
 
 const App = () => {
+	useEffect(() => {
+		tryLogin()
+	}, [])
 	return (
 		<BrowserRouter>
-			<HeaderContainer />
+			<Switch>
+				<Route path="/login" render={() => <LoginContainer />} />
+				<Route render={() => <AppWithLogin />} />
+			</Switch>
+		</BrowserRouter>
+	)
+}
 
+const AppWithLogin = () => {
+	return (
+		<>
+			<HeaderContainer />
 			<div className="container flex">
 				<Navbar />
 
 				<Route path="/profile/:userId?" render={() => <ProfileContainer />} />
 				<Route path="/messenger" render={() => <MessengerContainer />} />
 				<Route path="/users" render={() => <UsersContainer />} />
-				<Route path="/login" render={() => <Login />} />
 			</div>
-
 			<Footer />
-		</BrowserRouter>
+		</>
 	)
 }
 

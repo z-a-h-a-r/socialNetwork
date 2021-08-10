@@ -40,3 +40,11 @@ export const updateStatusAPI = status => {
 		.put(`profile/status`, { status })
 		.then(response => response.data)
 }
+export const loginAPI = (email, password, rememberMe = true) => {
+	return instance
+		.post(`auth/login`, { email, password, rememberMe })
+		.then(response => response.data)
+}
+export const logoutAPI = () => {
+	return instance.delete(`auth/login`).then(response => response.data)
+}

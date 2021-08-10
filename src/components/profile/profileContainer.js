@@ -8,7 +8,12 @@ import { compose } from 'redux'
 // Components
 import Profile from './Profile'
 // Reducers
-import { getStatus, getInf, updateStatus } from './../../redux/profileReducer'
+import {
+	getStatus,
+	getInf,
+	updateStatus,
+	createPost,
+} from './../../redux/profileReducer'
 
 // ====================================================
 // MSTP & MDTP
@@ -27,5 +32,5 @@ let mapStateToProps = state => ({
 export default compose(
 	withRedirect,
 	withRouter,
-	connect(mapStateToProps, { getInf, getStatus, updateStatus })
+	connect(mapStateToProps, { getInf, getStatus, updateStatus, createPost })
 )(Profile)

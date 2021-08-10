@@ -2,25 +2,20 @@
 // IMPORTS
 // Main
 import { connect } from 'react-redux'
+import { compose } from 'redux'
 // Components
-import Header from './Header'
+import Login from './Login'
 // Reducers
-import { logout } from '../../redux/authReducer'
+import { login } from './../../redux/authReducer'
 
 // ====================================================
 // MSTP & MDTP
 
 let mapStateToProps = state => ({
 	isAuth: state.auth.isAuth,
-	login: state.auth.login,
 })
 
 // ====================================================
-// Connect & withRouter
+// Compose
 
-const HeaderContainer = connect(mapStateToProps, { logout })(Header)
-
-// ====================================================
-// Exports
-
-export default HeaderContainer
+export default compose(connect(mapStateToProps, { login }))(Login)

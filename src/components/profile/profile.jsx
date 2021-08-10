@@ -7,7 +7,7 @@ import { useState } from 'react'
 import st from './Profile.module.scss'
 // Components
 import Post from './Post/Post'
-import CreatePostContainer from './CreatePost/createPostContainer'
+import CreatePostForm from './CreatePost/CreatePostForm'
 
 // ====================================================
 // Component
@@ -21,26 +21,37 @@ const Profile = props => {
 	// ====================================================
 	// Hooks
 	useEffect(() => {
-		if (!props.match.params.userId) {
-			props.getInf(props.userId)
-		} else {
-			props.getInf(props.match.params.userId)
+		function getInfInUseEffect(func) {
+			if (!props.match.params.userId) {
+				props.getInf(props.userId)
+			} else {
+				props.getInf(props.match.params.userId)
+			}
+			func()
 		}
-
 		// ====================================================
 
-		props.getStatus(props.userId)
+		function getStatusInUseEffect() {
+			props.getStatus(props.userId)
+		}
+		// ====================================================
+
+		getInfInUseEffect(getStatusInUseEffect)
 	}, [])
 
 	// ====================================================
 	// Functions
 
 	function onInputBlur() {
-		props.updateStatus(inputValue, props.userId)
+		props.updateStatus(inputValue)
 		setEditMode((editMode = false))
 	}
 	function onInputChange(e) {
 		setInputValue(e.currentTarget.value)
+	}
+	const onSubmit = formData => {
+		console.log(formData)
+		props.createPost(formData)
 	}
 
 	// ====================================================
@@ -87,8 +98,11 @@ const Profile = props => {
 			</div>
 
 			<div className={st.posts}>
-				<CreatePostContainer />
+				<div className={st.createPost}>
+					<div className={st.formTitle}>Create new post</div>
 
+					<CreatePostForm onSubmit={onSubmit} />
+				</div>
 				<h1 className={st.title}>Posts</h1>
 				<div className={st.list}>
 					{props.toEdit.map(p => (

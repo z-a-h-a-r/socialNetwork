@@ -1,54 +1,38 @@
-import profileReducer from './profileReducer'
+// ====================================================
+// Imports
+// Main
+import { applyMiddleware, combineReducers, compose, createStore } from 'redux'
+import thunk from 'redux-thunk'
+import { reducer as formReducer } from 'redux-form'
+// Reducers
+import authReducer from './authReducer'
 import messangerReducer from './messangerReducer'
+import profileReducer from './profileReducer'
+import usersReducer from './usersReducer'
 
 // ====================================================
+// CombineReducers
 
-let store = {
-	_state: {
-		profilePage: {
-			postsData: [
-				{ content: 'postsData', sharedCount: 0, commentsCount: 0 },
-				{ content: 'postsData', sharedCount: 0, commentsCount: 0 },
-			],
-			newPostContent: '',
-		},
-		messangerPage: {
-			dialogsLinksData: [
-				{ name: 'name - 1', id: 1 },
-				{ name: 'name - 2', id: 2 },
-				{ name: 'na', id: 3 },
-				{ name: 'name - 4', id: 4 },
-			],
-			messages: [
-				{ content: 'messages', id: 1, time: '0:36' },
-				{ content: 'messages', id: 1, time: '0:08' },
-			],
-			newMessageContent: '',
-		},
-	},
-	_callSubscriber() {},
-
-	// ====================================================
-
-	dispatch(action) {
-		this._state.profilePage = profileReducer(this._state.profilePage, action)
-		this._state.messangerReducer = messangerReducer(
-			this._state.messangerPage,
-			action
-		)
-		this._callSubscriber()
-	},
-
-	// ====================================================
-
-	getState() {
-		return this._state
-	},
-	subscribe(observer) {
-		this._callSubscriber = observer
-	},
-}
+let reducers = combineReducers({
+	messangerPage: messangerReducer,
+	profilePage: profileReducer,
+	userPage: usersReducer,
+	auth: authReducer,
+	form: formReducer,
+})
 
 // ====================================================
-window.store = store
+// Store
+
+let store = createStore(
+	reducers,
+	compose(
+		applyMiddleware(thunk),
+		window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+	)
+)
+
+// ====================================================
+// Exports
+
 export default store

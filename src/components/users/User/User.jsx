@@ -10,11 +10,49 @@ import st from './User.module.scss'
 // Component
 
 const User = props => {
+	const colorsForAvatars = [
+		'#003B46',
+		'#5C0DAC',
+		'#3A0470',
+		'#9F69D6',
+		'#080B74',
+		'#7375D8',
+		'#1A1EB2',
+		'#389E28',
+		'#52E93A',
+		'#7AE969',
+		'#9EA400',
+		'#B8BE2F',
+		'#A67600',
+		'#BF9630',
+		'#FFB600',
+		'#A40004',
+		'#FD0006',
+		'#65016C',
+		'#77207D',
+	]
+	function getRandomIntInclusive(min, max) {
+		min = Math.ceil(min)
+		max = Math.floor(max)
+		return Math.floor(Math.random() * (max - min + 1)) + min
+	}
 	return (
 		<div className={st.user}>
 			<div className={st.avatarWrapper}>
 				<NavLink to={`/profile/${props.id}`}>
-					<img src={props.avatarUrl} alt="" className={st.avatar} />
+					{props.avatarUrl && (
+						<img src={props.avatarUrl} alt="" className={st.avatarImage} />
+					)}
+					{!props.avatarUrl && (
+						<div
+							className={st.avatarDiv}
+							style={{
+								background: `${colorsForAvatars[getRandomIntInclusive(0, 18)]}`,
+							}}
+						>
+							{props.name.substr(0, 1).toUpperCase()}
+						</div>
+					)}
 				</NavLink>
 			</div>
 

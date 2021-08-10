@@ -1,8 +1,11 @@
 // ====================================================
+// IMPORTS
+// Main
+import { tryLoginAPI, loginAPI, logoutAPI } from '../api/api'
+import { stopSubmit } from 'redux-form'
+
+// ====================================================
 // Types
-
-import { tryLoginAPI } from '../api/api'
-
 const typeSetAuthUserData = 'SET-AUTH-USER-DATA'
 
 // ====================================================
@@ -24,7 +27,6 @@ const authReducer = (state = initialState, action) => {
 			return {
 				...state,
 				...action.data,
-				isAuth: true,
 			}
 
 		default:
@@ -35,15 +37,36 @@ const authReducer = (state = initialState, action) => {
 // ====================================================
 // Action creators
 
-export const setAuthUserData = (id, email, login) => ({
+export const setAuthUserData = (id, email, login, isAuth) => ({
 	type: typeSetAuthUserData,
-	data: { id, email, login },
+	data: { id, email, login, isAuth },
 })
 export const tryLogin = () => dispatch => {
 	tryLoginAPI().then(data => {
 		if (data.resultCode === 0) {
 			let { id, email, login } = data.data
-			dispatch(setAuthUserData(id, email, login))
+			dispatch(setAuthUserData(id, email, login, true))
+		}
+	})
+}
+
+export const login = (email, password, rememberMe) => dispatch => {
+	loginAPI(email, password, rememberMe).then(data => {
+		if (data.resultCode === 0) {
+			dispatch(tryLogin())
+		} else {
+			dispatch(
+				stopSubmit('login', {
+					_error: data.messages ? data.messages : 'some error',
+				})
+			)
+		}
+	})
+}
+export const logout = () => dispatch => {
+	logoutAPI().then(data => {
+		if (data.resultCode === 0) {
+			dispatch(setAuthUserData(null, null, null, false))
 		}
 	})
 }
