@@ -1,7 +1,10 @@
 // ====================================================
 // IMPORTS
 // Main
+import { useEffect } from 'react'
+import { useState } from 'react'
 import { NavLink } from 'react-router-dom'
+import { getRandomIntInclusive } from './../../../commonFunctions/getRandomIntInclusive'
 // Styles
 import st from './user.module.scss'
 // Components
@@ -10,6 +13,9 @@ import st from './user.module.scss'
 // Component
 
 const User = props => {
+	useEffect(() => {
+		setIndexAvatarBg((indexAvatarBg = getRandomIntInclusive(0, 18)))
+	}, [])
 	const colorsForAvatars = [
 		'#003B46',
 		'#5C0DAC',
@@ -31,11 +37,7 @@ const User = props => {
 		'#65016C',
 		'#77207D',
 	]
-	function getRandomIntInclusive(min, max) {
-		min = Math.ceil(min)
-		max = Math.floor(max)
-		return Math.floor(Math.random() * (max - min + 1)) + min
-	}
+	let [indexAvatarBg, setIndexAvatarBg] = useState(1)
 	return (
 		<div className={st.user}>
 			<div className={st.avatarWrapper}>
@@ -47,7 +49,7 @@ const User = props => {
 						<div
 							className={st.avatarDiv}
 							style={{
-								background: `${colorsForAvatars[getRandomIntInclusive(0, 18)]}`,
+								background: `${colorsForAvatars[indexAvatarBg]}`,
 							}}
 						>
 							{props.name.substr(0, 1).toUpperCase()}
@@ -80,7 +82,7 @@ const User = props => {
 					<button
 						disabled={props.followingIsFetching.some(id => id === props.id)}
 						onClick={() => {
-							props.unFollow(props.id)
+							props.toggleFollowState(props.id, false)
 						}}
 					>
 						unfollow
@@ -89,7 +91,7 @@ const User = props => {
 					<button
 						disabled={props.followingIsFetching.some(id => id === props.id)}
 						onClick={() => {
-							props.follow(props.id)
+							props.toggleFollowState(props.id, true)
 						}}
 					>
 						follow

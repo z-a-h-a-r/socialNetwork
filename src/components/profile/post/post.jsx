@@ -16,11 +16,23 @@ const Post = props => {
 				<div className={st.name}>Tyler</div>
 				<div className={st.time}>ago</div>
 			</div>
-			<p className={st.content}>{props.content}</p>
+			<div className={st.content}>
+				<div className={st.shadow}></div>
+				<p>{props.content}</p>
+			</div>
 			<div className={st.footer}>
-				<div className={st.like}></div>
-				<div className={st.comments}>{props.commentsCount} comments</div>
-				<div className={st.shared}>{props.sharedCount} shared</div>
+				<p
+					className={st.delete}
+					onClick={() => {
+						props.deletePost(props.postId)
+					}}
+				>
+					delete
+				</p>
+				<div className={st.info}>
+					<div className={st.comments}>{props.commentsCount} comments</div>
+					<div className={st.shared}>{props.sharedCount} shared</div>
+				</div>
 			</div>
 		</div>
 	)

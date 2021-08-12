@@ -5,7 +5,7 @@ import { connect } from 'react-redux'
 // Components
 import User from './user'
 // Reducers
-import { follow, unFollow } from '../../../redux/usersReducer'
+import { toggleFollowState } from '../../../redux/usersReducer'
 
 // ====================================================
 // MSTP & MDTP
@@ -19,8 +19,7 @@ let mapStateToProps = state => ({
 // Connect & withRouter
 
 const UserContainer = connect(mapStateToProps, {
-	follow,
-	unFollow,
+	toggleFollowState,
 })(User)
 
 // ====================================================

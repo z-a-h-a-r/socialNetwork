@@ -3,7 +3,6 @@
 // Main
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router-dom'
-import { withRedirect } from '../../hoc/withRedirect'
 import { compose } from 'redux'
 // Components
 import Profile from './profile'
@@ -13,13 +12,14 @@ import {
 	getInf,
 	updateStatus,
 	createPost,
+	deletePost,
 } from './../../redux/profileReducer'
 
 // ====================================================
 // MSTP & MDTP
 
 let mapStateToProps = state => ({
-	toEdit: state.profilePage.postsData,
+	postsData: state.profilePage.postsData,
 	aboutMe: state.profilePage.profile.aboutMe,
 	fullName: state.profilePage.profile.fullName,
 	largePhoto: state.profilePage.profile.photos.large,
@@ -30,7 +30,12 @@ let mapStateToProps = state => ({
 // Compose
 
 export default compose(
-	withRedirect,
 	withRouter,
-	connect(mapStateToProps, { getInf, getStatus, updateStatus, createPost })
+	connect(mapStateToProps, {
+		getInf,
+		getStatus,
+		updateStatus,
+		createPost,
+		deletePost,
+	})
 )(Profile)

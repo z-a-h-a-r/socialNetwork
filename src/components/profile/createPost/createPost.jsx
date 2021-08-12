@@ -9,7 +9,7 @@ import st from './createPost.module.scss'
 // Components
 import { Element } from '../../common/FormsControls/FormsControls'
 
-const maxLength1 = maxLength(1)
+const maxLength1 = maxLength(100)
 const Textarea = Element('input')
 // ====================================================
 // Component

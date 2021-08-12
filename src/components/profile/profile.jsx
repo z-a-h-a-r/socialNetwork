@@ -1,13 +1,13 @@
 // ====================================================
 // IMPORTS
 // Main
-import { useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { useState } from 'react'
 // Styles
 import st from './profile.module.scss'
 // Components
 import Post from './post/post'
-import CreatePostForm from './createPost/createPost'
+import CreatePost from './createPost/createPost'
 
 // ====================================================
 // Component
@@ -50,7 +50,6 @@ const Profile = props => {
 		setInputValue(e.currentTarget.value)
 	}
 	const onSubmit = formData => {
-		console.log(formData)
 		props.createPost(formData)
 	}
 
@@ -101,16 +100,18 @@ const Profile = props => {
 				<div className={st.createPost}>
 					<div className={st.formTitle}>Create new post</div>
 
-					<CreatePostForm onSubmit={onSubmit} />
+					<CreatePost onSubmit={onSubmit} />
 				</div>
 				<h1 className={st.title}>Posts</h1>
 				<div className={st.list}>
-					{props.toEdit.map(p => (
+					{props.postsData.map(p => (
 						<Post
 							content={p.content}
 							sharedCount={p.sharedCount}
 							commentsCount={p.commentsCount}
-							key={Date.now}
+							key={p.postId}
+							postId={p.postId}
+							deletePost={props.deletePost}
 						/>
 					))}
 				</div>

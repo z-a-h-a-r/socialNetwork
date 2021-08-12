@@ -1,7 +1,7 @@
 // ====================================================
 // IMPORTS
 // Main
-import { tryLoginAPI, loginAPI, logoutAPI } from '../api/api'
+import { authAPI } from '../api/authAPI'
 import { stopSubmit } from 'redux-form'
 
 // ====================================================
@@ -42,7 +42,7 @@ export const setAuthUserData = (id, email, login, isAuth) => ({
 	data: { id, email, login, isAuth },
 })
 export const tryLogin = () => dispatch => {
-	tryLoginAPI().then(data => {
+	authAPI.tryLoginAPI().then(data => {
 		if (data.resultCode === 0) {
 			let { id, email, login } = data.data
 			dispatch(setAuthUserData(id, email, login, true))
@@ -51,8 +51,9 @@ export const tryLogin = () => dispatch => {
 }
 
 export const login = (email, password, rememberMe) => dispatch => {
-	loginAPI(email, password, rememberMe).then(data => {
+	authAPI.loginAPI(email, password, rememberMe).then(data => {
 		if (data.resultCode === 0) {
+			debugger
 			dispatch(tryLogin())
 		} else {
 			dispatch(
@@ -64,7 +65,7 @@ export const login = (email, password, rememberMe) => dispatch => {
 	})
 }
 export const logout = () => dispatch => {
-	logoutAPI().then(data => {
+	authAPI.logoutAPI().then(data => {
 		if (data.resultCode === 0) {
 			dispatch(setAuthUserData(null, null, null, false))
 		}

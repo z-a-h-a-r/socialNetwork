@@ -1,16 +1,15 @@
 // ====================================================
 // IMPORTS
 // Main
-import { getUsersAPI, unfollowAPI } from '../api/api'
+import { usersAPI } from '../api/usersAPI'
 
 // ====================================================
 // Types
 
-const typeFollow = 'FOLLOW'
-const typeUnFollow = 'UNFOLLOW'
 const typeSetUsers = 'SET-USERS'
 const typeSetUsersIsFetching = 'SET-USERS-IS-FETCHING'
 const typeSetFollowingIsFetching = 'SET-FOLLOWING-IS-FETCHING'
+const typeToggleFollowState = 'TOGGLE-FOLLOWING-STATE'
 
 // ====================================================
 // Initial state
@@ -26,24 +25,12 @@ let initialState = {
 
 const usersReducer = (state = initialState, action) => {
 	switch (action.type) {
-		case typeFollow:
+		case typeToggleFollowState:
 			return {
 				...state,
 				users: state.users.map(user => {
 					if (user.id === action.id) {
-						return { ...user, followed: true }
-					} else {
-						return user
-					}
-				}),
-			}
-
-		case typeUnFollow:
-			return {
-				...state,
-				users: state.users.map(user => {
-					if (user.id === action.id) {
-						return { ...user, followed: false }
+						return { ...user, followed: action.nextFollowState }
 					} else {
 						return user
 					}
@@ -78,8 +65,11 @@ const usersReducer = (state = initialState, action) => {
 // ====================================================
 // Action creators
 
-export const followSuccess = id => ({ type: typeFollow, id })
-export const unFollowSuccess = id => ({ type: typeUnFollow, id })
+export const toggleFollowStateSuccess = (id, nextFollowState) => ({
+	type: typeToggleFollowState,
+	id,
+	nextFollowState,
+})
 export const setUsers = users => ({ type: typeSetUsers, users })
 export const setUsersIsFetching = boolean => ({
 	type: typeSetUsersIsFetching,
@@ -90,27 +80,28 @@ export const setFollowingIsFetching = (boolean, id) => ({
 	boolean,
 	id,
 })
+
+// ====================================================
+// Thunks
 export const getUsers = i => dispatch => {
 	dispatch(setUsersIsFetching(true))
-	getUsersAPI(i).then(data => {
+	usersAPI.getUsersAPI(i).then(data => {
 		dispatch(setUsersIsFetching(false))
 		dispatch(setUsers(data.items))
 	})
 }
-export const unFollow = userId => dispatch => {
-	dispatch(setFollowingIsFetching(true, userId))
-	unfollowAPI(userId).then(data => {
-		dispatch(unFollowSuccess(userId))
-		dispatch(setFollowingIsFetching(false, userId))
-	})
-}
-export const follow = userId => dispatch => {
-	dispatch(setFollowingIsFetching(true, userId))
-	unfollowAPI(userId).then(data => {
-		dispatch(followSuccess(userId))
-		dispatch(setFollowingIsFetching(false, userId))
-	})
-}
+export const toggleFollowState =
+	(userId, nextFollowState) => async dispatch => {
+		dispatch(setFollowingIsFetching(true, userId))
+
+		let data = await usersAPI.toggleFollowAPI(userId, nextFollowState)
+
+		if (data.resultCode === 0) {
+			dispatch(toggleFollowStateSuccess(userId, nextFollowState))
+			dispatch(setFollowingIsFetching(false, userId))
+		}
+	}
+
 // ====================================================
 // Exports
 

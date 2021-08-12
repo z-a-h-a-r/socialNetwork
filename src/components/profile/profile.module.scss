@@ -100,9 +100,6 @@
 	}
 	.list {
 		margin-top: 30px;
-		display: grid;
-		gap: 20px;
-		grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
 	}
 	.formTitle {
 		font-size: 30px;

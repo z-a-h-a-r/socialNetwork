@@ -2,7 +2,6 @@
 // IMPORTS
 // Main
 import { connect } from 'react-redux'
-import { withRedirect } from '../../hoc/withRedirect'
 import { compose } from 'redux'
 // Components
 import Users from './users'
@@ -20,7 +19,4 @@ let mapStateToProps = state => ({
 // ====================================================
 // Compose
 
-export default compose(
-	withRedirect,
-	connect(mapStateToProps, { getUsers })
-)(Users)
+export default compose(connect(mapStateToProps, { getUsers }))(Users)
