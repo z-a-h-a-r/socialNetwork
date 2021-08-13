@@ -21,14 +21,17 @@ const Post = props => {
 				<p>{props.content}</p>
 			</div>
 			<div className={st.footer}>
-				<p
-					className={st.delete}
-					onClick={() => {
-						props.deletePost(props.postId)
-					}}
-				>
-					delete
-				</p>
+				{props.isMyProfile && (
+					<p
+						className={st.delete}
+						onClick={() => {
+							props.deletePost(props.postId)
+						}}
+					>
+						delete
+					</p>
+				)}
+
 				<div className={st.info}>
 					<div className={st.comments}>{props.commentsCount} comments</div>
 					<div className={st.shared}>{props.sharedCount} shared</div>

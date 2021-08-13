@@ -41,7 +41,6 @@ export const setInitialize = boolean => ({
 export const initialize = () => dispatch => {
 	let promise = dispatch(tryLogin())
 	Promise.all([promise]).then(() => {
-		console.log('promise')
 		dispatch(setInitialize(true))
 	})
 }

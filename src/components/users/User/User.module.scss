@@ -41,6 +41,11 @@
 			font-size: 15px;
 			font-weight: 600;
 			margin: 0;
+			color: rgb(184, 184, 184);
+
+			&:hover {
+				color: white;
+			}
 		}
 		.status {
 			color: rgb(184, 184, 184);

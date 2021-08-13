@@ -17,17 +17,27 @@ const Profile = props => {
 	// Local state
 	let [editMode, setEditMode] = useState(false)
 	let [inputValue, setInputValue] = useState('')
+	let [isMyProfile, setIsMyProfile] = useState(false)
 
 	// ====================================================
 	// Hooks
 	useEffect(() => {
+		if (props.match.params.userId) {
+			setIsMyProfile((isMyProfile = false))
+			console.log(isMyProfile)
+		} else {
+			setIsMyProfile((isMyProfile = true))
+			console.log(isMyProfile)
+		}
+		// ====================================================
+
 		function getInfInUseEffect(func) {
 			if (!props.match.params.userId) {
 				props.getInf(props.userId)
+				func()
 			} else {
 				props.getInf(props.match.params.userId)
 			}
-			func()
 		}
 		// ====================================================
 
@@ -72,7 +82,7 @@ const Profile = props => {
 					{props.fullName != null ? props.fullName : 'Name not found'}
 				</p>
 				<div className={st.status}>
-					{!editMode && (
+					{isMyProfile && !editMode && (
 						<p
 							className={st.status__text}
 							onDoubleClick={() => {
@@ -92,17 +102,26 @@ const Profile = props => {
 							onBlur={onInputBlur}
 						/>
 					)}
+					{!isMyProfile && <p>{props.aboutMe || 'status not found'}</p>}
 				</div>
 				<div className={st.otherInfo}></div>
 			</div>
 
 			<div className={st.posts}>
-				<div className={st.createPost}>
-					<div className={st.formTitle}>Create new post</div>
+				{isMyProfile && (
+					<div className={st.createPost}>
+						<div className={st.formTitle}>Create new post</div>
 
-					<CreatePost onSubmit={onSubmit} />
-				</div>
-				<h1 className={st.title}>Posts</h1>
+						<CreatePost onSubmit={onSubmit} />
+					</div>
+				)}
+
+				{isMyProfile && (
+					<h1 className={st.title} style={{ marginTop: '60px' }}>
+						Posts
+					</h1>
+				)}
+				{!isMyProfile && <h1 className={st.title}>Posts</h1>}
 				<div className={st.list}>
 					{props.postsData.map(p => (
 						<Post
@@ -112,6 +131,7 @@ const Profile = props => {
 							key={p.postId}
 							postId={p.postId}
 							deletePost={props.deletePost}
+							isMyProfile={isMyProfile}
 						/>
 					))}
 				</div>
