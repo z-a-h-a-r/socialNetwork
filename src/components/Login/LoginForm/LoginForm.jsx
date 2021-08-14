@@ -25,7 +25,23 @@ const LoginFormWithoutRedux = props => {
 				name={'password'}
 				component={Input}
 			/>
-			<button>login</button>
+			{props.captchaUrl && (
+				<div>
+					<Field
+						type={'text'}
+						placeholder={'captcha'}
+						name={'captcha'}
+						component={Input}
+					/>
+					<img src={props.captchaUrl} className={st.captcha} />
+				</div>
+			)}
+			{props.captchaUrl ? (
+				<button style={{ marginTop: '30px' }}>login</button>
+			) : (
+				<button>login</button>
+			)}
+
 			{props.error && <span className={st.span}> {props.error} </span>}
 		</form>
 	)

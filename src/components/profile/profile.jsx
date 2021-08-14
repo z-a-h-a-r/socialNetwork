@@ -8,6 +8,7 @@ import st from './profile.module.scss'
 // Components
 import Post from './post/post'
 import CreatePost from './createPost/createPost'
+import AvatarContainer from './avatar/avatarContainer'
 
 // ====================================================
 // Component
@@ -15,38 +16,34 @@ import CreatePost from './createPost/createPost'
 const Profile = props => {
 	// ====================================================
 	// Local state
-	let [editMode, setEditMode] = useState(false)
 	let [inputValue, setInputValue] = useState('')
+	let [editMode, setEditMode] = useState(false)
 	let [isMyProfile, setIsMyProfile] = useState(false)
 
 	// ====================================================
 	// Hooks
 	useEffect(() => {
-		if (props.match.params.userId) {
-			setIsMyProfile((isMyProfile = false))
-			console.log(isMyProfile)
-		} else {
-			setIsMyProfile((isMyProfile = true))
-			console.log(isMyProfile)
-		}
-		// ====================================================
-
-		function getInfInUseEffect(func) {
+		new Promise(function (resolve, reject) {
 			if (!props.match.params.userId) {
-				props.getInf(props.userId)
-				func()
+				resolve(props.getInf(props.userId))
 			} else {
-				props.getInf(props.match.params.userId)
+				resolve(props.getInf(props.match.params.userId))
 			}
-		}
-		// ====================================================
-
-		function getStatusInUseEffect() {
-			props.getStatus(props.userId)
-		}
-		// ====================================================
-
-		getInfInUseEffect(getStatusInUseEffect)
+		})
+			.then(function () {
+				if (props.match.params.userId) {
+					setIsMyProfile((isMyProfile = false))
+				} else {
+					setIsMyProfile((isMyProfile = true))
+				}
+			})
+			.then(function () {
+				if (!props.match.params.userId) {
+					props.getStatus(props.userId)
+				} else {
+					props.getStatus(props.match.params.userId)
+				}
+			})
 	}, [])
 
 	// ====================================================
@@ -65,19 +62,14 @@ const Profile = props => {
 
 	// ====================================================
 	// JSX
+
 	return (
 		<div className={st.profile}>
 			<div className={st.background}></div>
 
 			<div className={st.mainInfo}>
-				<img
-					className={st.avatar}
-					src={
-						props.largePhoto != null
-							? props.largePhoto
-							: 'https://images.unsplash.com/photo-1529068755536-a5ade0dcb4e8?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=801&q=80'
-					}
-				></img>
+				<AvatarContainer isMyProfile={isMyProfile} />
+
 				<p className={st.name}>
 					{props.fullName != null ? props.fullName : 'Name not found'}
 				</p>

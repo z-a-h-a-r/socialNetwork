@@ -29,4 +29,11 @@ export const profileAPI = {
 			.put(`profile/status`, { status })
 			.then(response => response.data)
 	},
+	saveAvatarAPI: file => {
+		let formData = new FormData()
+		formData.append('image', file)
+		return instance
+			.put(`profile/photo`, formData)
+			.then(response => response.data)
+	},
 }

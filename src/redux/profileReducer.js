@@ -2,11 +2,11 @@
 // Types
 
 import { profileAPI } from '../api/profileAPI'
-import { getRandomIntInclusive } from './../commonFunctions/getRandomIntInclusive'
 const typeCreatePost = 'CREATE-POST'
 const typeSetProfile = 'SET-PROFILE'
 const typeSetStatus = 'SET-STATUS'
 const typeDeletePost = 'DELETE-POST'
+const typeSaveAvatarSucess = 'SAVE-AVATAR-SUCESS'
 
 // ====================================================
 // Initial state
@@ -69,6 +69,13 @@ const profileReducer = (state = initialState, action) => {
 				postsData: state.postsData.filter(p => p.postId != action.postId),
 			}
 		}
+		case typeSaveAvatarSucess: {
+			return {
+				...state,
+				...state.photos,
+				photos: { large: action.file },
+			}
+		}
 		default:
 			return state
 	}
@@ -91,6 +98,7 @@ export const deletePost = postId => ({
 	type: typeDeletePost,
 	postId,
 })
+export const saveAvatarSucess = file => ({ type: typeSaveAvatarSucess, file })
 // ====================================================
 // Thunks
 
@@ -108,6 +116,16 @@ export const updateStatus = status => dispatch => {
 	profileAPI.updateStatusAPI(status).then(data => {
 		if (data.resultCode == 0) {
 			dispatch(setStatus(status))
+		} else {
+			console.error(data)
+		}
+	})
+}
+
+export const saveAvatar = (file, userId) => dispatch => {
+	profileAPI.saveAvatarAPI(file).then(data => {
+		if (data.resultCode === 0) {
+			dispatch(getInf(userId))
 		} else {
 			console.error(data)
 		}

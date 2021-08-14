@@ -2,21 +2,26 @@
 // IMPORTS
 // Main
 import { connect } from 'react-redux'
+import { withRouter } from 'react-router-dom'
 import { compose } from 'redux'
 // Components
-import Login from './login'
+import Avatar from './avatar'
 // Reducers
-import { login, getCaptcha } from '../../redux/authReducer'
+import { saveAvatar } from '../../../redux/profileReducer'
 
 // ====================================================
 // MSTP & MDTP
 
 let mapStateToProps = state => ({
-	isAuth: state.auth.isAuth,
-	captchaUrl: state.auth.captchaUrl,
+	fullName: state.profilePage.profile.fullName,
+	largePhoto: state.profilePage.profile.photos.large,
+	userId: state.auth.id,
 })
 
 // ====================================================
 // Compose
 
-export default compose(connect(mapStateToProps, { login, getCaptcha }))(Login)
+export default compose(
+	withRouter,
+	connect(mapStateToProps, { saveAvatar })
+)(Avatar)

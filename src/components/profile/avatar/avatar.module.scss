@@ -1,0 +1,83 @@
+.avatarWrapper {
+	width: 100px;
+	height: 100px;
+	position: relative;
+	display: block;
+
+	.avatarImage {
+		border-radius: 50%;
+		height: 100%;
+		width: 100%;
+		position: absolute;
+		top: 0;
+		left: 0;
+		object-fit: cover;
+		cursor: pointer;
+	}
+
+	.avatarDiv {
+		cursor: pointer;
+		user-select: none;
+		border-radius: 50%;
+		height: 100%;
+		width: 100%;
+		position: absolute;
+		top: 0;
+		left: 0;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-size: 40px;
+	}
+}
+
+// ====================================================
+
+.downloadWrrapper {
+	z-index: 10;
+	top: 0;
+	left: 0;
+	position: fixed;
+	width: 100%;
+	height: 100vh;
+	background: rgba(0, 0, 0, 0.8);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+
+	.download {
+		cursor: pointer;
+		width: 180px;
+		height: 34px;
+		overflow: hidden;
+		padding: 0;
+		margin: 0;
+
+		&:before {
+			width: 180px;
+			height: 32px;
+			font-size: 16px;
+			line-height: 32px;
+			content: 'Select your file';
+			display: inline-block;
+			background: #27282c;
+			border: 1px solid rgb(255, 255, 255);
+			text-align: center;
+			font-family: Helvetica, Arial, sans-serif;
+		}
+
+		&::-webkit-file-upload-button {
+			visibility: hidden;
+		}
+	}
+	& p {
+		margin-top: 20px;
+		cursor: pointer;
+		user-select: none;
+		font-size: 18px;
+		&:hover {
+			color: rgb(153, 153, 153);
+		}
+	}
+}

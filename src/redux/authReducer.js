@@ -3,10 +3,12 @@
 // Main
 import { authAPI } from '../api/authAPI'
 import { stopSubmit } from 'redux-form'
+import { securityAPI } from '../api/security'
 
 // ====================================================
 // Types
 const typeSetAuthUserData = 'SET-AUTH-USER-DATA'
+const typeGetCaptchaSucess = 'GET-CAPTCHA-SUCESS'
 
 // ====================================================
 // Initial state
@@ -16,6 +18,7 @@ let initialState = {
 	email: null,
 	login: null,
 	isAuth: false,
+	captchaUrl: null,
 }
 
 // ====================================================
@@ -27,6 +30,12 @@ const authReducer = (state = initialState, action) => {
 			return {
 				...state,
 				...action.data,
+			}
+
+		case typeGetCaptchaSucess:
+			return {
+				...state,
+				captchaUrl: action.url,
 			}
 
 		default:
@@ -41,6 +50,14 @@ export const setAuthUserData = (id, email, login, isAuth) => ({
 	type: typeSetAuthUserData,
 	data: { id, email, login, isAuth },
 })
+export const getCaptchaSucess = url => ({
+	type: typeGetCaptchaSucess,
+	url,
+})
+
+// ====================================================
+// Thunks
+
 export const tryLogin = () => dispatch => {
 	authAPI.tryLoginAPI().then(data => {
 		if (data.resultCode === 0) {
@@ -49,13 +66,17 @@ export const tryLogin = () => dispatch => {
 		}
 	})
 }
-
-export const login = (email, password, rememberMe) => dispatch => {
-	authAPI.loginAPI(email, password, rememberMe).then(data => {
+export const login = (email, password, rememberMe, captcha) => dispatch => {
+	authAPI.loginAPI(email, password, rememberMe, captcha).then(data => {
 		if (data.resultCode === 0) {
 			debugger
 			dispatch(tryLogin())
 		} else {
+			if (data.resultCode === 10) {
+				debugger
+
+				dispatch(getCaptcha())
+			}
 			dispatch(
 				stopSubmit('login', {
 					_error: data.messages ? data.messages : 'some error',
@@ -71,6 +92,12 @@ export const logout = () => dispatch => {
 		}
 	})
 }
+export const getCaptcha = () => dispatch => {
+	securityAPI.getCaptchaAPI().then(data => {
+		dispatch(getCaptchaSucess(data.url))
+	})
+}
+
 // ====================================================
 // Exports
 
