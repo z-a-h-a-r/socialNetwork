@@ -2,11 +2,11 @@
 // IMPORTS
 // Main
 import 'bootstrap/dist/css/bootstrap.min.css'
-import { BrowserRouter, Route, Router, Switch } from 'react-router-dom'
+import { Redirect, Route, Switch } from 'react-router-dom'
 import { initialize } from './redux/appReducer'
-import { useEffect } from 'react'
+import { lazy, useEffect } from 'react'
 import { connect } from 'react-redux'
-import React, { Suspense, lazy } from 'react'
+import React, { Suspense } from 'react'
 // Styles
 import './scss/#zeroing.scss'
 import './scss/style.scss'
@@ -14,17 +14,13 @@ import './scss/common-styles.scss'
 // Components
 import Navbar from './components/navbar/navbar'
 import Footer from './components/footer/footer'
-import HeaderContainer from './components/header/headerContainer'
-import LoginContainer from './components/login/loginContainer'
+import Header from './components/header/headerContainer'
+import Login from './components/login/loginContainer'
 import Loading from './components/common/Loading/Loading'
 // Pages components
-const UsersContainer = React.lazy(() =>
-	import('./components/users/usersContainer')
-)
-const ProfileContainer = React.lazy(() =>
-	import('./components/profile/profileContainer')
-)
-const MessengerContainer = React.lazy(() =>
+const Users = lazy(() => import('./components/users/usersContainer'))
+const Profile = lazy(() => import('./components/profile/profileContainer'))
+const Messenger = lazy(() =>
 	import('./components/messenger/messengerContainer')
 )
 
@@ -40,12 +36,12 @@ const App = props => {
 		return <Loading />
 	} else {
 		return (
-			<BrowserRouter>
+			<>
 				{!props.isAuth ? (
-					<LoginContainer />
+					<Login />
 				) : (
 					<>
-						<HeaderContainer />
+						<Header />
 						<div className="container flex">
 							<Navbar />
 
@@ -53,22 +49,19 @@ const App = props => {
 								<Switch>
 									<Route
 										path="/profile/:userId?"
-										render={() => (
-											<ProfileContainer key={window.location.pathname} />
-										)}
+										render={() => <Profile key={window.location.pathname} />}
 									/>
-									<Route
-										path="/messenger"
-										render={() => <MessengerContainer />}
-									/>
-									<Route path="/users" render={() => <UsersContainer />} />
+									<Route path="/messenger" render={() => <Messenger />} />
+									<Route path="/users" render={() => <Users />} />
+									<Route path="*" render={() => <p>Page not found (404)</p>} />
+									<Redirect from="/" to="/profile" />
 								</Switch>
 							</Suspense>
 						</div>
 						<Footer />
 					</>
 				)}
-			</BrowserRouter>
+			</>
 		)
 	}
 }
@@ -78,38 +71,6 @@ let mapStateToProps = state => ({
 	initialized: state.app.initialized,
 })
 
-// const App = props => {
-// 	useEffect(() => {
-// 		props.initialize()
-// 	}, [])
-// 	if (!props.initialized) {
-// 		return <Loading />
-// 	}
-// 	return (
-// 		<BrowserRouter>
-// 			<Switch>
-// 				<Route path="/login" render={() => <LoginContainer />} />
-// 				<Route render={() => <AppWithLogin />} />
-// 			</Switch>
-// 		</BrowserRouter>
-// 	)
-// }
-
-// const AppWithLogin = () => {
-// 	return (
-// 		<>
-// 			<HeaderContainer />
-// 			<div className="container flex">
-// 				<Navbar />
-
-// 				<Route path="/profile/:userId?" render={() => <ProfileContainer />} />
-// 				<Route path="/messenger" render={() => <MessengerContainer />} />
-// 				<Route path="/users" render={() => <UsersContainer />} />
-// 			</div>
-// 			<Footer />
-// 		</>
-// 	)
-// }
 // ====================================================
 // Exports
 

@@ -9,14 +9,10 @@
 
 	.author {
 		color: rgb(129, 129, 129);
-
 		cursor: pointer;
 		margin: 0;
-
 		&:hover {
 			color: #fff;
-			background: rgba(226, 226, 226, 0.47);
-			box-shadow: 0 0 30px 5px white;
 		}
 	}
 }

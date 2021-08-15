@@ -8,16 +8,16 @@ import { colorsForAvatars } from '../../../variables/colorsForAvatar.js'
 import { getRandomIntInclusive } from '../../../functions/getRandomIntInclusive'
 // Styles
 import st from './user.module.scss'
+import React from 'react'
 // Components
 
 // ====================================================
 // Component
 
-const User = props => {
+const User = React.memo(props => {
 	useEffect(() => {
 		setIndexAvatarBg((indexAvatarBg = getRandomIntInclusive(0, 18)))
 	}, [])
-
 	let [indexAvatarBg, setIndexAvatarBg] = useState(1)
 	return (
 		<div className={st.user}>
@@ -81,7 +81,7 @@ const User = props => {
 			</div>
 		</div>
 	)
-}
+})
 
 // ====================================================
 // Exports
