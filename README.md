@@ -19,16 +19,16 @@ API: https://social-network.samuraijs.com/
 
 ### *Login page*
 ![Login page](https://i.ibb.co/pXZq2bP/Screenshot-2021-08-15-133446.png)
-You can register with email
+> You can register with email
 
 
 ### *Profile page*
 ![profile page](https://i.ibb.co/ZLdXkQY/Screenshot-2021-08-15-132750.png)
-You can edit your status / avatar. (This information will save in server)
+> You can edit your status / avatar. (This information will save in server)
 
 ### *Users page*
 ![Users page](https://i.ibb.co/dJWR0gP/Screenshot-2021-08-15-133420.png)
-You can follow and unfollow to different people. (This information will save in server)
+> You can follow and unfollow to different people. (This information will save in server)
 
 ### *Messenger page*
 ![Messenger page](https://i.ibb.co/kB5rS37/Screenshot-2021-08-15-133357.png)
