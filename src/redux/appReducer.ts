@@ -10,14 +10,17 @@ const typeSetInitialize = 'SET-INITIALIZE'
 // ====================================================
 // Initial state
 
-let initialState = {
+export type InitialStateType = {
+	initialized: boolean
+}
+let initialState: InitialStateType = {
 	initialized: false,
 }
 
 // ====================================================
 // Reducer
 
-const appReducer = (state = initialState, action) => {
+const appReducer = (state = initialState, action: any): InitialStateType => {
 	switch (action.type) {
 		case typeSetInitialize:
 			return {
@@ -33,12 +36,16 @@ const appReducer = (state = initialState, action) => {
 // ====================================================
 // Action creators
 
-export const setInitialize = boolean => ({
+type setInitializeType = {
+	type: typeof typeSetInitialize
+	boolean: boolean
+}
+export const setInitialize = (boolean: boolean): setInitializeType => ({
 	type: typeSetInitialize,
 	boolean,
 })
 
-export const initialize = () => dispatch => {
+export const initialize = () => (dispatch: any) => {
 	let promise = dispatch(tryLogin())
 	Promise.all([promise]).then(() => {
 		dispatch(setInitialize(true))

@@ -9,23 +9,38 @@ const typeSendMessage = 'SEND-MESSAGE'
 // ====================================================
 // Initial state
 
+type DialogType = {
+	name: string
+	id: number
+}
+type MessageType = {
+	content: string
+	id: number
+	time: string
+}
+
 let initialState = {
 	dialogsLinksData: [
 		{ name: 'name - 1', id: 1 },
 		{ name: 'name - 2', id: 2 },
 		{ name: 'na', id: 3 },
 		{ name: 'name - 4', id: 4 },
-	],
+	] as Array<DialogType>,
 	messages: [
 		{ content: 'messages', id: 1, time: '0:36' },
 		{ content: 'messages', id: 1, time: '0:08' },
-	],
+	] as Array<MessageType>,
 }
+
+export type InitialStateType = typeof initialState
 
 // ====================================================
 // Reducer
 
-const messangerReducer = (state = initialState, action) => {
+const messangerReducer = (
+	state = initialState,
+	action: any
+): InitialStateType => {
 	switch (action.type) {
 		case typeSendMessage:
 			return {
@@ -44,7 +59,15 @@ const messangerReducer = (state = initialState, action) => {
 // ====================================================
 // Action creators
 
-export const sendMessage = message => ({ type: typeSendMessage, message })
+type sendMessageType = {
+	type: typeof typeSendMessage
+	message: string
+}
+
+export const sendMessage = (message: string): sendMessageType => ({
+	type: typeSendMessage,
+	message,
+})
 
 // ====================================================
 // Exports

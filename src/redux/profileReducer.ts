@@ -2,6 +2,7 @@
 // Types
 
 import { profileAPI } from '../api/profileAPI'
+import { postType, profileType } from '../types/types'
 const typeCreatePost = 'CREATE-POST'
 const typeSetProfile = 'SET-PROFILE'
 const typeSetStatus = 'SET-STATUS'
@@ -14,8 +15,7 @@ const typeSaveAvatarSucess = 'SAVE-AVATAR-SUCESS'
 let initialState = {
 	profile: {
 		photos: {},
-		// aboutMe: '1122',
-	},
+	} as profileType,
 	postsData: [
 		{
 			content: 'TEST',
@@ -23,13 +23,17 @@ let initialState = {
 			commentsCount: 0,
 			postId: Date.now(),
 		},
-	],
+	] as Array<postType>,
 }
 
+export type InitialStateType = typeof initialState
 // ====================================================
 // Reducer
 
-const profileReducer = (state = initialState, action) => {
+const profileReducer = (
+	state = initialState,
+	action: any
+): InitialStateType => {
 	switch (action.type) {
 		case typeCreatePost: {
 			return {
@@ -72,8 +76,7 @@ const profileReducer = (state = initialState, action) => {
 		case typeSaveAvatarSucess: {
 			return {
 				...state,
-				...state.photos,
-				photos: { large: action.file },
+				profile: { ...state.profile, photos: action.file } as profileType,
 			}
 		}
 		default:
@@ -84,35 +87,73 @@ const profileReducer = (state = initialState, action) => {
 // ====================================================
 // Action creators
 
-export const createPost = content => ({ type: typeCreatePost, content })
+type createPostType = {
+	type: typeof typeCreatePost
+	content: string
+}
+export const createPost = (content: string): createPostType => ({
+	type: typeCreatePost,
+	content,
+})
 
-export const setProfile = profile => ({
+// =====================
+
+type setProfileType = {
+	type: typeof typeSetProfile
+	profile: object
+}
+export const setProfile = (profile: profileType): setProfileType => ({
 	type: typeSetProfile,
 	profile,
 })
-export const setStatus = status => ({
+
+// =====================
+
+type setStatusType = {
+	type: typeof typeSetStatus
+	status: string
+}
+export const setStatus = (status: string): setStatusType => ({
 	type: typeSetStatus,
 	status,
 })
-export const deletePost = postId => ({
+
+// =====================
+
+type deletePostType = {
+	type: typeof typeDeletePost
+	postId: number
+}
+export const deletePost = (postId: number) => ({
 	type: typeDeletePost,
 	postId,
 })
-export const saveAvatarSucess = file => ({ type: typeSaveAvatarSucess, file })
+
+// =====================
+
+type saveAvatarSucessType = {
+	type: typeof typeSaveAvatarSucess
+	file: object
+}
+export const saveAvatarSucess = (file: object) => ({
+	type: typeSaveAvatarSucess,
+	file,
+})
+
 // ====================================================
 // Thunks
 
-export const getInf = userId => dispatch => {
+export const getInf = (userId: number) => (dispatch: any) => {
 	profileAPI.getProfileDataAPI(userId).then(data => {
 		dispatch(setProfile(data))
 	})
 }
-export const getStatus = userId => dispatch => {
+export const getStatus = (userId: number) => (dispatch: any) => {
 	profileAPI.getStatusAPI(userId).then(data => {
 		dispatch(setStatus(data))
 	})
 }
-export const updateStatus = status => dispatch => {
+export const updateStatus = (status: string) => (dispatch: any) => {
 	profileAPI.updateStatusAPI(status).then(data => {
 		if (data.resultCode == 0) {
 			dispatch(setStatus(status))
@@ -121,8 +162,7 @@ export const updateStatus = status => dispatch => {
 		}
 	})
 }
-
-export const saveAvatar = (file, userId) => dispatch => {
+export const saveAvatar = (file: object, userId: number) => (dispatch: any) => {
 	profileAPI.saveAvatarAPI(file).then(data => {
 		if (data.resultCode === 0) {
 			dispatch(getInf(userId))
@@ -131,6 +171,7 @@ export const saveAvatar = (file, userId) => dispatch => {
 		}
 	})
 }
+
 // ====================================================
 // Exports
 
