@@ -1,14 +1,22 @@
 // ====================================================
 // IMPORTS
 // Main
+import { FC } from 'react'
 import { NavLink } from 'react-router-dom'
 // Styles
 import st from './header.module.scss'
+import {
+	HeaderStateType,
+	HeaderDispatchType,
+	HeaderOwnType,
+} from './headerContainer'
 
 // ====================================================
 // Component
 
-const Header = props => {
+type PropsType = HeaderStateType & HeaderDispatchType & HeaderOwnType
+
+const Header: FC<PropsType> = props => {
 	return (
 		<header className={st.header}>
 			<div className="container">

@@ -3,6 +3,12 @@
 // Main
 import React, { useEffect } from 'react'
 import { useState } from 'react'
+import { FC } from 'react'
+import {
+	ProfileDispatchType,
+	ProfileOwnType,
+	ProfileStateType,
+} from './profileContainer'
 // Styles
 import st from './profile.module.scss'
 // Components
@@ -13,7 +19,9 @@ import AvatarContainer from './avatar/avatarContainer'
 // ====================================================
 // Component
 
-const Profile = props => {
+type PropsType = ProfileStateType & ProfileDispatchType & ProfileOwnType
+
+const Profile: FC<PropsType> = props => {
 	// ====================================================
 	// Local state
 	let [inputValue, setInputValue] = useState('')
@@ -25,7 +33,9 @@ const Profile = props => {
 	useEffect(() => {
 		new Promise(function (resolve, reject) {
 			if (!props.match.params.userId) {
-				resolve(props.getInf(props.userId))
+				if (props.userId) {
+					resolve(props.getInf(props.userId))
+				}
 			} else {
 				resolve(props.getInf(props.match.params.userId))
 			}
@@ -39,7 +49,9 @@ const Profile = props => {
 			})
 			.then(function () {
 				if (!props.match.params.userId) {
-					props.getStatus(props.userId)
+					if (props.userId) {
+						props.getStatus(props.userId)
+					}
 				} else {
 					props.getStatus(props.match.params.userId)
 				}
@@ -49,14 +61,14 @@ const Profile = props => {
 	// ====================================================
 	// Functions
 
-	function onInputBlur() {
+	const onInputBlur = () => {
 		props.updateStatus(inputValue)
 		setEditMode((editMode = false))
 	}
-	function onInputChange(e) {
+	const onInputChange = (e: any) => {
 		setInputValue(e.currentTarget.value)
 	}
-	const onSubmit = formData => {
+	const onSubmit = (formData: any) => {
 		props.createPost(formData)
 	}
 
@@ -68,6 +80,7 @@ const Profile = props => {
 			<div className={st.background}></div>
 
 			<div className={st.mainInfo}>
+				{/* @ts-ignore */}
 				<AvatarContainer isMyProfile={isMyProfile} />
 
 				<p className={st.name}>

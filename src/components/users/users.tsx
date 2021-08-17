@@ -1,7 +1,13 @@
 // ====================================================
 // IMPORTS
 // Main
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
+import { FC } from 'react'
+import {
+	UsersDispatchType,
+	UsersOwnType,
+	UsersStateType,
+} from './usersContainer'
 // Styles
 import st from './users.module.scss'
 // Components
@@ -12,17 +18,20 @@ import UserContainer from './user/userContainer'
 // ====================================================
 // Component
 
-let i = 1
+type PropsType = UsersStateType & UsersDispatchType & UsersOwnType
 
-const Users = props => {
-	function onBtnClk() {
-		i = i + 1
-		props.getUsers(i)
-	}
+const Users: FC<PropsType> = props => {
 	useEffect(() => {
 		props.getUsers(1)
 	}, [])
-	const onSubmit = formData => {
+
+	let [nextCurrnetPage, setNextCurrnetPage] = useState(2)
+
+	const onBtnClk = () => {
+		props.getUsers(nextCurrnetPage)
+		setNextCurrnetPage(nextCurrnetPage + 1)
+	}
+	const onSubmit = (formData: any) => {
 		console.log(formData)
 	}
 	return (

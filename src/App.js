@@ -53,8 +53,8 @@ const App = props => {
 									/>
 									<Route path="/messenger" render={() => <Messenger />} />
 									<Route path="/users" render={() => <Users />} />
-									<Route path="*" render={() => <p>Page not found (404)</p>} />
 									<Redirect from="/" to="/profile" />
+									<Route path="*" render={() => <p>Page not found (404)</p>} />
 								</Switch>
 							</Suspense>
 						</div>

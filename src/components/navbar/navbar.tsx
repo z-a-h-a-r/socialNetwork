@@ -1,6 +1,7 @@
 // ====================================================
 // IMPORTS
 // Main
+import { FC } from 'react'
 import { NavLink } from 'react-router-dom'
 // Styles
 import st from './navbar.module.scss'
@@ -9,7 +10,9 @@ import st from './navbar.module.scss'
 // ====================================================
 // Component
 
-const Navbar = () => {
+type PropsType = {}
+
+const Navbar: FC<PropsType> = props => {
 	return (
 		<div className={st.wrapper}>
 			<nav className={st.navbar}>
@@ -46,32 +49,6 @@ const Navbar = () => {
 								Users
 							</NavLink>
 						</li>
-
-						{/* <li className={st.li}>
-						<a href="" className={st.link}>
-							News
-						</a>
-					</li>
-					<li className={st.li}>
-						<a href="" className={st.link}>
-							Music
-						</a>
-					</li>
-					<li className={st.li}>
-						<a href="" className={st.link}>
-							Videos
-						</a>
-					</li>
-					<li className={st.li}>
-						<a href="" className={st.link}>
-							Games
-						</a>
-					</li>
-					<li className={st.li}>
-						<a href="" className={st.link}>
-							Apps
-						</a>
-					</li> */}
 					</ul>
 				</div>
 			</nav>

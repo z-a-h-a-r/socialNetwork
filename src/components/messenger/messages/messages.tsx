@@ -1,7 +1,12 @@
 // ====================================================
 // IMPORTS
 // Main
-import React from 'react'
+import { FC } from 'react'
+import {
+	MessagesDispatchType,
+	MessagesOwnType,
+	MessagesStateType,
+} from './messagesContainer'
 // Styles
 import st from './messages.module.scss'
 // Components
@@ -11,8 +16,10 @@ import MessagesForm from './messagesForm/messagesForm'
 // ====================================================
 // Component
 
-const Messages = props => {
-	const onSubmit = formData => {
+type PropsType = MessagesStateType & MessagesDispatchType & MessagesOwnType
+
+const Messages: FC<PropsType> = props => {
+	const onSubmit = (formData: any) => {
 		props.sendMessage(formData)
 	}
 	// ===================================================
@@ -34,7 +41,7 @@ const Messages = props => {
 						content={message.content}
 						id={message.id}
 						time={message.time}
-						key={Date.now}
+						key={Date.now()}
 					/>
 				))}
 			</div>

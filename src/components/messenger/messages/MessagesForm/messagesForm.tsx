@@ -1,6 +1,7 @@
 // ====================================================
 // IMPORTS
 // Main
+import { FC } from 'react'
 import { Field, reduxForm } from 'redux-form'
 // Styles
 import st from './messagesForm.module.scss'
@@ -9,7 +10,11 @@ import st from './messagesForm.module.scss'
 // ====================================================
 // Component
 
-const MessagesFormWithoutRedux = props => {
+type PropsType = {
+	handleSubmit: () => void
+}
+
+const MessagesFormWithoutRedux: FC<PropsType> = props => {
 	// ===================================================
 	// html
 	return (
@@ -28,6 +33,7 @@ const MessagesFormWithoutRedux = props => {
 
 const MessagesForm = reduxForm({
 	form: 'messages',
+	// @ts-ignore
 })(MessagesFormWithoutRedux)
 
 // ====================================================

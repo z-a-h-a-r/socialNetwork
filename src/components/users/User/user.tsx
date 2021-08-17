@@ -1,24 +1,30 @@
 // ====================================================
 // IMPORTS
 // Main
-import { useEffect } from 'react'
-import { useState } from 'react'
+import React, { useEffect, useState, FC } from 'react'
 import { NavLink } from 'react-router-dom'
 import { colorsForAvatars } from '../../../variables/colorsForAvatar.js'
 import { getRandomIntInclusive } from '../../../functions/getRandomIntInclusive'
+import {
+	UserDispatchType,
+	UserOwnType,
+	UserStateType,
+} from './userContainer.js'
 // Styles
 import st from './user.module.scss'
-import React from 'react'
 // Components
 
 // ====================================================
 // Component
 
-const User = React.memo(props => {
+type PropsType = UserStateType & UserDispatchType & UserOwnType
+
+const User: FC<PropsType> = React.memo(props => {
 	useEffect(() => {
 		setIndexAvatarBg((indexAvatarBg = getRandomIntInclusive(0, 18)))
 	}, [])
 	let [indexAvatarBg, setIndexAvatarBg] = useState(1)
+
 	return (
 		<div className={st.user}>
 			<div className={st.avatarWrapper}>

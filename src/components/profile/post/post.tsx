@@ -2,13 +2,23 @@
 // IMPORTS
 // Main
 // Styles
+import { FC } from 'react'
 import st from './post.module.scss'
 // Components
 
 // ====================================================
 // Component
 
-const Post = props => {
+type PropsType = {
+	content: string
+	sharedCount: number
+	commentsCount: number
+	postId: number
+	isMyProfile: boolean
+	deletePost: (postId: number) => void
+}
+
+const Post: FC<PropsType> = props => {
 	return (
 		<div className={st.item}>
 			<div className={st.header}>

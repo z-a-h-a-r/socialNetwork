@@ -3,20 +3,17 @@
 // Main
 import { connect } from 'react-redux'
 import { compose } from 'redux'
+import { AppStateType } from '../../redux/store'
 // Components
-import Users from './users'
+import Messenger from './messenger'
 // Reducers
-import { getUsers } from '../../redux/usersReducer'
 
 // ====================================================
 // MSTP & MDTP
 
-let mapStateToProps = state => ({
-	users: state.userPage.users,
-	isFetchingData: state.userPage.isFetchingData,
-})
+let mapStateToProps = (state: AppStateType) => ({})
 
 // ====================================================
 // Compose
 
-export default compose(connect(mapStateToProps, { getUsers }))(Users)
+export default compose(connect(mapStateToProps))(Messenger)

@@ -4,6 +4,7 @@
 import React from 'react'
 import { Field, reduxForm } from 'redux-form'
 import { maxLength, required } from '../../../formsValidators/formsValidators'
+import { FC } from 'react'
 // Styles
 import st from './createPost.module.scss'
 // Components
@@ -11,10 +12,15 @@ import { Element } from '../../common/FormsControls/FormsControls'
 
 const maxLength1 = maxLength(100)
 const Textarea = Element('input')
+
 // ====================================================
 // Component
 
-const CreatePostWithoutRedux = props => {
+type PropsType = {
+	handleSubmit: () => void
+}
+
+const CreatePostWithoutRedux: FC<PropsType> = props => {
 	return (
 		<form className={st.form} onSubmit={props.handleSubmit}>
 			<Field
@@ -22,6 +28,7 @@ const CreatePostWithoutRedux = props => {
 				name={'content'}
 				component={Textarea}
 				className={st.input}
+				// @ts-ignore
 				validate={(required, maxLength1)}
 			/>
 
@@ -32,6 +39,7 @@ const CreatePostWithoutRedux = props => {
 
 const CreatePost = reduxForm({
 	form: 'createPost',
+	// @ts-ignore
 })(CreatePostWithoutRedux)
 
 // ====================================================

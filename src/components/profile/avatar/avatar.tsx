@@ -3,6 +3,12 @@
 // Main
 import { useEffect } from 'react'
 import { useState } from 'react'
+import { FC } from 'react'
+import {
+	AvatarDispatchType,
+	AvatarOwnType,
+	AvatarStateType,
+} from './avatarContainer'
 // Styles
 import st from './avatar.module.scss'
 // Components
@@ -12,18 +18,20 @@ import { getRandomIntInclusive } from '../../../functions/getRandomIntInclusive'
 // ====================================================
 // Component
 
-const Avatar = props => {
-	// ====================================================
-	// Local state
-	let [indexAvatarBg, setIndexAvatarBg] = useState(1)
-	let [editMode, setEditMode] = useState(false)
+type PropsType = AvatarStateType & AvatarDispatchType & AvatarOwnType
 
+const Avatar: FC<PropsType> = props => {
 	// ====================================================
 	// Hooks
 
 	useEffect(() => {
 		setIndexAvatarBg((indexAvatarBg = getRandomIntInclusive(0, 18)))
 	}, [])
+
+	// ====================================================
+	// Local state
+	let [indexAvatarBg, setIndexAvatarBg] = useState(1)
+	let [editMode, setEditMode] = useState(false)
 
 	// ====================================================
 	// functions
@@ -33,10 +41,12 @@ const Avatar = props => {
 	const onCloseClick = () => {
 		setEditMode((editMode = false))
 	}
-	const onChooseFile = e => {
+	const onChooseFile = (e: any) => {
 		if (e.target.files[0]) {
-			props.saveAvatar(e.target.files[0], props.userId)
-			setEditMode((editMode = false))
+			if (props.userId) {
+				props.saveAvatar(e.target.files[0], props.userId)
+				setEditMode((editMode = false))
+			}
 		}
 	}
 
@@ -63,7 +73,7 @@ const Avatar = props => {
 							}}
 							onDoubleClick={onAvatarDoubleClick}
 						>
-							{props.fullName ? props.fullName.substr(0, 1).toUpperCase() : '.'}
+							{props.fullName ? props.fullName.substr(0, 1).toUpperCase() : ''}
 						</div>
 					)}
 				</div>
@@ -94,7 +104,7 @@ const Avatar = props => {
 						}}
 					>
 						{props.fullName && props.fullName.substr(0, 1).toUpperCase()}
-						{!props.fullName && 'T'}
+						{!props.fullName && ''}
 					</div>
 				)}
 			</div>

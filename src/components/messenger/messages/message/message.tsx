@@ -1,6 +1,7 @@
 // ====================================================
 // IMPORTS
 // Main
+import { FC } from 'react'
 // Styles
 import st from './message.module.scss'
 // Components
@@ -8,7 +9,13 @@ import st from './message.module.scss'
 // ====================================================
 // Component
 
-const Message = props => {
+type PropsType = {
+	content: string
+	time: string
+	id: number
+}
+
+const Message: FC<PropsType> = props => {
 	return (
 		<div className={st.contentBody}>
 			<p className={st.content}>{props.content}</p>
