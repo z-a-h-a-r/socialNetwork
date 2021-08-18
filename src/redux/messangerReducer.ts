@@ -37,9 +37,11 @@ export type InitialStateType = typeof initialState
 // ====================================================
 // Reducer
 
+type ActionsTypes = sendMessageType
+
 const messangerReducer = (
 	state = initialState,
-	action: any
+	action: ActionsTypes
 ): InitialStateType => {
 	switch (action.type) {
 		case typeSendMessage:
@@ -47,7 +49,7 @@ const messangerReducer = (
 				...state,
 				messages: [
 					...state.messages,
-					{ ...action.message, id: 2, time: '0:82' },
+					{ content: action.newContent, id: 2, time: '0:82' },
 				],
 			}
 
@@ -61,12 +63,12 @@ const messangerReducer = (
 
 type sendMessageType = {
 	type: typeof typeSendMessage
-	message: string
+	newContent: string
 }
 
-export const sendMessage = (message: string): sendMessageType => ({
+export const sendMessage = (newContent: string): sendMessageType => ({
 	type: typeSendMessage,
-	message,
+	newContent,
 })
 
 // ====================================================

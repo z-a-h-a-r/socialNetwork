@@ -25,7 +25,7 @@ const CreatePostWithoutRedux: FC<PropsType> = props => {
 		<form className={st.form} onSubmit={props.handleSubmit}>
 			<Field
 				placeholder="What is up?"
-				name={'content'}
+				name={'newContent'}
 				component={Textarea}
 				className={st.input}
 				// @ts-ignore

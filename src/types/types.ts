@@ -1,3 +1,7 @@
+import { Action } from 'redux'
+import { ThunkAction } from 'redux-thunk'
+import { AppStateType } from '../redux/store'
+
 export type postType = {
 	content: string
 	sharedCount: number
@@ -5,23 +9,23 @@ export type postType = {
 	postId: number
 }
 export type profileType = {
-	userId: number
+	userId: number | null
 	aboutMe: string
-	lookingForAJob: boolean
-	lookingForAJobDescription: string
+	lookingForAJob: boolean | null
+	lookingForAJobDescription: string | null
 	fullName: string
-	contacts: contactsType
+	contacts: contactsType | null
 	photos: photosType
 }
 export type contactsType = {
-	github: string
-	vk: string
-	facebook: string
-	instagram: string
-	twitter: string
-	website: string
-	youtube: string
-	mainLink: string
+	github: string | null
+	vk: string | null
+	facebook: string | null
+	instagram: string | null
+	twitter: string | null
+	website: string | null
+	youtube: string | null
+	mainLink: string | null
 }
 export type photosType = {
 	large: string | null
@@ -37,3 +41,12 @@ export type UserType = {
 	photos: photosType
 	followed: boolean
 }
+
+// --------------------------------------
+
+// type thunkType = ThunkAction<
+// 	Promise<void>,
+// 	AppStateType,
+// 	unknown,
+// 	Action<string>
+// >

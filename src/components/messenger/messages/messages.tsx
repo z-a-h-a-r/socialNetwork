@@ -20,7 +20,7 @@ type PropsType = MessagesStateType & MessagesDispatchType & MessagesOwnType
 
 const Messages: FC<PropsType> = props => {
 	const onSubmit = (formData: any) => {
-		props.sendMessage(formData)
+		props.sendMessage(formData.newContent)
 	}
 	// ===================================================
 	// html
@@ -41,7 +41,7 @@ const Messages: FC<PropsType> = props => {
 						content={message.content}
 						id={message.id}
 						time={message.time}
-						key={Date.now()}
+						// key={Date.now()}
 					/>
 				))}
 			</div>

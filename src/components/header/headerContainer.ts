@@ -12,7 +12,7 @@ import { logout } from '../../redux/authReducer'
 // types
 
 export type HeaderStateType = {
-	isAuth: boolean
+	isAuth: boolean | null
 	login: string | null
 }
 export type HeaderDispatchType = {

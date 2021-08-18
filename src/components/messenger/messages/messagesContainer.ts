@@ -20,7 +20,7 @@ export type MessagesStateType = {
 	messages: Array<MessageType>
 }
 export type MessagesDispatchType = {
-	sendMessage: (message: string) => void
+	sendMessage: (newContent: string) => void
 }
 export type MessagesOwnType = {}
 

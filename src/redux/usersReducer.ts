@@ -1,8 +1,11 @@
 // ====================================================
 // IMPORTS
 // Main
+import { Dispatch } from 'redux'
+import { ThunkAction } from 'redux-thunk'
 import { usersAPI } from '../api/usersAPI'
 import { UserType } from '../types/types'
+import { AppStateType } from './store'
 
 // ====================================================
 // Types
@@ -27,7 +30,16 @@ export type InitialStateType = typeof initialState
 // ====================================================
 // Reducer
 
-const usersReducer = (state = initialState, action: any): InitialStateType => {
+type ActionsTypes =
+	| toggleFollowStateSuccessType
+	| setUsersIsFetchingType
+	| setFollowingIsFetchingType
+	| setUsersType
+
+const usersReducer = (
+	state = initialState,
+	action: ActionsTypes
+): InitialStateType => {
 	switch (action.type) {
 		case typeToggleFollowState:
 			return {
@@ -65,7 +77,12 @@ const usersReducer = (state = initialState, action: any): InitialStateType => {
 // ====================================================
 // Action creators
 
-export const setUsers = (users: Array<UserType>) => ({
+type setUsersType = {
+	users: Array<UserType>
+	type: typeof typeSetUsers
+}
+
+export const setUsers = (users: Array<UserType>): setUsersType => ({
 	type: typeSetUsers,
 	users,
 })
@@ -102,34 +119,41 @@ export const setUsersIsFetching = (
 // =====================
 
 type setFollowingIsFetchingType = {
-	boolean: boolean
 	id: number
+	followingIsFetching: boolean
 	type: typeof typeSetFollowingIsFetching
 }
 export const setFollowingIsFetching = (
-	boolean: boolean,
+	followingIsFetching: boolean,
 	id: number
 ): setFollowingIsFetchingType => ({
 	type: typeSetFollowingIsFetching,
-	boolean,
+	followingIsFetching,
 	id,
 })
 
 // ====================================================
 // Thunks
 
-export const getUsers = (i: number) => (dispatch: any) => {
-	dispatch(setUsersIsFetching(true))
-	usersAPI.getUsersAPI(i).then(data => {
-		dispatch(setUsersIsFetching(false))
-		dispatch(setUsers(data.items))
-	})
+type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionsTypes>
+
+// =====================
+
+export const getUsers = (i: number): ThunkType => {
+	return async dispatch => {
+		dispatch(setUsersIsFetching(true))
+		usersAPI.getUsersAPI(i).then(data => {
+			dispatch(setUsersIsFetching(false))
+			dispatch(setUsers(data.items))
+		})
+	}
 }
 
 // =====================
 
 export const toggleFollowState =
-	(userId: number, nextFollowState: boolean) => async (dispatch: any) => {
+	(userId: number, nextFollowState: boolean): ThunkType =>
+	async (dispatch: any) => {
 		dispatch(setFollowingIsFetching(true, userId))
 
 		let data = await usersAPI.toggleFollowAPI(userId, nextFollowState)

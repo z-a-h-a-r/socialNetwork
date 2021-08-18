@@ -32,7 +32,7 @@ const LoginFormWithoutRedux: FC<PropsType> = props => {
 				name={'password'}
 				component={Input}
 			/>
-			<Field type={'checkBox'} name={'rememberMe'} component={Input} />
+
 			{props.captchaUrl && (
 				<div>
 					<Field

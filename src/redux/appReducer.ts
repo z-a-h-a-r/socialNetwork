@@ -1,7 +1,9 @@
 // ====================================================
 // IMPORTS
 // Main
+import { ThunkAction } from 'redux-thunk'
 import { tryLogin } from './authReducer'
+import { AppStateType } from './store'
 
 // ====================================================
 // Types
@@ -20,7 +22,12 @@ let initialState: InitialStateType = {
 // ====================================================
 // Reducer
 
-const appReducer = (state = initialState, action: any): InitialStateType => {
+type ActionsTypes = setInitializeType
+
+const appReducer = (
+	state = initialState,
+	action: ActionsTypes
+): InitialStateType => {
 	switch (action.type) {
 		case typeSetInitialize:
 			return {
@@ -45,11 +52,18 @@ export const setInitialize = (boolean: boolean): setInitializeType => ({
 	boolean,
 })
 
-export const initialize = () => (dispatch: any) => {
-	let promise = dispatch(tryLogin())
-	Promise.all([promise]).then(() => {
-		dispatch(setInitialize(true))
-	})
+// ====================================================
+// Thunks
+
+type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionsTypes>
+
+export const initialize = (): ThunkType => {
+	return async dispatch => {
+		let promise = dispatch(tryLogin())
+		Promise.all([promise]).then(() => {
+			dispatch(setInitialize(true))
+		})
+	}
 }
 // ====================================================
 // Exports

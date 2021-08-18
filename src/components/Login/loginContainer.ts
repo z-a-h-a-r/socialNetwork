@@ -13,7 +13,7 @@ import { login, getCaptcha } from '../../redux/authReducer'
 // types
 
 export type LoginStateType = {
-	isAuth: boolean
+	isAuth: boolean | null
 	captchaUrl: string | null
 }
 export type LoginDispatchType = {

@@ -22,7 +22,7 @@ const MessagesFormWithoutRedux: FC<PropsType> = props => {
 			<Field
 				type={'text'}
 				placeholder={'type message...'}
-				name={'content'}
+				name={'newContent'}
 				component={'input'}
 				className={st.input}
 			/>

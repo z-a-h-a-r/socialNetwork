@@ -69,7 +69,7 @@ const Profile: FC<PropsType> = props => {
 		setInputValue(e.currentTarget.value)
 	}
 	const onSubmit = (formData: any) => {
-		props.createPost(formData)
+		props.createPost(formData.newContent)
 	}
 
 	// ====================================================
