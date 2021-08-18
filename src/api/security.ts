@@ -17,16 +17,14 @@ const instance = axios.create({
 // ====================================================
 // Requests
 
-export const authAPI = {
-	tryLoginAPI: () => {
-		return instance.get(`auth/me`).then(response => response.data)
-	},
-	loginAPI: (email, password, rememberMe = true, captcha = null) => {
+type getCaptchaResponseType = {
+	url: string
+}
+
+export const securityAPI = {
+	getCaptchaAPI: () => {
 		return instance
-			.post(`auth/login`, { email, password, rememberMe, captcha })
+			.get<getCaptchaResponseType>(`security/get-captcha-url`)
 			.then(response => response.data)
-	},
-	logoutAPI: () => {
-		return instance.delete(`auth/login`).then(response => response.data)
 	},
 }

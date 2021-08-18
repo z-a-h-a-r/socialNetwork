@@ -17,15 +17,26 @@ const instance = axios.create({
 // ====================================================
 // Requests
 
+type getUsersResponseType = {}
+type toggleFollowResponseType = {
+	data: {}
+	messages: Array<string>
+	resultCode: number
+}
+
 export const usersAPI = {
-	getUsersAPI: i => {
+	getUsersAPI: (i: number) => {
 		return instance.get(`users?page=${i}`).then(response => response.data)
 	},
-	toggleFollowAPI: (id, nextFollowState) => {
+	toggleFollowAPI: (id: number, nextFollowState: boolean) => {
 		if (nextFollowState) {
-			return instance.post(`follow/${id}`).then(response => response.data)
+			return instance
+				.post<toggleFollowResponseType>(`follow/${id}`)
+				.then(response => response.data)
 		} else {
-			return instance.delete(`follow/${id}`).then(response => response.data)
+			return instance
+				.delete<toggleFollowResponseType>(`follow/${id}`)
+				.then(response => response.data)
 		}
 	},
 }
