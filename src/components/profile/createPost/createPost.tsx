@@ -2,7 +2,7 @@
 // IMPORTS
 // Main
 import React from 'react'
-import { Field, reduxForm } from 'redux-form'
+import { Field, InjectedFormProps, reduxForm } from 'redux-form'
 import { maxLength, required } from '../../../formsValidators/formsValidators'
 import { FC } from 'react'
 // Styles
@@ -16,11 +16,14 @@ const Textarea = Element('input')
 // ====================================================
 // Component
 
-type PropsType = {
-	handleSubmit: () => void
+type PropsType = {}
+type loginFormValuesType = {
+	newContent: string
 }
 
-const CreatePostWithoutRedux: FC<PropsType> = props => {
+const CreatePostWithoutRedux: FC<
+	InjectedFormProps<loginFormValuesType> & PropsType
+> = props => {
 	return (
 		<form className={st.form} onSubmit={props.handleSubmit}>
 			<Field
@@ -37,9 +40,8 @@ const CreatePostWithoutRedux: FC<PropsType> = props => {
 	)
 }
 
-const CreatePost = reduxForm({
+const CreatePost = reduxForm<loginFormValuesType, PropsType>({
 	form: 'createPost',
-	// @ts-ignore
 })(CreatePostWithoutRedux)
 
 // ====================================================

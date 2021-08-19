@@ -1,7 +1,7 @@
 // ====================================================
 // IMPORTS
 // Main
-import { Field, reduxForm } from 'redux-form'
+import { Field, InjectedFormProps, reduxForm } from 'redux-form'
 import { FC } from 'react'
 // Styles
 import st from './loginForm.module.scss'
@@ -10,14 +10,23 @@ import { Element } from '../../common/FormsControls/FormsControls'
 const Input = Element('input')
 // ====================================================
 // Component
+
 type PropsType = {
 	captchaUrl: string
 	error: any
 	onSubmit: () => void
 	handleSubmit: () => void
 }
+type loginFormValuesType = {
+	email: string
+	password: string
+	rememberMe: boolean
+	captcha: string
+}
 
-const LoginFormWithoutRedux: FC<PropsType> = props => {
+const LoginFormWithoutRedux: FC<
+	InjectedFormProps<loginFormValuesType> & PropsType
+> = props => {
 	return (
 		<form className={st.form} onSubmit={props.handleSubmit}>
 			<Field
@@ -55,9 +64,8 @@ const LoginFormWithoutRedux: FC<PropsType> = props => {
 	)
 }
 
-const LoginForm = reduxForm({
+const LoginForm = reduxForm<loginFormValuesType, PropsType>({
 	form: 'login',
-	// @ts-ignore
 })(LoginFormWithoutRedux)
 
 // ====================================================

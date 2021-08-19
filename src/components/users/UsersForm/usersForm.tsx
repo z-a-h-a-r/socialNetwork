@@ -2,7 +2,7 @@
 // IMPORTS
 // Main
 import { FC } from 'react'
-import { Field, reduxForm } from 'redux-form'
+import { Field, InjectedFormProps, reduxForm } from 'redux-form'
 // Styles
 import st from './usersForm.module.scss'
 // Components
@@ -10,11 +10,14 @@ import st from './usersForm.module.scss'
 // ====================================================
 // Component
 
-type PropsType = {
-	handleSubmit: () => void
+type PropsType = {}
+type loginFormValuesType = {
+	content: string
 }
 
-const UsersFormWithoutRedux: FC<PropsType> = props => {
+const UsersFormWithoutRedux: FC<
+	InjectedFormProps<loginFormValuesType> & PropsType
+> = props => {
 	return (
 		<form className={st.form} onSubmit={props.handleSubmit}>
 			<Field
@@ -29,9 +32,8 @@ const UsersFormWithoutRedux: FC<PropsType> = props => {
 	)
 }
 
-const UsersForm = reduxForm({
+const UsersForm = reduxForm<loginFormValuesType, PropsType>({
 	form: 'users',
-	// @ts-ignore
 })(UsersFormWithoutRedux)
 
 // ====================================================

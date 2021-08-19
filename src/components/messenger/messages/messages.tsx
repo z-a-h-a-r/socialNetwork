@@ -22,6 +22,7 @@ const Messages: FC<PropsType> = props => {
 	const onSubmit = (formData: any) => {
 		props.sendMessage(formData.newContent)
 	}
+
 	// ===================================================
 	// html
 	return (
