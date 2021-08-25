@@ -1,15 +1,18 @@
 // ====================================================
-// Types
-
+// IMPORTS
+// Main
 import { ThunkAction } from 'redux-thunk'
 import { profileAPI } from '../api/profileAPI'
-import { postType, profileType } from '../types/types'
-import { AppStateType } from './store'
-const typeCreatePost = 'CREATE-POST'
-const typeSetProfile = 'SET-PROFILE'
-const typeSetStatus = 'SET-STATUS'
-const typeDeletePost = 'DELETE-POST'
-const typeSaveAvatarSucess = 'SAVE-AVATAR-SUCESS'
+import { postType, ProfileType } from '../types/types'
+import { AppStateType, BaseThunkType, GetActionsTypes } from './store'
+
+// ====================================================
+// Types
+const typeCreatePost = 'SN/PROFILE/CREATE-POST'
+const typeSetProfile = 'SN/PROFILE/SET-PROFILE'
+const typeSetStatus = 'SN/PROFILE/SET-STATUS'
+const typeDeletePost = 'SN/PROFILE/DELETE-POST'
+const typeSaveAvatarSucess = 'SN/PROFILE/SAVE-AVATAR-SUCESS'
 
 // ====================================================
 // Initial state
@@ -35,7 +38,7 @@ let initialState = {
 			large: null,
 			small: null,
 		},
-	} as profileType,
+	} as ProfileType,
 	postsData: [
 		{
 			content: 'TEST',
@@ -46,16 +49,10 @@ let initialState = {
 	] as Array<postType>,
 }
 
-export type InitialStateType = typeof initialState
+type InitialStateType = typeof initialState
+
 // ====================================================
 // Reducer
-
-type ActionsTypes =
-	| createPostType
-	| setProfileType
-	| setStatusType
-	| deletePostType
-	| saveAvatarSucessType
 
 const profileReducer = (
 	state = initialState,
@@ -102,7 +99,7 @@ const profileReducer = (
 		case typeSaveAvatarSucess: {
 			return {
 				...state,
-				profile: { ...state.profile, photos: action.file } as profileType,
+				profile: { ...state.profile, photos: action.file } as ProfileType,
 			}
 		}
 		default:
@@ -113,77 +110,52 @@ const profileReducer = (
 // ====================================================
 // Action creators
 
-type createPostType = {
-	type: typeof typeCreatePost
-	newContent: string
+type ActionsTypes = GetActionsTypes<typeof profileActions>
+
+export const profileActions = {
+	createPostSuccess: (newContent: string) =>
+		({
+			type: typeCreatePost,
+			newContent,
+		} as const),
+	setProfile: (profile: ProfileType) =>
+		({
+			type: typeSetProfile,
+			profile,
+		} as const),
+	setStatus: (status: string) =>
+		({
+			type: typeSetStatus,
+			status,
+		} as const),
+	deletePostSuccess: (postId: number) =>
+		({
+			type: typeDeletePost,
+			postId,
+		} as const),
+	saveAvatarSuccess: (file: object) =>
+		({
+			type: typeSaveAvatarSucess,
+			file,
+		} as const),
 }
-export const createPost = (newContent: string): createPostType => ({
-	type: typeCreatePost,
-	newContent,
-})
-
-// =====================
-
-type setProfileType = {
-	type: typeof typeSetProfile
-	profile: profileType
-}
-export const setProfile = (profile: profileType): setProfileType => ({
-	type: typeSetProfile,
-	profile,
-})
-
-// =====================
-
-type setStatusType = {
-	type: typeof typeSetStatus
-	status: string
-}
-export const setStatus = (status: string): setStatusType => ({
-	type: typeSetStatus,
-	status,
-})
-
-// =====================
-
-type deletePostType = {
-	type: typeof typeDeletePost
-	postId: number
-}
-export const deletePost = (postId: number): deletePostType => ({
-	type: typeDeletePost,
-	postId,
-})
-
-// =====================
-
-type saveAvatarSucessType = {
-	type: typeof typeSaveAvatarSucess
-	file: object
-}
-export const saveAvatarSucess = (file: object): saveAvatarSucessType => ({
-	type: typeSaveAvatarSucess,
-	file,
-})
 
 // ====================================================
 // Thunks
 
-type ThunkType = ThunkAction<Promise<void>, AppStateType, unknown, ActionsTypes>
-
-// =====================
+type ThunkType = BaseThunkType<ActionsTypes>
 
 export const getInf = (userId: number): ThunkType => {
 	return async dispatch => {
 		profileAPI.getProfileDataAPI(userId).then(data => {
-			dispatch(setProfile(data))
+			dispatch(profileActions.setProfile(data))
 		})
 	}
 }
 export const getStatus = (userId: number): ThunkType => {
 	return async dispatch => {
 		profileAPI.getStatusAPI(userId).then(data => {
-			dispatch(setStatus(data))
+			dispatch(profileActions.setStatus(data))
 		})
 	}
 }
@@ -191,7 +163,7 @@ export const updateStatus = (status: string): ThunkType => {
 	return async dispatch => {
 		profileAPI.updateStatusAPI(status).then(data => {
 			if (data.resultCode == 0) {
-				dispatch(setStatus(status))
+				dispatch(profileActions.setStatus(status))
 			} else {
 				console.error(data)
 			}
@@ -207,6 +179,16 @@ export const saveAvatar = (file: object, userId: number): ThunkType => {
 				console.error(data)
 			}
 		})
+	}
+}
+export const deletePost = (postId: number): ThunkType => {
+	return async dispatch => {
+		dispatch(profileActions.deletePostSuccess(postId))
+	}
+}
+export const createPost = (newContent: string): ThunkType => {
+	return async dispatch => {
+		dispatch(profileActions.createPostSuccess(newContent))
 	}
 }
 

@@ -8,7 +8,7 @@ export type postType = {
 	commentsCount: number
 	postId: number
 }
-export type profileType = {
+export type ProfileType = {
 	userId: number | null
 	aboutMe: string
 	lookingForAJob: boolean | null

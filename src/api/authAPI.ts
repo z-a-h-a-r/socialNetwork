@@ -1,48 +1,24 @@
 // ====================================================
 // IMPORTS
 // Main
-import axios from 'axios'
-
-// ====================================================
-// Instance
-
-const instance = axios.create({
-	withCredentials: true,
-	headers: {
-		'API-KEY': '71572937-80ec-4dde-adb1-d4b106a7cc21',
-	},
-	baseURL: 'https://social-network.samuraijs.com/api/1.0/',
-})
+import { instance, ResponseType } from './api'
 
 // ====================================================
 // Requests
 
-type tryLoginResponseType = {
-	data: {
-		id: number
-		email: string
-		login: string
-	}
-	resultCode: number
-	messages: Array<string>
+type TryLoginDataType = {
+	id: number
+	email: string
+	login: string
 }
-type loginResponseType = {
-	data: {
-		userId: number
-	}
-	resultCode: number
-	messages: Array<string>
-}
-type logoutResponseType = {
-	data: {}
-	messages: Array<string>
-	resultCode: number
+type LoginDataType = {
+	userId: number
 }
 
 export const authAPI = {
 	tryLoginAPI: () => {
 		return instance
-			.get<tryLoginResponseType>(`auth/me`)
+			.get<ResponseType<TryLoginDataType>>(`auth/me`)
 			.then(response => response.data)
 	},
 	loginAPI: (
@@ -52,7 +28,7 @@ export const authAPI = {
 		captcha: string | null = null
 	) => {
 		return instance
-			.post<loginResponseType>(`auth/login`, {
+			.post<ResponseType<LoginDataType>>(`auth/login`, {
 				email,
 				password,
 				rememberMe,
@@ -62,7 +38,7 @@ export const authAPI = {
 	},
 	logoutAPI: () => {
 		return instance
-			.delete<logoutResponseType>(`auth/login`)
+			.delete<ResponseType>(`auth/login`)
 			.then(response => response.data)
 	},
 }

@@ -1,8 +1,14 @@
 // ====================================================
 // Imports
 // Main
-import { applyMiddleware, combineReducers, compose, createStore } from 'redux'
-import thunk from 'redux-thunk'
+import {
+	Action,
+	applyMiddleware,
+	combineReducers,
+	compose,
+	createStore,
+} from 'redux'
+import thunk, { ThunkAction } from 'redux-thunk'
 import { reducer as formReducer } from 'redux-form'
 // Reducers
 import authReducer from './authReducer'
@@ -35,8 +41,27 @@ let store = createStore(
 	)
 )
 
+// ====================================================
+// Common types
+
 type RootReducerType = typeof reducers
 export type AppStateType = ReturnType<RootReducerType>
+
+// ===============
+
+type PropertiesType<T> = T extends { [key: string]: infer U } ? U : never
+export type GetActionsTypes<
+	T extends { [key: string]: (...args: any[]) => any }
+> = ReturnType<PropertiesType<T>>
+
+// ===============
+
+export type BaseThunkType<A extends Action, R = Promise<void>> = ThunkAction<
+	R,
+	AppStateType,
+	unknown,
+	A
+>
 
 // ====================================================
 // Exports

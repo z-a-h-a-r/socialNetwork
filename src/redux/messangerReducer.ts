@@ -1,23 +1,14 @@
 // ====================================================
 // IMPORTS
 // Main
+import { BaseThunkType, GetActionsTypes } from './store'
+
 // ====================================================
 // Types
-
-const typeSendMessage = 'SEND-MESSAGE'
+const typeSendMessage = 'SN/MESSENGER/SEND-MESSAGE'
 
 // ====================================================
 // Initial state
-
-type DialogType = {
-	name: string
-	id: number
-}
-type MessageType = {
-	content: string
-	id: number
-	time: string
-}
 
 let initialState = {
 	dialogsLinksData: [
@@ -25,19 +16,17 @@ let initialState = {
 		{ name: 'name - 2', id: 2 },
 		{ name: 'na', id: 3 },
 		{ name: 'name - 4', id: 4 },
-	] as Array<DialogType>,
+	] as Array<{ name: string; id: number }>,
 	messages: [
 		{ content: 'messages', id: 1, time: '0:36' },
 		{ content: 'messages', id: 1, time: '0:08' },
-	] as Array<MessageType>,
+	] as Array<{ content: string; id: number; time: string }>,
 }
 
-export type InitialStateType = typeof initialState
+type InitialStateType = typeof initialState
 
 // ====================================================
 // Reducer
-
-type ActionsTypes = sendMessageType
 
 const messangerReducer = (
 	state = initialState,
@@ -61,15 +50,26 @@ const messangerReducer = (
 // ====================================================
 // Action creators
 
-type sendMessageType = {
-	type: typeof typeSendMessage
-	newContent: string
+type ActionsTypes = GetActionsTypes<typeof messengerActions>
+
+export const messengerActions = {
+	sendMessageSuccess: (newContent: string) =>
+		({
+			type: typeSendMessage,
+			newContent,
+		} as const),
 }
 
-export const sendMessage = (newContent: string): sendMessageType => ({
-	type: typeSendMessage,
-	newContent,
-})
+// ====================================================
+// Thunks
+
+type ThunkType = BaseThunkType<ActionsTypes>
+
+export const sendMessage = (newContent: string): ThunkType => {
+	return async dispatch => {
+		dispatch(messengerActions.sendMessageSuccess(newContent))
+	}
+}
 
 // ====================================================
 // Exports
