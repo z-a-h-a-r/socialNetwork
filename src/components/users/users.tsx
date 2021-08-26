@@ -43,8 +43,6 @@ const Users: FC<PropsType> = props => {
 						name={user.name}
 						key={user.id}
 						id={user.id}
-						city={'user.location.city'}
-						country={'user.location.country'}
 						status={user.status != null ? user.status : 'status not found'}
 						avatarUrl={user.photos.small}
 						followed={user.followed}

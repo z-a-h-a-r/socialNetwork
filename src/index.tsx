@@ -12,7 +12,7 @@ import App from './App'
 // ====================================================
 // Component
 
-function rerender() {
+function render() {
 	ReactDOM.render(
 		<BrowserRouter>
 			<Provider store={store}>
@@ -22,4 +22,4 @@ function rerender() {
 		document.getElementById('root')
 	)
 }
-rerender()
+render()

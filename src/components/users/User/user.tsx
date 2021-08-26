@@ -3,7 +3,7 @@
 // Main
 import React, { useEffect, useState, FC } from 'react'
 import { NavLink } from 'react-router-dom'
-import { colorsForAvatars } from '../../../variables/colorsForAvatar.js'
+import { colorsForAvatars } from '../../../variables/colorsForAvatar'
 import { getRandomIntInclusive } from '../../../functions/getRandomIntInclusive'
 import {
 	UserDispatchType,
@@ -60,11 +60,8 @@ const User: FC<PropsType> = React.memo(props => {
 				</NavLink>
 			</div>
 
-			<div className={st.location}>
-				<div>
-					<p>{props.city}</p>
-					<p>{props.country}</p>
-				</div>
+			<div className={st.follow}>
+				<div></div>
 				{props.followed ? (
 					<button
 						disabled={props.followingIsFetching.some(id => id === props.id)}

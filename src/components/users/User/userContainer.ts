@@ -25,8 +25,6 @@ export type UserOwnType = {
 	status: string
 	avatarUrl: string | null
 	followed: boolean
-	city: string
-	country: string
 }
 
 let mapStateToProps = (state: AppStateType): UserStateType => ({

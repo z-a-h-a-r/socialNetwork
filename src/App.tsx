@@ -17,17 +17,18 @@ import Footer from './components/footer/footer'
 import Header from './components/header/headerContainer'
 import Login from './components/login/loginContainer'
 import Loading from './components/common/Loading/Loading'
+import { AppStateType } from './redux/store'
 // Pages components
 const Users = lazy(() => import('./components/users/usersContainer'))
 const Profile = lazy(() => import('./components/profile/profileContainer'))
-const Messenger = lazy(() =>
-	import('./components/messenger/messengerContainer')
+const Messenger = lazy(
+	() => import('./components/messenger/messengerContainer')
 )
 
 // ====================================================
 // Component
 
-const App = props => {
+const App = (props: PropsType) => {
 	useEffect(() => {
 		props.initialize()
 	}, [])
@@ -66,10 +67,18 @@ const App = props => {
 	}
 }
 
-let mapStateToProps = state => ({
+// ====================================================
+
+let mapStateToProps = (state: AppStateType) => ({
 	isAuth: state.auth.isAuth,
 	initialized: state.app.initialized,
 })
+
+// ====================================================
+
+type MapPropsType = ReturnType<typeof mapStateToProps>
+type DispatchPropsType = { initialize: () => void }
+type PropsType = MapPropsType & DispatchPropsType
 
 // ====================================================
 // Exports

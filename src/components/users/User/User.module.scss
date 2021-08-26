@@ -57,17 +57,12 @@
 			}
 		}
 	}
-	.location {
+	.follow {
 		display: flex;
 		flex-direction: column;
 		justify-content: space-between;
-		& p {
-			margin: 0;
-			&:first-child {
-				margin: 0px 0px 5px 0px;
-			}
-		}
 		& button {
+			width: 80px;
 			background: rgba(192, 192, 192, 0.9);
 			color: rgb(61, 61, 61);
 			height: 28px;

@@ -6,6 +6,7 @@ import { withRouter } from 'react-router-dom'
 import { AppStateType } from '../../redux/store'
 import { compose } from 'redux'
 import { postType } from '../../types/types'
+import React from 'react'
 // Components
 import Profile from './profile'
 // Reducers
@@ -59,4 +60,4 @@ export default compose(
 			deletePost,
 		}
 	)
-)(Profile)
+)(Profile) as React.ComponentType
