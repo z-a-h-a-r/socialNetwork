@@ -14,7 +14,11 @@ export const usersAPI = {
 			.get<GetUsersItemsType>(`users?page=${i}`)
 			.then(response => response.data)
 	},
-
+	searchUsersAPI: (i: number, term: string) => {
+		return instance
+			.get<GetUsersItemsType>(`users?page=${i}&term=${term}`)
+			.then(response => response.data)
+	},
 	toggleFollowAPI: (id: number, nextFollowState: boolean) => {
 		if (nextFollowState) {
 			return instance

@@ -11,7 +11,7 @@ import {
 // Styles
 import st from './users.module.scss'
 // Components
-import UsersForm from './usersForm/usersForm'
+import UsersForm from './usersForm/usersFormContainer'
 import Loading from '../common/Loading/Loading'
 import UserContainer from '../common/user/userContainer'
 
@@ -22,21 +22,33 @@ type PropsType = UsersStateType & UsersDispatchType & UsersOwnType
 
 const Users: FC<PropsType> = props => {
 	useEffect(() => {
+		props.clearUsers()
 		props.getUsers(1)
 	}, [])
 
-	let [nextCurrnetPage, setNextCurrnetPage] = useState(2)
+	let [currentPageWithTerm, setCurrentPageWithTerm] = useState(2)
+	let [currentPageWithoutTerm, setCurrentPageWithoutTerm] = useState(2)
+	let [prevTerm, setPrevTerm] = useState('')
 
 	const onBtnClk = () => {
-		props.getUsers(nextCurrnetPage)
-		setNextCurrnetPage(nextCurrnetPage + 1)
+		if (props.term === '') {
+			props.searchUsers(currentPageWithoutTerm, '', false)
+			setCurrentPageWithoutTerm(currentPageWithoutTerm + 1)
+			setCurrentPageWithTerm((currentPageWithTerm = 2))
+		} else {
+			if (prevTerm !== props.term) {
+				setPrevTerm((prevTerm = props.term))
+				setCurrentPageWithTerm((currentPageWithTerm = 2))
+			}
+			props.searchUsers(currentPageWithTerm, props.term, false)
+			setCurrentPageWithTerm(currentPageWithTerm + 1)
+			setCurrentPageWithoutTerm((currentPageWithoutTerm = 2))
+		}
 	}
-	const onSubmit = (formData: any) => {
-		console.log(formData)
-	}
+
 	return (
 		<div className={st.users}>
-			<UsersForm onSubmit={onSubmit} />
+			<UsersForm />
 			<div className={st.usersList}>
 				{props.users.map(user => (
 					<UserContainer

@@ -7,13 +7,13 @@ import { BaseThunkType, GetActionsTypes } from './store'
 
 // ====================================================
 // Types
-const typeSetFriendsIsFetching = 'SN/USERS/SET-FRIENDS-IS-FETCHING'
-const typeSetFollowingIsFetching = 'SN/USERS/SET-FOLLOWING-IS-FETCHING'
-const typeToggleFollowState = 'SN/USERS/TOGGLE-FOLLOWING-STATE'
-const typeAddFriends = 'SN/USERS/ADD-FRIENDS'
-const typeSetFriends = 'SN/USERS/SET-FRIENDS'
-const typeClearFriends = 'SN/USERS/CLEAR-FRIENDS'
-const typeSetTerm = 'SN/USERS/SET-TERM'
+const typeSetFriendsIsFetching = 'SN/FRIENDS/SET-FRIENDS-IS-FETCHING'
+const typeSetFollowingIsFetching = 'SN/FRIENDS/SET-FOLLOWING-IS-FETCHING'
+const typeToggleFollowState = 'SN/FRIENDS/TOGGLE-FOLLOWING-STATE'
+const typeAddFriends = 'SN/FRIENDS/ADD-FRIENDS'
+const typeSetFriends = 'SN/FRIENDS/SET-FRIENDS'
+const typeClearFriends = 'SN/FRIENDS/CLEAR-FRIENDS'
+const typeSetTerm = 'SN/FRIENDS/SET-TERM'
 
 // ====================================================
 // Initial state

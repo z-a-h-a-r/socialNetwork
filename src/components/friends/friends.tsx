@@ -13,17 +13,17 @@ import st from './friends.module.scss'
 // Components
 import Loading from '../common/Loading/Loading'
 import UserContainer from '../common/user/userContainer'
-import FriendsForm from './friendsForm/friendsForm.container'
+import FriendsForm from './friendsForm/friendsFormContainer'
 
 // ====================================================
 // Component
 
 type PropsType = FriendsStateType & FriendsOwnType & FriendsDispatchType
 
-const Users: FC<PropsType> = props => {
+const Friends: FC<PropsType> = props => {
 	useEffect(() => {
 		props.clearFriends()
-		// props.getFriends(1)
+		props.getFriends(1)
 	}, [])
 
 	let [currentPageWithTerm, setCurrentPageWithTerm] = useState(2)
@@ -77,4 +77,4 @@ const Users: FC<PropsType> = props => {
 // ====================================================
 // Exports
 
-export default Users
+export default Friends

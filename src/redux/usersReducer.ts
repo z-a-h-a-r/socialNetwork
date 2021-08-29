@@ -7,11 +7,14 @@ import { BaseThunkType, GetActionsTypes } from './store'
 
 // ====================================================
 // Types
+
 const typeSetUsers = 'SN/USERS/SET-USERS'
+const typeAddUsers = 'SN/USERS/ADD-USERS'
 const typeSetUsersIsFetching = 'SN/USERS/SET-USERS-IS-FETCHING'
 const typeSetFollowingIsFetching = 'SN/USERS/SET-FOLLOWING-IS-FETCHING'
 const typeToggleFollowState = 'SN/USERS/TOGGLE-FOLLOWING-STATE'
 const typeClearUsers = 'SN/USERS/CLEAR-USERS'
+const typeSetTerm = 'SN/USERS/SET-TERM'
 
 // ====================================================
 // Initial state
@@ -21,6 +24,7 @@ let initialState = {
 	usersIsFetching: false as boolean,
 	followingIsFetching: [] as Array<number>, // array of user id
 	isFetchingData: false as boolean,
+	term: '' as string,
 }
 
 type InitialStateType = typeof initialState
@@ -44,16 +48,27 @@ const usersReducer = (
 					}
 				}),
 			}
-		case typeSetUsers:
+		case typeAddUsers:
 			return {
 				...state,
 				users: [...state.users, ...action.users],
+			}
+		case typeSetUsers:
+			return {
+				...state,
+				users: [...action.users],
 			}
 
 		case typeClearUsers:
 			return {
 				...state,
 				users: [],
+			}
+
+		case typeSetTerm:
+			return {
+				...state,
+				term: action.term,
 			}
 
 		case typeSetUsersIsFetching:
@@ -79,6 +94,12 @@ const usersReducer = (
 type ActionsTypes = GetActionsTypes<typeof usersActions>
 
 export const usersActions = {
+	addUsers: (users: Array<UserType>) =>
+		({
+			type: typeAddUsers,
+			users,
+		} as const),
+
 	setUsers: (users: Array<UserType>) =>
 		({
 			type: typeSetUsers,
@@ -109,6 +130,11 @@ export const usersActions = {
 			followingIsFetching,
 			id,
 		} as const),
+	setTerm: (term: string) =>
+		({
+			type: typeSetTerm,
+			term,
+		} as const),
 }
 
 // ====================================================
@@ -120,7 +146,7 @@ export const getUsers = (i: number): ThunkType => {
 	return async dispatch => {
 		dispatch(usersActions.setUsersIsFetching(true))
 		usersAPI.getUsersAPI(i).then(data => {
-			dispatch(usersActions.setUsers(data.items))
+			dispatch(usersActions.addUsers(data.items))
 			dispatch(usersActions.setUsersIsFetching(false))
 		})
 	}
@@ -138,6 +164,24 @@ export const toggleFollowState =
 			dispatch(usersActions.setFollowingIsFetching(false, userId))
 		}
 	}
+
+export const searchUsers = (
+	i: number,
+	term: string,
+	willSet: boolean
+): ThunkType => {
+	return async dispatch => {
+		dispatch(usersActions.setUsersIsFetching(true))
+		usersAPI.searchUsersAPI(i, term).then(data => {
+			if (willSet) {
+				dispatch(usersActions.setUsers(data.items))
+			} else {
+				dispatch(usersActions.addUsers(data.items))
+			}
+			dispatch(usersActions.setUsersIsFetching(false))
+		})
+	}
+}
 
 // ====================================================
 // Exports

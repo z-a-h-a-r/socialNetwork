@@ -1,40 +1,75 @@
 // ====================================================
 // IMPORTS
 // Main
+import { Formik } from 'formik'
 import { FC } from 'react'
-import { Field, InjectedFormProps, reduxForm } from 'redux-form'
 // Styles
 import st from './usersForm.module.scss'
+import {
+	UsersFormDispatchType,
+	UsersFormOwnType,
+	UsersFormStateType,
+} from './usersFormContainer'
 // Components
 
 // ====================================================
 // Component
 
-type PropsType = {}
-type loginFormValuesType = {
-	content: string
+const usersSearchFormValidate = (values: any) => {
+	const errors = {}
+
+	return errors
 }
 
-const UsersFormWithoutRedux: FC<
-	InjectedFormProps<loginFormValuesType> & PropsType
-> = props => {
+type PropsType = UsersFormStateType & UsersFormDispatchType & UsersFormOwnType
+type usersSearchFormType = {
+	term: string
+}
+
+const UsersForm: FC<PropsType> = props => {
+	const submit = (
+		values: usersSearchFormType,
+		{ setSubmitting }: { setSubmitting: (setSubmitting: boolean) => void }
+	) => {
+		props.setTerm(values.term)
+		props.searchUsers(1, values.term, true)
+		setSubmitting(false)
+	}
 	return (
-		<form className={st.form} onSubmit={props.handleSubmit}>
-			<Field
-				type={'text'}
-				placeholder="find new friends"
-				name={'content'}
-				component={'input'}
-				className={st.input}
-			/>
-			<button className={st.button}>search</button>
-		</form>
+		<Formik
+			initialValues={{ term: '' }}
+			validate={usersSearchFormValidate}
+			onSubmit={submit}
+		>
+			{({
+				values,
+				errors,
+				touched,
+				handleChange,
+				handleBlur,
+				handleSubmit,
+				isSubmitting,
+				/* and other goodies */
+			}) => (
+				<form onSubmit={handleSubmit} className={st.form}>
+					<input
+						type="text"
+						name="term"
+						onChange={handleChange}
+						onBlur={handleBlur}
+						value={values.term}
+						className={st.input}
+					/>
+					{errors.term && touched.term && errors.term}
+
+					<button type="submit" className={st.button} disabled={isSubmitting}>
+						Search
+					</button>
+				</form>
+			)}
+		</Formik>
 	)
 }
-
-const UsersForm = reduxForm<loginFormValuesType, PropsType>({
-	form: 'users',
-})(UsersFormWithoutRedux)
 
 // ====================================================
 // Exports

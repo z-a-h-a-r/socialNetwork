@@ -8,7 +8,7 @@ import {
 	FriendsFormStateType,
 	FriendsFormDispatchType,
 	FriendsFormOwnType,
-} from './friendsForm.container'
+} from './friendsFormContainer'
 // Styles
 import st from './friendsForm.module.scss'
 // Components
