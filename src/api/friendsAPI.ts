@@ -6,15 +6,19 @@ import { GetUsersItemsType, instance, ResponseType } from './api'
 // ====================================================
 // Requests
 
-type getUsersResponseType = {}
+type getFriendsResponseType = {}
 
-export const usersAPI = {
-	getUsersAPI: (i: number) => {
+export const friendsAPI = {
+	getFriendsAPI: (i: number) => {
 		return instance
-			.get<GetUsersItemsType>(`users?page=${i}`)
+			.get<GetUsersItemsType>(`users?page=${i}&friend=true`)
 			.then(response => response.data)
 	},
-
+	searchFriendsAPI: (i: number, term: string) => {
+		return instance
+			.get<GetUsersItemsType>(`users?page=${i}&friend=true&term=${term}`)
+			.then(response => response.data)
+	},
 	toggleFollowAPI: (id: number, nextFollowState: boolean) => {
 		if (nextFollowState) {
 			return instance

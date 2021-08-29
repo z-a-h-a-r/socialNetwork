@@ -13,7 +13,6 @@ import { toggleFollowState } from '../../../redux/usersReducer'
 // MSTP & MDTP
 
 export type UserStateType = {
-	users: Array<UserType>
 	followingIsFetching: Array<number>
 }
 export type UserDispatchType = {
@@ -28,7 +27,6 @@ export type UserOwnType = {
 }
 
 let mapStateToProps = (state: AppStateType): UserStateType => ({
-	users: state.userPage.users,
 	followingIsFetching: state.userPage.followingIsFetching,
 })
 

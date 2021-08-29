@@ -18,6 +18,7 @@ import Header from './components/header/headerContainer'
 import Login from './components/login/loginContainer'
 import Loading from './components/common/Loading/Loading'
 import { AppStateType } from './redux/store'
+import Friends from './components/friends/friendsContainer'
 // Pages components
 const Users = lazy(() => import('./components/users/usersContainer'))
 const Profile = lazy(() => import('./components/profile/profileContainer'))
@@ -54,6 +55,7 @@ const App = (props: PropsType) => {
 									/>
 									<Route path="/messenger" render={() => <Messenger />} />
 									<Route path="/users" render={() => <Users />} />
+									<Route path="/friends" render={() => <Friends />} />
 									<Redirect from="/" to="/profile" />
 									<Route path="*" render={() => <p>Page not found (404)</p>} />
 								</Switch>

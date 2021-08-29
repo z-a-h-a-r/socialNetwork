@@ -4,41 +4,53 @@
 import { useEffect, useState } from 'react'
 import { FC } from 'react'
 import {
-	UsersDispatchType,
-	UsersOwnType,
-	UsersStateType,
-} from './usersContainer'
+	FriendsStateType,
+	FriendsOwnType,
+	FriendsDispatchType,
+} from './friendsContainer'
 // Styles
-import st from './users.module.scss'
+import st from './friends.module.scss'
 // Components
-import UsersForm from './usersForm/usersForm'
 import Loading from '../common/Loading/Loading'
 import UserContainer from '../common/user/userContainer'
+import FriendsForm from './friendsForm/friendsForm.container'
 
 // ====================================================
 // Component
 
-type PropsType = UsersStateType & UsersDispatchType & UsersOwnType
+type PropsType = FriendsStateType & FriendsOwnType & FriendsDispatchType
 
 const Users: FC<PropsType> = props => {
 	useEffect(() => {
-		props.getUsers(1)
+		props.clearFriends()
+		// props.getFriends(1)
 	}, [])
 
-	let [nextCurrnetPage, setNextCurrnetPage] = useState(2)
+	let [currentPageWithTerm, setCurrentPageWithTerm] = useState(2)
+	let [currentPageWithoutTerm, setCurrentPageWithoutTerm] = useState(2)
+	let [prevTerm, setPrevTerm] = useState('')
 
 	const onBtnClk = () => {
-		props.getUsers(nextCurrnetPage)
-		setNextCurrnetPage(nextCurrnetPage + 1)
+		if (props.term === '') {
+			props.searchFriends(currentPageWithoutTerm, '', false)
+			setCurrentPageWithoutTerm(currentPageWithoutTerm + 1)
+			setCurrentPageWithTerm((currentPageWithTerm = 2))
+		} else {
+			if (prevTerm !== props.term) {
+				setPrevTerm((prevTerm = props.term))
+				setCurrentPageWithTerm((currentPageWithTerm = 2))
+			}
+			props.searchFriends(currentPageWithTerm, props.term, false)
+			setCurrentPageWithTerm(currentPageWithTerm + 1)
+			setCurrentPageWithoutTerm((currentPageWithoutTerm = 2))
+		}
 	}
-	const onSubmit = (formData: any) => {
-		console.log(formData)
-	}
+
 	return (
 		<div className={st.users}>
-			<UsersForm onSubmit={onSubmit} />
+			<FriendsForm />
 			<div className={st.usersList}>
-				{props.users.map(user => (
+				{props.friends.map(user => (
 					<UserContainer
 						name={user.name}
 						key={user.id}

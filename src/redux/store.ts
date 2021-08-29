@@ -16,6 +16,7 @@ import messangerReducer from './messangerReducer'
 import profileReducer from './profileReducer'
 import usersReducer from './usersReducer'
 import appReducer from './appReducer'
+import friendsReducer from './friendsReducer'
 
 // ====================================================
 // CombineReducers
@@ -24,6 +25,7 @@ let reducers = combineReducers({
 	messangerPage: messangerReducer,
 	profilePage: profileReducer,
 	userPage: usersReducer,
+	friendsPage: friendsReducer,
 	auth: authReducer,
 	form: formReducer,
 	app: appReducer,

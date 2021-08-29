@@ -49,6 +49,16 @@ const Navbar: FC<PropsType> = props => {
 								Users
 							</NavLink>
 						</li>
+						<li className={st.li}>
+							<NavLink
+								exact
+								to="/friends"
+								className={st.link}
+								activeClassName={st.active}
+							>
+								Friends
+							</NavLink>
+						</li>
 					</ul>
 				</div>
 			</nav>

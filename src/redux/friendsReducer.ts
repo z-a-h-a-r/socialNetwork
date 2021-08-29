@@ -1,26 +1,29 @@
 // ====================================================
 // IMPORTS
 // Main
-import { usersAPI } from '../api/usersAPI'
+import { friendsAPI } from '../api/friendsAPI'
 import { UserType } from '../types/types'
 import { BaseThunkType, GetActionsTypes } from './store'
 
 // ====================================================
 // Types
-const typeSetUsers = 'SN/USERS/SET-USERS'
-const typeSetUsersIsFetching = 'SN/USERS/SET-USERS-IS-FETCHING'
+const typeSetFriendsIsFetching = 'SN/USERS/SET-FRIENDS-IS-FETCHING'
 const typeSetFollowingIsFetching = 'SN/USERS/SET-FOLLOWING-IS-FETCHING'
 const typeToggleFollowState = 'SN/USERS/TOGGLE-FOLLOWING-STATE'
-const typeClearUsers = 'SN/USERS/CLEAR-USERS'
+const typeAddFriends = 'SN/USERS/ADD-FRIENDS'
+const typeSetFriends = 'SN/USERS/SET-FRIENDS'
+const typeClearFriends = 'SN/USERS/CLEAR-FRIENDS'
+const typeSetTerm = 'SN/USERS/SET-TERM'
 
 // ====================================================
 // Initial state
 
 let initialState = {
-	users: [] as Array<UserType>,
+	friends: [] as Array<UserType>,
 	usersIsFetching: false as boolean,
 	followingIsFetching: [] as Array<number>, // array of user id
 	isFetchingData: false as boolean,
+	term: '' as string,
 }
 
 type InitialStateType = typeof initialState
@@ -28,7 +31,7 @@ type InitialStateType = typeof initialState
 // ====================================================
 // Reducer
 
-const usersReducer = (
+const friendsReducer = (
 	state = initialState,
 	action: ActionsTypes
 ): InitialStateType => {
@@ -36,7 +39,7 @@ const usersReducer = (
 		case typeToggleFollowState:
 			return {
 				...state,
-				users: state.users.map(user => {
+				friends: state.friends.map(user => {
 					if (user.id === action.id) {
 						return { ...user, followed: action.nextFollowState }
 					} else {
@@ -44,22 +47,33 @@ const usersReducer = (
 					}
 				}),
 			}
-		case typeSetUsers:
+
+		case typeAddFriends:
 			return {
 				...state,
-				users: [...state.users, ...action.users],
+				friends: [...state.friends, ...action.friends],
 			}
-
-		case typeClearUsers:
+		case typeSetFriends:
 			return {
 				...state,
-				users: [],
+				friends: [...action.friends],
 			}
 
-		case typeSetUsersIsFetching:
+		case typeSetFriendsIsFetching:
 			return {
 				...state,
 				isFetchingData: action.boolean,
+			}
+		case typeClearFriends:
+			return {
+				...state,
+				friends: [],
+			}
+
+		case typeSetTerm:
+			return {
+				...state,
+				term: action.term,
 			}
 		case typeSetFollowingIsFetching:
 			return {
@@ -76,18 +90,19 @@ const usersReducer = (
 // ====================================================
 // Action creators
 
-type ActionsTypes = GetActionsTypes<typeof usersActions>
+type ActionsTypes = GetActionsTypes<typeof friendsActions>
 
-export const usersActions = {
-	setUsers: (users: Array<UserType>) =>
+export const friendsActions = {
+	addFriends: (friends: Array<UserType>) =>
 		({
-			type: typeSetUsers,
-			users,
+			type: typeAddFriends,
+			friends,
 		} as const),
 
-	clearUsers: () =>
+	setFriends: (friends: Array<UserType>) =>
 		({
-			type: typeClearUsers,
+			type: typeSetFriends,
+			friends,
 		} as const),
 
 	toggleFollowStateSuccess: (id: number, nextFollowState: boolean) =>
@@ -97,9 +112,9 @@ export const usersActions = {
 			nextFollowState,
 		} as const),
 
-	setUsersIsFetching: (boolean: boolean) =>
+	setFriendsIsFetching: (boolean: boolean) =>
 		({
-			type: typeSetUsersIsFetching,
+			type: typeSetFriendsIsFetching,
 			boolean,
 		} as const),
 
@@ -109,6 +124,17 @@ export const usersActions = {
 			followingIsFetching,
 			id,
 		} as const),
+
+	clearFriends: () =>
+		({
+			type: typeClearFriends,
+		} as const),
+
+	setTerm: (term: string) =>
+		({
+			type: typeSetTerm,
+			term,
+		} as const),
 }
 
 // ====================================================
@@ -116,30 +142,46 @@ export const usersActions = {
 
 type ThunkType = BaseThunkType<ActionsTypes>
 
-export const getUsers = (i: number): ThunkType => {
+export const getFriends = (i: number): ThunkType => {
 	return async dispatch => {
-		dispatch(usersActions.setUsersIsFetching(true))
-		usersAPI.getUsersAPI(i).then(data => {
-			dispatch(usersActions.setUsers(data.items))
-			dispatch(usersActions.setUsersIsFetching(false))
+		dispatch(friendsActions.setFriendsIsFetching(true))
+		friendsAPI.getFriendsAPI(i).then(data => {
+			dispatch(friendsActions.addFriends(data.items))
+			dispatch(friendsActions.setFriendsIsFetching(false))
 		})
 	}
 }
-
 export const toggleFollowState =
 	(userId: number, nextFollowState: boolean): ThunkType =>
 	async dispatch => {
-		dispatch(usersActions.setFollowingIsFetching(true, userId))
+		dispatch(friendsActions.setFollowingIsFetching(true, userId))
 
-		let data = await usersAPI.toggleFollowAPI(userId, nextFollowState)
+		let data = await friendsAPI.toggleFollowAPI(userId, nextFollowState)
 
 		if (data.resultCode === 0) {
-			dispatch(usersActions.toggleFollowStateSuccess(userId, nextFollowState))
-			dispatch(usersActions.setFollowingIsFetching(false, userId))
+			dispatch(friendsActions.toggleFollowStateSuccess(userId, nextFollowState))
+			dispatch(friendsActions.setFollowingIsFetching(false, userId))
 		}
 	}
+export const searchFriends = (
+	i: number,
+	term: string,
+	willSet: boolean
+): ThunkType => {
+	return async dispatch => {
+		dispatch(friendsActions.setFriendsIsFetching(true))
+		friendsAPI.searchFriendsAPI(i, term).then(data => {
+			if (willSet) {
+				dispatch(friendsActions.setFriends(data.items))
+			} else {
+				dispatch(friendsActions.addFriends(data.items))
+			}
 
+			dispatch(friendsActions.setFriendsIsFetching(false))
+		})
+	}
+}
 // ====================================================
 // Exports
 
-export default usersReducer
+export default friendsReducer
