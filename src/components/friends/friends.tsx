@@ -11,7 +11,7 @@ import {
 // Styles
 import st from './friends.module.scss'
 // Components
-import Loading from '../common/Loading/Loading'
+import Loading from '../common/loading/loading'
 import UserContainer from '../common/user/userContainer'
 import FriendsForm from './friendsForm/friendsFormContainer'
 

@@ -4,40 +4,80 @@
 import React, { useEffect } from 'react'
 import { useState } from 'react'
 import { FC } from 'react'
+import { connect, useDispatch, useSelector } from 'react-redux'
+import { AppStateType } from '../../redux/store'
 import {
-	ProfileDispatchType,
-	ProfileOwnType,
-	ProfileStateType,
-} from './profileContainer'
+	createPost,
+	deletePost,
+	getInf,
+	getStatus,
+	updateStatus,
+} from '../../redux/profileReducer'
 // Styles
 import st from './profile.module.scss'
 // Components
 import Post from './post/post'
 import CreatePost from './createPost/createPost'
 import AvatarContainer from './avatar/avatarContainer'
+import { compose } from 'redux'
+import { withRouter } from 'react-router'
+import { postType } from '../../types/types'
 
 // ====================================================
 // Component
 
-type PropsType = ProfileStateType & ProfileDispatchType & ProfileOwnType
+type PropsType = { match: any }
 
 const Profile: FC<PropsType> = props => {
-	// ====================================================
-	// Local state
-	let [inputValue, setInputValue] = useState('')
-	let [editMode, setEditMode] = useState(false)
-	let [isMyProfile, setIsMyProfile] = useState(false)
+	const dispatch = useDispatch()
 
 	// ====================================================
-	// Hooks
+	// state
+
+	const postsData = useSelector(
+		(state: AppStateType): any => state.profilePage.postsData
+	)
+	const aboutMe = useSelector(
+		(state: AppStateType): any => state.profilePage.profile.aboutMe
+	)
+	const fullName = useSelector(
+		(state: AppStateType) => state.profilePage.profile.fullName
+	)
+	const largePhoto = useSelector(
+		(state: AppStateType) => state.profilePage.profile.photos.large
+	)
+	const userId = useSelector((state: AppStateType): any => state.auth.id)
+
+	// ====================================================
+	// dispatch
+
+	const onGetInf = (userId: number, resolve: any) => {
+		dispatch(getInf(userId, resolve))
+	}
+	const onGetStatus = (userId: number) => {
+		dispatch(getStatus(userId))
+	}
+	const onUpdateStatus = (status: string) => {
+		dispatch(updateStatus(status))
+	}
+	const onCreatePost = (content: string) => {
+		dispatch(createPost(content))
+	}
+	const onDeletePost = (postId: number) => {
+		dispatch(deletePost(postId))
+	}
+
+	// ====================================================
+	// Side effects
+
 	useEffect(() => {
 		new Promise(function (resolve, reject) {
 			if (!props.match.params.userId) {
-				if (props.userId) {
-					resolve(props.getInf(props.userId))
+				if (userId) {
+					onGetInf(userId, resolve)
 				}
 			} else {
-				resolve(props.getInf(props.match.params.userId))
+				onGetInf(props.match.params.userId, resolve)
 			}
 		})
 			.then(function () {
@@ -49,27 +89,34 @@ const Profile: FC<PropsType> = props => {
 			})
 			.then(function () {
 				if (!props.match.params.userId) {
-					if (props.userId) {
-						props.getStatus(props.userId)
+					if (userId) {
+						onGetStatus(userId)
 					}
 				} else {
-					props.getStatus(props.match.params.userId)
+					onGetStatus(props.match.params.userId)
 				}
 			})
 	}, [])
 
 	// ====================================================
+	// Local state
+
+	let [inputValue, setInputValue] = useState('')
+	let [editMode, setEditMode] = useState(false)
+	let [isMyProfile, setIsMyProfile] = useState(false)
+
+	// ====================================================
 	// Functions
 
 	const onInputBlur = () => {
-		props.updateStatus(inputValue)
+		onUpdateStatus(inputValue)
 		setEditMode((editMode = false))
 	}
 	const onInputChange = (e: any) => {
 		setInputValue(e.currentTarget.value)
 	}
 	const onSubmit = (formData: any) => {
-		props.createPost(formData.newContent)
+		onCreatePost(formData.newContent)
 	}
 
 	// ====================================================
@@ -84,7 +131,7 @@ const Profile: FC<PropsType> = props => {
 				<AvatarContainer isMyProfile={isMyProfile} />
 
 				<p className={st.name}>
-					{props.fullName != null ? props.fullName : 'Name not found'}
+					{fullName != null ? fullName : 'Name not found'}
 				</p>
 				<div className={st.status}>
 					{isMyProfile && !editMode && (
@@ -92,10 +139,10 @@ const Profile: FC<PropsType> = props => {
 							className={st.status__text}
 							onDoubleClick={() => {
 								setEditMode((editMode = true))
-								setInputValue((inputValue = props.aboutMe))
+								setInputValue((inputValue = aboutMe))
 							}}
 						>
-							{props.aboutMe || 'status not found'}
+							{aboutMe || 'status not found'}
 						</p>
 					)}
 					{editMode && (
@@ -107,7 +154,7 @@ const Profile: FC<PropsType> = props => {
 							onBlur={onInputBlur}
 						/>
 					)}
-					{!isMyProfile && <p>{props.aboutMe || 'status not found'}</p>}
+					{!isMyProfile && <p>{aboutMe || 'status not found'}</p>}
 				</div>
 				<div className={st.otherInfo}></div>
 			</div>
@@ -128,14 +175,14 @@ const Profile: FC<PropsType> = props => {
 				)}
 				{!isMyProfile && <h1 className={st.title}>Posts</h1>}
 				<div className={st.list}>
-					{props.postsData.map(p => (
+					{postsData.map((post: postType) => (
 						<Post
-							content={p.content}
-							sharedCount={p.sharedCount}
-							commentsCount={p.commentsCount}
-							key={p.postId}
-							postId={p.postId}
-							deletePost={props.deletePost}
+							content={post.content}
+							sharedCount={post.sharedCount}
+							commentsCount={post.commentsCount}
+							key={post.postId}
+							postId={post.postId}
+							deletePost={deletePost}
 							isMyProfile={isMyProfile}
 						/>
 					))}
@@ -148,4 +195,4 @@ const Profile: FC<PropsType> = props => {
 // ====================================================
 // Exports
 
-export default Profile
+export default compose(withRouter)(Profile) as React.ComponentType

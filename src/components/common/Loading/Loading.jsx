@@ -2,7 +2,7 @@
 // IMPORTS
 // Styles
 
-import st from './Loading.module.scss'
+import st from './loading.module.scss'
 
 // ====================================================
 // Component

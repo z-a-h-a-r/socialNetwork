@@ -16,12 +16,12 @@ import Navbar from './components/navbar/navbar'
 import Footer from './components/footer/footer'
 import Header from './components/header/headerContainer'
 import Login from './components/login/loginContainer'
-import Loading from './components/common/Loading/Loading'
+import Loading from './components/common/loading/loading'
 import { AppStateType } from './redux/store'
 import Friends from './components/friends/friendsContainer'
 // Pages components
-const Users = lazy(() => import('./components/users/usersContainer'))
-const Profile = lazy(() => import('./components/profile/profileContainer'))
+const Users = lazy(() => import('./components/users/users'))
+const Profile = lazy(() => import('./components/profile/profile'))
 const Messenger = lazy(
 	() => import('./components/messenger/messengerContainer')
 )

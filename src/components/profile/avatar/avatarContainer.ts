@@ -19,7 +19,7 @@ export type AvatarStateType = {
 	userId: number | null
 }
 export type AvatarDispatchType = {
-	saveAvatar: (file: object, userId: number) => void
+	saveAvatar: (file: object, userId: number, resolve: any) => void
 }
 export type AvatarOwnType = {
 	isMyProfile: boolean

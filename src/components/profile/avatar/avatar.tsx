@@ -42,9 +42,12 @@ const Avatar: FC<PropsType> = props => {
 		setEditMode((editMode = false))
 	}
 	const onChooseFile = (e: any) => {
+		const fakeResolve = (func: any) => {
+			func()
+		}
 		if (e.target.files[0]) {
 			if (props.userId) {
-				props.saveAvatar(e.target.files[0], props.userId)
+				props.saveAvatar(e.target.files[0], props.userId, fakeResolve)
 				setEditMode((editMode = false))
 			}
 		}

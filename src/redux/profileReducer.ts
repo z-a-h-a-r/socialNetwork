@@ -145,10 +145,10 @@ export const profileActions = {
 
 type ThunkType = BaseThunkType<ActionsTypes>
 
-export const getInf = (userId: number): ThunkType => {
+export const getInf = (userId: number, resolve: any): ThunkType => {
 	return async dispatch => {
 		profileAPI.getProfileDataAPI(userId).then(data => {
-			dispatch(profileActions.setProfile(data))
+			resolve(dispatch(profileActions.setProfile(data)))
 		})
 	}
 }
@@ -170,11 +170,15 @@ export const updateStatus = (status: string): ThunkType => {
 		})
 	}
 }
-export const saveAvatar = (file: object, userId: number): ThunkType => {
+export const saveAvatar = (
+	file: object,
+	userId: number,
+	resolve: any
+): ThunkType => {
 	return async dispatch => {
 		profileAPI.saveAvatarAPI(file).then(data => {
 			if (data.resultCode === 0) {
-				dispatch(getInf(userId))
+				dispatch(getInf(userId, resolve))
 			} else {
 				console.error(data)
 			}
