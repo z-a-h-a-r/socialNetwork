@@ -5,7 +5,9 @@ import { useEffect, useState } from 'react'
 import { FC } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppStateType } from '../../redux/store'
-import { getUsers, searchUsers, usersActions } from '../../redux/usersReducer'
+import { searchUsers, usersActions } from '../../redux/usersReducer'
+import { useHistory } from 'react-router'
+import * as queryString from 'querystring'
 // Styles
 import st from './users.module.scss'
 // Components
@@ -20,6 +22,7 @@ type PropsType = {}
 
 const Users: FC<PropsType> = props => {
 	const dispatch = useDispatch()
+	const history = useHistory()
 
 	// ====================================================
 	// state
@@ -33,23 +36,33 @@ const Users: FC<PropsType> = props => {
 	// ====================================================
 	// dispatch
 
-	const onGetUsers = (i: number) => {
-		dispatch(getUsers(i))
-	}
 	const onSearchUsers = (i: number, term: string, willSet: boolean) => {
 		dispatch(searchUsers(i, term, willSet))
-	}
-	const onClearUsers = () => {
-		dispatch(usersActions.clearUsers())
 	}
 
 	// ====================================================
 	// Side effects
 
 	useEffect(() => {
-		onClearUsers()
-		onGetUsers(1)
+		const parsedSearch = queryString.parse(
+			history.location.search.substr(1)
+		) as { term: string }
+
+		let actualTerm = term
+
+		if (parsedSearch.term) {
+			actualTerm = parsedSearch.term as string
+			dispatch(usersActions.setTerm(actualTerm))
+		}
+
+		onSearchUsers(1, actualTerm, true)
 	}, [])
+	useEffect(() => {
+		history.push({
+			pathname: '/users',
+			search: `term=${term}`,
+		})
+	}, [term])
 
 	// ====================================================
 	//  Local state

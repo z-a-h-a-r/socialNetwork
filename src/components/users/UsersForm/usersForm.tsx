@@ -35,6 +35,7 @@ const UsersForm: FC<PropsType> = props => {
 		props.searchUsers(1, values.term, true)
 		setSubmitting(false)
 	}
+
 	return (
 		<Formik
 			initialValues={{ term: '' }}

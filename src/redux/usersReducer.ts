@@ -13,7 +13,7 @@ const typeAddUsers = 'SN/USERS/ADD-USERS'
 const typeSetUsersIsFetching = 'SN/USERS/SET-USERS-IS-FETCHING'
 const typeSetFollowingIsFetching = 'SN/USERS/SET-FOLLOWING-IS-FETCHING'
 const typeToggleFollowState = 'SN/USERS/TOGGLE-FOLLOWING-STATE'
-const typeClearUsers = 'SN/USERS/CLEAR-USERS'
+// const typeSetCurrentPage = 'SN/USERS/SET-CURRENT-PAGE'
 const typeSetTerm = 'SN/USERS/SET-TERM'
 
 // ====================================================
@@ -25,6 +25,7 @@ let initialState = {
 	followingIsFetching: [] as Array<number>, // array of user id
 	isFetchingData: false as boolean,
 	term: '' as string,
+	// currentPage: 0 as number,
 }
 
 type InitialStateType = typeof initialState
@@ -53,17 +54,18 @@ const usersReducer = (
 				...state,
 				users: [...state.users, ...action.users],
 			}
+
 		case typeSetUsers:
 			return {
 				...state,
 				users: [...action.users],
 			}
 
-		case typeClearUsers:
-			return {
-				...state,
-				users: [],
-			}
+		// case typeSetCurrentPage:
+		// 	return {
+		// 		...state,
+		// 		currentPage: action.currentPage,
+		// 	}
 
 		case typeSetTerm:
 			return {
@@ -106,10 +108,11 @@ export const usersActions = {
 			users,
 		} as const),
 
-	clearUsers: () =>
-		({
-			type: typeClearUsers,
-		} as const),
+	// setCurrentPage: (currentPage: number) =>
+	// 	({
+	// 		type: typeSetCurrentPage,
+	// 		currentPage,
+	// 	} as const),
 
 	toggleFollowStateSuccess: (id: number, nextFollowState: boolean) =>
 		({
@@ -130,6 +133,7 @@ export const usersActions = {
 			followingIsFetching,
 			id,
 		} as const),
+
 	setTerm: (term: string) =>
 		({
 			type: typeSetTerm,
@@ -141,16 +145,6 @@ export const usersActions = {
 // Thunks
 
 type ThunkType = BaseThunkType<ActionsTypes>
-
-export const getUsers = (i: number): ThunkType => {
-	return async dispatch => {
-		dispatch(usersActions.setUsersIsFetching(true))
-		usersAPI.getUsersAPI(i).then(data => {
-			dispatch(usersActions.addUsers(data.items))
-			dispatch(usersActions.setUsersIsFetching(false))
-		})
-	}
-}
 
 export const toggleFollowState =
 	(userId: number, nextFollowState: boolean): ThunkType =>
