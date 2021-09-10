@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react'
 import { FC } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppStateType } from '../../redux/store'
-import { searchUsers, usersActions } from '../../redux/usersReducer'
+import { getUsers, usersActions } from '../../redux/usersReducer'
 import { useHistory } from 'react-router'
 import * as queryString from 'querystring'
 // Styles
@@ -36,8 +36,8 @@ const Users: FC<PropsType> = props => {
 	// ====================================================
 	// dispatch
 
-	const onSearchUsers = (i: number, term: string, willSet: boolean) => {
-		dispatch(searchUsers(i, term, willSet))
+	const _getUsers = (i: number, term: string, willSet: boolean) => {
+		dispatch(getUsers(i, term, willSet))
 	}
 
 	// ====================================================
@@ -55,13 +55,19 @@ const Users: FC<PropsType> = props => {
 			dispatch(usersActions.setTerm(actualTerm))
 		}
 
-		onSearchUsers(1, actualTerm, true)
+		_getUsers(1, actualTerm, true)
 	}, [])
 	useEffect(() => {
-		history.push({
-			pathname: '/users',
-			search: `term=${term}`,
-		})
+		if (!!term) {
+			history.push({
+				pathname: '/users',
+				search: `term=${term}`,
+			})
+		} else {
+			history.push({
+				pathname: '/users',
+			})
+		}
 	}, [term])
 
 	// ====================================================
@@ -76,7 +82,7 @@ const Users: FC<PropsType> = props => {
 
 	const onBtnClk = () => {
 		if (term === '') {
-			onSearchUsers(currentPageWithoutTerm, '', false)
+			_getUsers(currentPageWithoutTerm, '', false)
 			setCurrentPageWithoutTerm(currentPageWithoutTerm + 1)
 			setCurrentPageWithTerm((currentPageWithTerm = 2))
 		} else {
@@ -84,7 +90,7 @@ const Users: FC<PropsType> = props => {
 				setPrevTerm((prevTerm = term))
 				setCurrentPageWithTerm((currentPageWithTerm = 2))
 			}
-			onSearchUsers(currentPageWithTerm, term, false)
+			_getUsers(currentPageWithTerm, term, false)
 			setCurrentPageWithTerm(currentPageWithTerm + 1)
 			setCurrentPageWithoutTerm((currentPageWithoutTerm = 2))
 		}

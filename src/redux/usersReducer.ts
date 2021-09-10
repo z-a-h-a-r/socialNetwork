@@ -13,7 +13,6 @@ const typeAddUsers = 'SN/USERS/ADD-USERS'
 const typeSetUsersIsFetching = 'SN/USERS/SET-USERS-IS-FETCHING'
 const typeSetFollowingIsFetching = 'SN/USERS/SET-FOLLOWING-IS-FETCHING'
 const typeToggleFollowState = 'SN/USERS/TOGGLE-FOLLOWING-STATE'
-// const typeSetCurrentPage = 'SN/USERS/SET-CURRENT-PAGE'
 const typeSetTerm = 'SN/USERS/SET-TERM'
 
 // ====================================================
@@ -25,7 +24,6 @@ let initialState = {
 	followingIsFetching: [] as Array<number>, // array of user id
 	isFetchingData: false as boolean,
 	term: '' as string,
-	// currentPage: 0 as number,
 }
 
 type InitialStateType = typeof initialState
@@ -60,12 +58,6 @@ const usersReducer = (
 				...state,
 				users: [...action.users],
 			}
-
-		// case typeSetCurrentPage:
-		// 	return {
-		// 		...state,
-		// 		currentPage: action.currentPage,
-		// 	}
 
 		case typeSetTerm:
 			return {
@@ -107,12 +99,6 @@ export const usersActions = {
 			type: typeSetUsers,
 			users,
 		} as const),
-
-	// setCurrentPage: (currentPage: number) =>
-	// 	({
-	// 		type: typeSetCurrentPage,
-	// 		currentPage,
-	// 	} as const),
 
 	toggleFollowStateSuccess: (id: number, nextFollowState: boolean) =>
 		({
@@ -159,7 +145,7 @@ export const toggleFollowState =
 		}
 	}
 
-export const searchUsers = (
+export const getUsers = (
 	i: number,
 	term: string,
 	willSet: boolean

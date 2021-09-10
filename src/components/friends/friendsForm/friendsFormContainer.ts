@@ -8,14 +8,14 @@ import React from 'react'
 // Components
 import FriendsForm from './friendsForm'
 // Reducers
-import { searchFriends, friendsActions } from '../../../redux/friendsReducer'
+import { getFriends, friendsActions } from '../../../redux/friendsReducer'
 
 // ====================================================
 // MSTP & MDTP
 
 export type FriendsFormStateType = {}
 export type FriendsFormDispatchType = {
-	searchFriends: (i: number, term: string, willSet: boolean) => void
+	getFriends: (i: number, term: string, willSet: boolean) => void
 	setTerm: (term: string) => any
 }
 export type FriendsFormOwnType = {}
@@ -31,5 +31,5 @@ export default compose(
 		FriendsFormDispatchType,
 		FriendsFormOwnType,
 		AppStateType
-	>(mapStateToProps, { searchFriends, setTerm: friendsActions.setTerm })
+	>(mapStateToProps, { getFriends, setTerm: friendsActions.setTerm })
 )(FriendsForm) as React.ComponentType

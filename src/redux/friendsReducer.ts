@@ -12,7 +12,7 @@ const typeSetFollowingIsFetching = 'SN/FRIENDS/SET-FOLLOWING-IS-FETCHING'
 const typeToggleFollowState = 'SN/FRIENDS/TOGGLE-FOLLOWING-STATE'
 const typeAddFriends = 'SN/FRIENDS/ADD-FRIENDS'
 const typeSetFriends = 'SN/FRIENDS/SET-FRIENDS'
-const typeClearFriends = 'SN/FRIENDS/CLEAR-FRIENDS'
+// const typeClearFriends = 'SN/FRIENDS/CLEAR-FRIENDS'
 const typeSetTerm = 'SN/FRIENDS/SET-TERM'
 
 // ====================================================
@@ -64,11 +64,11 @@ const friendsReducer = (
 				...state,
 				isFetchingData: action.boolean,
 			}
-		case typeClearFriends:
-			return {
-				...state,
-				friends: [],
-			}
+		// case typeClearFriends:
+		// 	return {
+		// 		...state,
+		// 		friends: [],
+		// 	}
 
 		case typeSetTerm:
 			return {
@@ -125,10 +125,10 @@ export const friendsActions = {
 			id,
 		} as const),
 
-	clearFriends: () =>
-		({
-			type: typeClearFriends,
-		} as const),
+	// clearFriends: () =>
+	// 	({
+	// 		type: typeClearFriends,
+	// 	} as const),
 
 	setTerm: (term: string) =>
 		({
@@ -142,15 +142,15 @@ export const friendsActions = {
 
 type ThunkType = BaseThunkType<ActionsTypes>
 
-export const getFriends = (i: number): ThunkType => {
-	return async dispatch => {
-		dispatch(friendsActions.setFriendsIsFetching(true))
-		friendsAPI.getFriendsAPI(i).then(data => {
-			dispatch(friendsActions.addFriends(data.items))
-			dispatch(friendsActions.setFriendsIsFetching(false))
-		})
-	}
-}
+// export const getFriends = (i: number): ThunkType => {
+// 	return async dispatch => {
+// 		dispatch(friendsActions.setFriendsIsFetching(true))
+// 		friendsAPI.getFriendsAPI(i).then(data => {
+// 			dispatch(friendsActions.addFriends(data.items))
+// 			dispatch(friendsActions.setFriendsIsFetching(false))
+// 		})
+// 	}
+// }
 export const toggleFollowState =
 	(userId: number, nextFollowState: boolean): ThunkType =>
 	async dispatch => {
@@ -163,7 +163,7 @@ export const toggleFollowState =
 			dispatch(friendsActions.setFollowingIsFetching(false, userId))
 		}
 	}
-export const searchFriends = (
+export const getFriends = (
 	i: number,
 	term: string,
 	willSet: boolean

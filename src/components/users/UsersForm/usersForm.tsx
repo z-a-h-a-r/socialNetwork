@@ -32,7 +32,7 @@ const UsersForm: FC<PropsType> = props => {
 		{ setSubmitting }: { setSubmitting: (setSubmitting: boolean) => void }
 	) => {
 		props.setTerm(values.term)
-		props.searchUsers(1, values.term, true)
+		props.getUsers(1, values.term, true)
 		setSubmitting(false)
 	}
 

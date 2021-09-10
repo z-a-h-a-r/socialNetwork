@@ -34,7 +34,7 @@ const FriendsForm: FC<PropsType> = props => {
 		{ setSubmitting }: { setSubmitting: (setSubmitting: boolean) => void }
 	) => {
 		props.setTerm(values.term)
-		props.searchFriends(1, values.term, true)
+		props.getFriends(1, values.term, true)
 		setSubmitting(false)
 	}
 	return (

@@ -8,14 +8,14 @@ import React from 'react'
 // Components
 import UsersForm from './usersForm'
 // Reducers
-import { searchUsers, usersActions } from '../../../redux/usersReducer'
+import { getUsers, usersActions } from '../../../redux/usersReducer'
 
 // ====================================================
 // MSTP & MDTP
 
 export type UsersFormStateType = {}
 export type UsersFormDispatchType = {
-	searchUsers: (i: number, term: string, willSet: boolean) => void
+	getUsers: (i: number, term: string, willSet: boolean) => void
 	setTerm: (term: string) => any
 }
 export type UsersFormOwnType = {}
@@ -31,5 +31,5 @@ export default compose(
 		UsersFormDispatchType,
 		UsersFormOwnType,
 		AppStateType
-	>(mapStateToProps, { searchUsers, setTerm: usersActions.setTerm })
+	>(mapStateToProps, { getUsers, setTerm: usersActions.setTerm })
 )(UsersForm) as React.ComponentType

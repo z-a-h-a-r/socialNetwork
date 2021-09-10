@@ -18,9 +18,9 @@ import Header from './components/header/headerContainer'
 import Login from './components/login/loginContainer'
 import Loading from './components/common/loading/loading'
 import { AppStateType } from './redux/store'
-import Friends from './components/friends/friendsContainer'
 // Pages components
 const Users = lazy(() => import('./components/users/users'))
+const Friends = lazy(() => import('./components/friends/friends'))
 const Profile = lazy(() => import('./components/profile/profile'))
 const Messenger = lazy(
 	() => import('./components/messenger/messengerContainer')
