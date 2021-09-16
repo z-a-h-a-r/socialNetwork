@@ -1,7 +1,7 @@
 # Social network 
 
 This is my first application developed on react.  
-Development time: 06.06.2021 - 15.08.2021.  
+Development time: 06.06.2021 - 16.09.2021.  
 Backend was development by [ITkamasutra](https://www.youtube.com/channel/UCTW0FUhT0m-Bqg2trTbSs0g).  
 API: https://social-network.samuraijs.com/  
 
