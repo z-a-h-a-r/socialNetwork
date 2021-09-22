@@ -10,6 +10,7 @@ API: https://social-network.samuraijs.com/
 * redux
 * redux-thunk
 * react-redux
+* formik
 * redux-form
 * axios
 * react-bootstrap
