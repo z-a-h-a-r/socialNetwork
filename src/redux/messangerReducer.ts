@@ -1,26 +1,29 @@
 // ====================================================
 // IMPORTS
 // Main
+import { Dispatch } from 'redux'
+import { messengerAPI } from '../api/messengerAPI'
 import { BaseThunkType, GetActionsTypes } from './store'
 
 // ====================================================
 // Types
 const typeSendMessage = 'SN/MESSENGER/SEND-MESSAGE'
+const typeSetMessages = 'SN/MESSENGER/SET-MESSAGES'
 
 // ====================================================
 // Initial state
 
 let initialState = {
-	dialogsLinksData: [
-		{ name: 'name - 1', id: 1 },
-		{ name: 'name - 2', id: 2 },
-		{ name: 'na', id: 3 },
-		{ name: 'name - 4', id: 4 },
-	] as Array<{ name: string; id: number }>,
-	messages: [
-		{ content: 'messages', id: 1, time: '0:36' },
-		{ content: 'messages', id: 1, time: '0:08' },
-	] as Array<{ content: string; id: number; time: string }>,
+	dialogsLinksData: [{ name: 'chat', id: 1 }] as Array<{
+		name: string
+		id: number
+	}>,
+	messages: [] as Array<{
+		message: string
+		userId: number
+		userName: string
+		photo: string
+	}>,
 }
 
 type InitialStateType = typeof initialState
@@ -33,13 +36,10 @@ const messangerReducer = (
 	action: ActionsTypes
 ): InitialStateType => {
 	switch (action.type) {
-		case typeSendMessage:
+		case typeSetMessages:
 			return {
 				...state,
-				messages: [
-					...state.messages,
-					{ content: action.newContent, id: 2, time: '0:82' },
-				],
+				messages: [...state.messages, ...action.messages],
 			}
 
 		default:
@@ -53,10 +53,10 @@ const messangerReducer = (
 type ActionsTypes = GetActionsTypes<typeof messengerActions>
 
 export const messengerActions = {
-	sendMessageSuccess: (newContent: string) =>
+	setMessages: (messages: any) =>
 		({
-			type: typeSendMessage,
-			newContent,
+			type: typeSetMessages,
+			messages,
 		} as const),
 }
 
@@ -65,9 +65,27 @@ export const messengerActions = {
 
 type ThunkType = BaseThunkType<ActionsTypes>
 
-export const sendMessage = (newContent: string): ThunkType => {
+const newMassageHandler = (dispatch: Dispatch) => (messages: any) => {
+	console.log(1)
+	dispatch(messengerActions.setMessages(messages))
+}
+
+export const startWSListening = (): ThunkType => {
 	return async dispatch => {
-		dispatch(messengerActions.sendMessageSuccess(newContent))
+		messengerAPI.start()
+		messengerAPI.subscribe(newMassageHandler(dispatch))
+	}
+}
+export const stopWSListening = (): ThunkType => {
+	return async dispatch => {
+		messengerAPI.unSubscribe(newMassageHandler(dispatch))
+		messengerAPI.stop()
+	}
+}
+
+export const sendMessage = (message: string): ThunkType => {
+	return async dispatch => {
+		messengerAPI.sendMessage(message)
 	}
 }
 

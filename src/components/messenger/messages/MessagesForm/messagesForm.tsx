@@ -1,8 +1,10 @@
 // ====================================================
 // IMPORTS
 // Main
-import { FC } from 'react'
-import { Field, InjectedFormProps, reduxForm } from 'redux-form'
+import { Formik } from 'formik'
+import { FC, useState } from 'react'
+import { useDispatch } from 'react-redux'
+import { sendMessage } from '../../../../redux/messangerReducer'
 // Styles
 import st from './messagesForm.module.scss'
 // Components
@@ -11,34 +13,58 @@ import st from './messagesForm.module.scss'
 // Component
 
 type PropsType = {}
-type loginFormValuesType = {
-	newContent: string
+type searchFormType = {
+	message: string
 }
 
-const MessagesFormWithoutRedux: FC<
-	InjectedFormProps<loginFormValuesType> & PropsType
-> = props => {
-	// ===================================================
-	// html
+const UsersForm: FC<PropsType> = props => {
+	const dispatch = useDispatch()
+
+	const submit = (
+		values: searchFormType,
+		{
+			setSubmitting,
+			resetForm,
+		}: {
+			setSubmitting: (setSubmitting: boolean) => void
+			resetForm: () => void
+		}
+	) => {
+		dispatch(sendMessage(values.message))
+		resetForm()
+		setSubmitting(false)
+	}
+
 	return (
-		<form className={st.form} onSubmit={props.handleSubmit}>
-			<Field
-				type={'text'}
-				placeholder={'type message...'}
-				name={'newContent'}
-				component={'input'}
-				className={st.input}
-			/>
-			<button className={st.button}>send</button>
-		</form>
+		<Formik initialValues={{ message: '' }} onSubmit={submit}>
+			{({
+				values,
+				errors,
+				touched,
+				handleChange,
+				handleBlur,
+				handleSubmit,
+				isSubmitting,
+			}) => (
+				<form onSubmit={handleSubmit} className={st.form}>
+					<input
+						type="text"
+						name="message"
+						onChange={handleChange}
+						onBlur={handleBlur}
+						value={values.message}
+						className={st.input}
+					/>
+					<button disabled={isSubmitting} type="submit" className={st.button}>
+						Send
+					</button>
+				</form>
+			)}
+		</Formik>
 	)
 }
-
-const MessagesForm = reduxForm<loginFormValuesType, PropsType>({
-	form: 'messages',
-})(MessagesFormWithoutRedux)
 
 // ====================================================
 // Exports
 
-export default MessagesForm
+export default UsersForm

@@ -2,34 +2,35 @@
 // IMPORTS
 // Main
 import { FC } from 'react'
-import {
-	MessagesDispatchType,
-	MessagesOwnType,
-	MessagesStateType,
-} from './messagesContainer'
 // Styles
 import st from './messages.module.scss'
 // Components
 import Message from './message/message'
 import MessagesForm from './messagesForm/messagesForm'
+import { useSelector } from 'react-redux'
+import { AppStateType } from '../../../redux/store'
 
 // ====================================================
 // Component
 
-type PropsType = MessagesStateType & MessagesDispatchType & MessagesOwnType
+type PropsType = {}
 
 const Messages: FC<PropsType> = props => {
-	const onSubmit = (formData: any) => {
-		props.sendMessage(formData.newContent)
-	}
+	// ====================================================
+	// state
+
+	const messages = useSelector(
+		(state: AppStateType) => state.messangerPage.messages
+	)
+	const authId = useSelector((state: AppStateType) => state.auth.id)
 
 	// ===================================================
-	// html
+	// JSX
 	return (
 		<div className={st.messagesWrap}>
 			<div className={st.info}>
 				<div className={st.infoLeft}>
-					<div className={st.icon}></div>
+					<div className={st.icon}>chat</div>
 					<div className={st.name}></div>
 				</div>
 				<div className={st.infoRight}>
@@ -37,16 +38,26 @@ const Messages: FC<PropsType> = props => {
 				</div>
 			</div>
 			<div className={st.messages}>
-				{props.messages.map(message => (
-					<Message
-						content={message.content}
-						id={message.id}
-						time={message.time}
-						// key={Date.now()}
-					/>
-				))}
+				{messages.map(message => {
+					let isMy
+					if (authId == message.userId) {
+						isMy = true
+					} else {
+						isMy = false
+					}
+
+					return (
+						<Message
+							isMy={isMy}
+							message={message.message}
+							userId={message.userId}
+							userName={message.userName}
+							photo={message.photo}
+						/>
+					)
+				})}
 			</div>
-			<MessagesForm onSubmit={onSubmit} />
+			<MessagesForm />
 		</div>
 	)
 }

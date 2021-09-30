@@ -1,11 +1,20 @@
-.contentBody {
-	background: rgba(255, 255, 255, 0.8);
-	display: block;
-	max-width: 300px;
-	margin: 20px 0px 0px 0px;
-	padding: 5px 15px;
-	border-radius: 4px;
+.messageWrapRight {
+	width: 100%;
+	display: flex;
+	justify-content: flex-end;
+}
+.messageWrapLeft {
+	width: 100%;
+	display: flex;
+	justify-content: start;
+}
 
+.contentBody {
+	display: block;
+	position: relative;
+	max-width: 500px;
+	margin: 15px 0px 0px 0px;
+	padding: 5px 15px;
 	display: flex;
 	align-items: flex-end;
 	justify-content: space-between;
@@ -14,7 +23,6 @@
 		color: rgb(61, 61, 61);
 		margin: 0 25px 0 0;
 		text-align: justify;
-		word-break: break-all;
 	}
 
 	.time {
@@ -22,4 +30,14 @@
 		margin: 0;
 		font-size: 10px;
 	}
+}
+
+.contentBodyRight {
+	background: rgba(255, 255, 255, 0.8);
+	border-radius: 6px 6px 0 6px;
+}
+
+.contentBodyLeft {
+	background: rgba(255, 255, 255, 0.8);
+	border-radius: 6px 6px 6px 0;
 }

@@ -18,9 +18,9 @@ type PropsType = {
 const DialogLink: FC<PropsType> = props => {
 	return (
 		<NavLink to="/dialogs/1" className={st.linkBody}>
-			<div className={st.avatar}></div>
+			<div className={st.avatar}>chat</div>
 			<p>{props.name}</p>
-			<div className={st.lastMessage}>Lorem ipsum dolor sit amet.</div>
+			<div className={st.lastMessage}>[ last message will be here ]</div>
 		</NavLink>
 	)
 }

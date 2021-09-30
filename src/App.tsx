@@ -22,9 +22,7 @@ import { AppStateType } from './redux/store'
 const Users = lazy(() => import('./components/users/users'))
 const Friends = lazy(() => import('./components/friends/friends'))
 const Profile = lazy(() => import('./components/profile/profile'))
-const Messenger = lazy(
-	() => import('./components/messenger/messengerContainer')
-)
+const Messenger = lazy(() => import('./components/messenger/messenger'))
 
 // ====================================================
 // Component

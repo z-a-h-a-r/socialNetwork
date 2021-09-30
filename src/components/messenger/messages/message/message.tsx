@@ -10,17 +10,32 @@ import st from './message.module.scss'
 // Component
 
 type PropsType = {
-	content: string
-	time: string
-	id: number
+	message: string
+	userId: number
+	userName: string
+	photo: string
+	isMy: boolean
 }
 
 const Message: FC<PropsType> = props => {
 	return (
-		<div className={st.contentBody}>
-			<p className={st.content}>{props.content}</p>
-			<p className={st.time}>{props.time}</p>
-		</div>
+		<>
+			{props.isMy ? (
+				<div className={st.messageWrapRight}>
+					<div className={st.contentBodyRight + ' ' + st.contentBody}>
+						<p className={st.content}>{props.message}</p>
+						<p className={st.time}>{props.userName}</p>
+					</div>
+				</div>
+			) : (
+				<div className={st.messageWrapLeft}>
+					<div className={st.contentBodyLeft + ' ' + st.contentBody}>
+						<p className={st.content}>{props.message}</p>
+						<p className={st.time}>{props.userName}</p>
+					</div>
+				</div>
+			)}
+		</>
 	)
 }
 
